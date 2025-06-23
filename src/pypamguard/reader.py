@@ -1,7 +1,7 @@
 import struct
 
-from . import constants
-from .pamfile import PAMFile
+import constants
+from pamfile import PAMFile
 
 def pamread(filename, order: str = "network", buffering: int | None = constants.DEFAULT_BUFFER_SIZE) -> PAMFile:
     """
@@ -20,10 +20,14 @@ def pamread(filename, order: str = "network", buffering: int | None = constants.
 
     data = open(filename, "rb", buffering=buffering)
     pamfile = PAMFile(filename=filename, data=data, order=order)
+    
 
-    loc = data.tell()
-    for header in constants.HEADER_FORMAT:
-        value = struct.unpack(constants.ORDER_MODIFIERS[order] + header["dtype"], data.read(struct.calcsize(header["dtype"])))
-        print(value[0])
+    # for header in constants.HEADER_FORMAT:
+    #     value = struct.unpack(constants.ORDER_MODIFIERS[order] + header["dtype"], data.read(struct.calcsize(header["dtype"])))
+    #     print(value[0])
     
     return pamfile
+
+if __name__ == "__main__":
+    pgdf = pamread("/home/sulli/code/pypamguard/tests/samples/Click_Detector_Click_Detector_Clicks_20240806_121502.pgdf")
+    # print(pgdf)

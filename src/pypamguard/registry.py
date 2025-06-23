@@ -2,7 +2,7 @@
 # A module for registering the available modules (subclasses of PAMChunk)
 
 import importlib
-from .modules.base import BaseChunk
+from .modules.basechunk import BaseChunk
 
 class ModuleRegistry:
     def __init__(self):

@@ -14,51 +14,12 @@ ORDER_MODIFIERS = {
     "network": "!"
 }
 
-INT_SIZE = {
-    "b": 8,
-    "h": 16,
-    "i": 32,
-    "q": 64
-}
 
-UINT_SIZE = {
-    "B": 8,
-    "H": 16,
-    "I": 32,
-    "Q": 64
-}
+from enum import Enum
 
-FLOAT_SIZE = {
-    "f": 32,
-    "d": 64
-}
-
-CHAR = "b"
-UCHAR = "B"
-SHORT = "h"
-USHORT = "H"
-INT = "i"
-UINT = "I"
-LONG = "q"
-ULONG = "Q"
-FLOAT = "f"
-DOUBLE = "d"
-
-SIZES = {
-    CHAR: 1, # char
-    UCHAR: 1, # unsigned char
-    SHORT: 2, # short
-    USHORT: 2, # unsigned short
-    INT: 4, # int
-    UINT: 4, # unsigned int
-    LONG: 8, # long long
-    ULONG: 8, # unsigned long long
-    FLOAT: 4, # float
-    DOUBLE: 8, # double
-}
-
-
-HEADER_FORMAT = [
-    {"name": "length", "dtype": INT},
-    {"name": "identifier", "dtype": INT},
-]
+class IdentifierType(Enum):
+    FILE_HEADER = -1
+    FILE_FOOTER = -2
+    MODULE_HEADER = -3
+    MODULE_FOOTER = -4
+    DATA = -5
