@@ -1,5 +1,3 @@
-import struct
-
 import constants
 from pamfile import PAMFile
 
@@ -29,5 +27,9 @@ def pamread(filename, order: str = "network", buffering: int | None = constants.
     return pamfile
 
 if __name__ == "__main__":
-    pgdf = pamread("/home/sulli/code/pypamguard/tests/samples/Click_Detector_Click_Detector_Clicks_20240806_121502.pgdf")
+    #pgdf = pamread("/home/sulli/code/pypamguard/tests/samples/Click_Detector_Click_Detector_Clicks_20240806_121502.pgdf")
+    
+    #pdgf = pamread("/home/sulli/code/pypamguard/tests/samples/test.pgdf")
+    
+    pamread("/home/sulli/code/pypamguard/tests/samples/RW_Edge_Detector_Right_Whale_Edge_Detector_Edges_20090328_000000.pgdf")
     # print(pgdf)

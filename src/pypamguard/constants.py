@@ -1,3 +1,5 @@
+from enum import Enum
+
 # Arguments that can be used when reading
 TIME_RANGE = "timerange"
 UID_RANGE = "uidrange"
@@ -14,12 +16,8 @@ ORDER_MODIFIERS = {
     "network": "!"
 }
 
-
-from enum import Enum
-
 class IdentifierType(Enum):
     FILE_HEADER = -1
     FILE_FOOTER = -2
     MODULE_HEADER = -3
     MODULE_FOOTER = -4
-    DATA = -5

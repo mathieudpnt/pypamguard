@@ -1,7 +1,10 @@
-from dataclasses import dataclass
+# field_types.py
+# Classes that represent different types of fields in a PAMGuard file
+
+import struct
 from enum import Enum
 from abc import ABC, abstractmethod
-import struct
+from bitmap import Bitmap
 
 class BYTE_ORDERS(Enum):
     NATIVE = "@"
@@ -99,3 +102,13 @@ class DateType(IntegerType):
     def process(self, data):
         epoch_millis = super().process(data)
         return epoch_millis
+
+class BitmapType(IntegerType):
+    def __init__(self, format: INTS, labels = None):
+        super().__init__(format)
+        self.labels = labels
+        self.bm = Bitmap(format.value.size * 8, labels)
+    
+    def process(self, data):
+        self.bm.bits = super().process(data)
+        return self.bm
