@@ -9,12 +9,10 @@ CHANNEL = "channel"
 
 DEFAULT_BUFFER_SIZE = 1024
 
-ORDER_MODIFIERS = {
-    "native": "@",
-    "little-endian": "<",
-    "big-endian": ">",
-    "network": "!"
-}
+class BYTE_ORDERS(Enum):
+    LITTLE_ENDIAN = "<"
+    BIG_ENDIAN = ">"
+
 
 class IdentifierType(Enum):
     FILE_HEADER = -1
