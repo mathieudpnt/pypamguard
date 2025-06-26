@@ -5,6 +5,7 @@ from ..generics.moduleheader import ModuleHeader
 from ..standard.chunkinfo import ChunkInfo
 from ..generics.modulefooter import GenericModuleFooter
 from utils.readers import *
+from filters import Filters
 
 class ClickDetectorFooter(GenericModuleFooter):
 
@@ -39,8 +40,8 @@ class ClickDetector(GenericModule):
         self.duration: int = None
         self.wave: np.ndarray = None
 
-    def process(self, data: io.BufferedReader, chunk_info: ChunkInfo):
-        super().process(data, chunk_info)
+    def process(self, data: io.BufferedReader, chunk_info: ChunkInfo, pg_filters: Filters):
+        super().process(data, chunk_info, pg_filters)
 
         # data_length should be INTS.INT but fsm this works
         data_length = NumericalBinaryReader(INTS.SHORT).process(data)

@@ -1,4 +1,4 @@
-from ..standard.chunkinfo import ChunkInfo
+from chunks.standard.chunkinfo import ChunkInfo
 from utils.readers import *
 from chunks.generics.chunk import GenericChunk
 import io

@@ -8,10 +8,11 @@ from registry import ModuleRegistry, register_preinstalled_modules
 from constants import IdentifierType
 from utils.readers import BYTE_ORDERS
 import io
+from filters import FilterBinaryFile, Filters, FILTER_POSITION, FilterStopSkipException
 
 class PGBFile:
     
-    def __init__(self, filename: str, data: io.BufferedReader, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, module_registry: ModuleRegistry = ModuleRegistry()):
+    def __init__(self, filename: str, data: io.BufferedReader, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, module_registry: ModuleRegistry = ModuleRegistry(), filters: Filters = Filters()):
         if not isinstance(data, io.BufferedReader): raise ValueError(f"data must be of type io.BufferedReader (got {type(data)}).")
         if order not in BYTE_ORDERS: raise ValueError(f"order must be one of: {list(BYTE_ORDERS)} (got {str(order)}).")
         if not isinstance(module_registry, ModuleRegistry): raise ValueError(f"module_registry must be of type registry.ModuleRegistry (got {type(module_registry)}).")
@@ -22,6 +23,8 @@ class PGBFile:
         self.file_size = data.seek(0, io.SEEK_END)
         self.__data.seek(0, io.SEEK_SET)
         
+        self.filters = filters
+
         self.filename = filename
         self.order = order
 
@@ -37,8 +40,10 @@ class PGBFile:
     def load(self):
         chunk_info = ChunkInfo()
         prev = self.__data.tell() - 1
+        next_chunk = None
 
         while True:
+
 
             # EOF checking is encouraged within modules. However this check
             # can prevent infinite loops and other errors.
@@ -53,22 +58,24 @@ class PGBFile:
 
             chunk_info.process(self.__data)
 
-            if chunk_info.identifier == 0 and chunk_info.length == 0:
-                break
-
             if chunk_info.identifier == IdentifierType.FILE_HEADER.value:
                 self.file_header.process(self.__data, chunk_info)
-                self.data_set = DataSet(self.__module_registry.get_module(self.file_header.module_name), self.file_header, self.module_header)
+                self.data_set = DataSet(self.__module_registry.get_module(self.file_header.module_name), self.file_header, self.module_header, self.filters)
                 print(f"PAMFile.file_header: \n\t{'\n\t'.join([f'{key}: {value}' for key, value in self.file_header.signature().items()])}\n")
 
             elif chunk_info.identifier == IdentifierType.MODULE_HEADER.value:
                 self.module_header.process(self.__data, chunk_info)
                 print(f"PAMFile.module_header: \n\t{'\n\t'.join([f'{key}: {value}' for key, value in self.module_header.signature().items()])}\n")
 
-
             elif chunk_info.identifier >= 0:
-                self.data_set.read_next(self.__data, chunk_info)
-                # print(f"PAMFile.data_set ({len(self.data_set.objects)} objects): \n\t{'\n\t'.join(self.data_set.get_signature())}")
+                # If filter is set to terminate, skip the chunk
+                if self.filters.position == FILTER_POSITION.STOP:
+                    chunk_info.skip(self.__data)
+                try:
+                    self.data_set.read_next(self.__data, chunk_info)
+                except FilterStopSkipException:
+                    chunk_info.skip(self.__data)
+                    continue
             
             elif chunk_info.identifier == IdentifierType.MODULE_FOOTER.value:
                 self.module_footer = self.data_set.read_footer(self.__data, chunk_info)
@@ -82,3 +89,8 @@ class PGBFile:
 
             else:
                 break
+
+
+        print(self.data_set)
+        print(f"\t{'\n\t'.join(self.data_set.get_signature())}")
+        # print(self.data_set.get(0))

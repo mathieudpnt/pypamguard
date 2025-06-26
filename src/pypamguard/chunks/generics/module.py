@@ -8,6 +8,9 @@ from chunks.generics.chunk import GenericChunk
 from utils.readers import *
 import annotations
 import io
+import datetime
+from filters import FilterBinaryFile, FilterDate, FILTER_POSITION, Filters
+
 
 DATA_FLAG_FIELDS = [
     "TIMEMILLISECONDS",
@@ -38,6 +41,7 @@ class GenericModule(GenericChunk):
         self._module_header = module_header
 
         self.millis: int = None
+        self.date: datetime.datetime = None
         self.flags: Bitmap = None
         self.time_ns: int = None
         self.channel_map: Bitmap = None
@@ -52,11 +56,15 @@ class GenericModule(GenericChunk):
         self.signal: float = None
         self.signal_excess: float = None
 
-    def process(self, data: io.BufferedReader, chunk_info: ChunkInfo):
+    def process(self, data: io.BufferedReader, chunk_info: ChunkInfo, pg_filters: Filters) -> FILTER_POSITION:
         if not isinstance(chunk_info, ChunkInfo): raise ValueError(f"chunk_info must be of type HeaderChunk (got {type(chunk_info)}).")
         super().process(data, chunk_info)
 
         self.millis = NumericalBinaryReader(INTS.LONG).process(data)
+        
+        self.date = datetime.datetime.fromtimestamp(self.millis / 1000, datetime.UTC)
+        pg_filters.filter('daterange', self.date)
+
         self.flag_bitmap = BitmapBinaryReader(INTS.SHORT, DATA_FLAG_FIELDS).process(data)
         set_flags = self.flag_bitmap.get_set_bits()
         
@@ -68,6 +76,8 @@ class GenericModule(GenericChunk):
         
         if "UID" in set_flags:
             self.uid = NumericalBinaryReader(INTS.LONG).process(data)
+            pg_filters.filter('uidrange', self.uid)
+            pg_filters.filter('uidlist', self.uid)
         
         if "STARTSAMPLE" in set_flags:
             self.start_sample = NumericalBinaryReader(INTS.LONG).process(data)
