@@ -1,19 +1,16 @@
-from chunks.basechunk import BaseChunk
-from utils.readers import *
+from pypamguard.base import BaseChunk
+from pypamguard.core.readers import *
+from pypamguard.generics import GenericChunkInfo
 
-class ChunkInfo(BaseChunk):
+class StandardChunkInfo(GenericChunkInfo):
     
-    def __init__(self):
-        super().__init__()
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.length: int = None
         self.identifier: int = None
 
     def process(self, data):
-        super().process(data)
-
         self._start = data.tell()
-
         self.length: int = NumericalBinaryReader(INTS.INT).process(data)
         self.identifier: int = NumericalBinaryReader(INTS.INT).process(data)
 

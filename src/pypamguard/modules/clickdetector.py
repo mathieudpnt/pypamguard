@@ -1,15 +1,10 @@
-from ..generics.module import GenericModule
+from pypamguard.standard import StandardModule, StandardModuleFooter
+from pypamguard.core.readers import *
+from pypamguard.core.filters import Filters
 
-from ..standard.fileheader import FileHeader
-from ..generics.moduleheader import ModuleHeader
-from ..standard.chunkinfo import ChunkInfo
-from ..generics.modulefooter import GenericModuleFooter
-from utils.readers import *
-from filters import Filters
+class ClickDetectorFooter(StandardModuleFooter):
 
-class ClickDetectorFooter(GenericModuleFooter):
-
-    def __init__(self, file_header: FileHeader, module_header: ModuleHeader):
+    def __init__(self, file_header, module_header):
         super().__init__(file_header, module_header)
 
         self.types_count_length: int = None
@@ -22,11 +17,11 @@ class ClickDetectorFooter(GenericModuleFooter):
             self.types_count_length = NumericalBinaryReader(INTS.SHORT).process(data)
             self.types_count = NumericalBinaryReader(INTS.INT, shape = self.types_count_length).process(data)
 
-class ClickDetector(GenericModule):
+class ClickDetector(StandardModule):
 
     _footer = ClickDetectorFooter
 
-    def __init__(self, file_header: FileHeader, module_header: ModuleHeader):
+    def __init__(self, file_header, module_header):
         super().__init__(file_header, module_header)
 
         self.start_sample: int = None
@@ -40,7 +35,7 @@ class ClickDetector(GenericModule):
         self.duration: int = None
         self.wave: np.ndarray = None
 
-    def process(self, data: io.BufferedReader, chunk_info: ChunkInfo, pg_filters: Filters):
+    def process(self, data, chunk_info, pg_filters):
         super().process(data, chunk_info, pg_filters)
 
         # data_length should be INTS.INT but fsm this works

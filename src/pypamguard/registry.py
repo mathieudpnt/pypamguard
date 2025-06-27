@@ -1,15 +1,8 @@
 # registry.py
 # A module for registering the available modules (subclasses of PAMChunk)
 
-import importlib
-
-from chunks.standard.chunkinfo import ChunkInfo
-from chunks.generics.moduleheader import ModuleHeader
-from chunks.standard.fileheader import FileHeader
-from chunks.modules.clickdetector import ClickDetector
-from chunks.modules.rwedgedetector import RWEdgeDetector
-from chunks.generics.module import GenericModule
-from chunks.generics.module import GenericModule
+from pypamguard.modules import ClickDetector, RWEdgeDetector
+from pypamguard.generics import GenericModule
 
 class ModuleRegistry:
     def __init__(self):

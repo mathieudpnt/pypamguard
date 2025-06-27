@@ -4,10 +4,12 @@
 import struct
 from enum import Enum
 from abc import ABC, abstractmethod
-from bitmap import Bitmap
 import numpy as np
-from constants import BYTE_ORDERS
 import io
+
+from pypamguard.bitmap import Bitmap
+from pypamguard.constants import BYTE_ORDERS
+
 
 class TypeFormat():
     def __init__(self, formatter: str, size: int):

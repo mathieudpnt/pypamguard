@@ -1,14 +1,12 @@
-from chunks.standard.fileheader import FileHeader
-from chunks.generics.moduleheader import ModuleHeader
-from chunks.standard.chunkinfo import ChunkInfo
-from chunks.standard.filefooter import FileFooter
-from chunks.generics.module import GenericModule
-from data import DataSet
-from registry import ModuleRegistry, register_preinstalled_modules
-from constants import IdentifierType
-from utils.readers import BYTE_ORDERS
 import io
-from filters import FilterBinaryFile, Filters, FILTER_POSITION, FilterStopSkipException
+
+from pypamguard.standard import StandardChunkInfo, StandardFileHeader, StandardFileFooter, StandardModuleHeader, StandardModuleFooter
+from pypamguard.generics import GenericFileHeader, GenericFileFooter, GenericModuleHeader, GenericModuleFooter
+from pypamguard.registry import ModuleRegistry
+from pypamguard.data import DataSet
+from pypamguard.constants import IdentifierType
+from pypamguard.core.readers import BYTE_ORDERS
+from pypamguard.core.filters import Filters, FILTER_POSITION, FilterStopSkipException
 
 class PGBFile:
     
@@ -28,17 +26,17 @@ class PGBFile:
         self.filename = filename
         self.order = order
 
-        self.file_header: FileHeader = FileHeader()
-        self.module_header: ModuleHeader = ModuleHeader()
-        self.module_footer = None
-        self.file_footer: FileFooter = None
+        self.file_header: GenericFileHeader = StandardFileHeader()
+        self.module_header: GenericModuleHeader = StandardModuleHeader(self.file_header)
+        self.module_footer: GenericModuleFooter = None
+        self.file_footer: GenericFileFooter = None
         self.data_set: DataSet = None
 
     def check_fully_read(self):
         return self.__data.tell() == self.file_size
 
     def load(self):
-        chunk_info = ChunkInfo()
+        chunk_info = StandardChunkInfo()
         prev = self.__data.tell() - 1
         next_chunk = None
 
@@ -83,7 +81,7 @@ class PGBFile:
                 # print(str(self.module_footer))
             
             elif chunk_info.identifier == IdentifierType.FILE_FOOTER.value:
-                self.file_footer = FileFooter(self.file_header)
+                self.file_footer = StandardFileFooter(self.file_header)
                 self.file_footer.process(self.__data, chunk_info)
                 print(f"PAMFile.file_footer: \n\t{'\n\t'.join([f'{key}: {value}' for key, value in self.file_footer.signature().items()])}\n")
 

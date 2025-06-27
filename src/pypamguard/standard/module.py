@@ -1,16 +1,8 @@
-# Base class for PAMGuard modules
-
-from chunks.generics.moduleheader import ModuleHeader
-from chunks.standard.fileheader import FileHeader
-from chunks.standard.chunkinfo import ChunkInfo
-from chunks.generics.modulefooter import GenericModuleFooter
-from chunks.generics.chunk import GenericChunk
-from utils.readers import *
-import annotations
-import io
 import datetime
-from filters import FilterBinaryFile, FilterDate, FILTER_POSITION, Filters
 
+from pypamguard.generics import GenericModule, GenericModuleFooter
+from .modulefooter import StandardModuleFooter
+from pypamguard.core.readers import *
 
 DATA_FLAG_FIELDS = [
     "TIMEMILLISECONDS",
@@ -29,17 +21,12 @@ DATA_FLAG_FIELDS = [
     "HASSIGNALEXCESS"
 ]
 
-class GenericModule(GenericChunk):
+class StandardModule(GenericModule):
 
-    _footer = GenericModuleFooter
+    _footer = StandardModuleFooter
 
-    def __init__(self, file_header: FileHeader, module_header: ModuleHeader):
-        if not isinstance(file_header, FileHeader): raise ValueError(f"file_header must be of type FileHeader (got {type(file_header)}).")
-        if not isinstance(module_header, ModuleHeader): raise ValueError(f"module_header must be of type ModuleHeader (got {type(module_header)}).")
-
-        self._file_header = file_header
-        self._module_header = module_header
-
+    def __init__(self, file_header, module_header, *args, **kwargs):
+        super().__init__(file_header, module_header, *args, **kwargs)
         self.millis: int = None
         self.date: datetime.datetime = None
         self.flags: Bitmap = None
@@ -56,9 +43,7 @@ class GenericModule(GenericChunk):
         self.signal: float = None
         self.signal_excess: float = None
 
-    def process(self, data: io.BufferedReader, chunk_info: ChunkInfo, pg_filters: Filters) -> FILTER_POSITION:
-        if not isinstance(chunk_info, ChunkInfo): raise ValueError(f"chunk_info must be of type HeaderChunk (got {type(chunk_info)}).")
-        super().process(data, chunk_info)
+    def process(self, data, chunk_info, pg_filters):
 
         self.millis = NumericalBinaryReader(INTS.LONG).process(data)
         
@@ -112,18 +97,20 @@ class GenericModule(GenericChunk):
             self.signal_excess = NumericalBinaryReader(FLOATS.FLOAT).process(data)
 
         # NOT COMPLETED YET
-        if "HASBINARYANNOTATIONS" in set_flags:
-            annotations_length = NumericalBinaryReader(INTS.SHORT).process(data)
-            n_annotations = NumericalBinaryReader(INTS.SHORT).process(data)
-            for i in range(n_annotations):
-                annotation_length = NumericalBinaryReader(INTS.SHORT).process(data) - INTS.SHORT.value.size
-                annotation_id = StringType().process(data)
-                annotation_version = NumericalBinaryReader(INTS.SHORT).process(data)
+        # if "HASBINARYANNOTATIONS" in set_flags:
+        #     annotations_length = NumericalBinaryReader(INTS.SHORT).process(data)
+        #     n_annotations = NumericalBinaryReader(INTS.SHORT).process(data)
+        #     for i in range(n_annotations):
+        #         annotation_length = NumericalBinaryReader(INTS.SHORT).process(data) - INTS.SHORT.value.size
+        #         annotation_id = StringType().process(data)
+        #         annotation_version = NumericalBinaryReader(INTS.SHORT).process(data)
 
-                if annotation_id == "Beer":
-                    annotations.read_beam_former_annotation(self, data)
+        #         if annotation_id == "Beer":
+        #             annotations.read_beam_former_annotation(self, data)
                 
-                elif annotation_id == "Bearing":
-                    annotations.read_bearing_annotation(self, data, annotation_version)
-        else:
-            self.annotations = []
+        #         elif annotation_id == "Bearing":
+        #             annotations.read_bearing_annotation(self, data, annotation_version)
+        # else:
+        #     self.annotations = []
+
+        self.annotations = []

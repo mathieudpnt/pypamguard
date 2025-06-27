@@ -1,13 +1,12 @@
-from .chunkinfo import ChunkInfo
-from utils.readers import *
-from chunks.generics.chunk import GenericChunk
 import io
 
-class FileHeader(GenericChunk):
+from ..generics import GenericFileHeader
+from pypamguard.core.readers import *
+
+class StandardFileHeader(GenericFileHeader):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.file_format: int = None
         self.pamguard: str = None
         self.version: str = None
@@ -20,8 +19,9 @@ class FileHeader(GenericChunk):
         self.stream_name: str = None
         self.extra_info_len: int = None
 
-    def process(self, data: io.BufferedReader, chunk_info: ChunkInfo):
-        super().process(data, chunk_info)
+    def process(self, data, chunk_info):
+        self.length = chunk_info.length
+        self.identifier = chunk_info.identifier
 
         self.file_format: int = NumericalBinaryReader(INTS.INT).process(data)
         self.pamguard: str = StringNBinaryReader(12).process(data)
