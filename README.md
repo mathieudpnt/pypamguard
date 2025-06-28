@@ -1,8 +1,113 @@
-# PyPAMGuard
-Python module for reading passive acoustic binary data files created by the program PAMGuard (https://www.pamguard.org/).
+# PyPAMGuard User Guide
+This guide is an overview and explains the important features. Details are found in the PyPAMGuard api reference.
 
-## File Structure
+## Getting Started
 
-PAMGuard outputs binary data files (.pgdf) which offer significant efficiencies over other slower storage mechanisms. The tradeoff is that these files are not human readable and require some middleware to interpret. That is what this library does.
+### What is PyPAMGuard
 
-A `PAMFile` is split into a number of PAMChunks. PAMChunks are not all equal in type - for example the fileHeader and genericModule chunks will differ from each other. Each `PAMChunk` contains information about its `length`, an `identifier` and a number of attributes that are specific to that particular subclass of `PAMChunk`.
+PyPAMGuard is a package for processing PAMGuard binary file outputs in Python. [PAMGuard](https://www.pamguard.org/) is a software program written in [Java](https://www.java.com/en/) that has a number of applications related to passive acoustic monitoring. Most modules produce binary files names _pamguard data files_ (.pgdf) which follow a core standard structure defined in the PAMGuard source code. The PyPAMGuard library can read these data files into python data types and objects that allow users to further process the data however they wish.
+
+Users may prefer to use the [MATLAB or R ](https://www.pamguard.org/matlabandr.html) binary file readers should they be more comfortable with these languages.
+
+### What is a PGDF
+
+A PAMGuard Data File (PGDF) is produced by a PAMGuard _module_. A standard PGDF must contain the following chunk types, in order:
+
+- **File Header** (1 exactly) contains metadata about the file and the module within it (structure is identical across all PGDFs)
+- **Module Header** (1 exactly) contains metadata about the data of the module (structure is module-dependent)
+- **Data Set** (0 or more) contains the data itself (structure is module-dependent)
+- **Module Footer** (1 exactly) contains further metadata about the data of the module (structure is module-dependent)
+- **File Footer** (1 exactly) contains metadata about the file (structure is identical across all PGDFs)
+
+If you want to learn more about how these files are produced, please inspect the PAMGuard source code. You can also learn more about the specific attributes in each of these chunks by loading a PGDF using this library (see: Quick Start).
+
+### Installation
+
+Before proceeding, ensure you have Python installed on your local Windows, Linux or MacOS system. You can install PyPAMGuard from the [Python Package Index](https://pypi.org/) using the following command.
+```
+pip install pypamguard
+```
+
+### Quick Start
+
+Processing a data file using PyPAMGuard is as easy as importing the library, and calling one function, passing in the path to the data file. This will return a `core.PGBFile` object.
+
+```python
+import pypamguard
+df = pypamguard.load_binary_data_file('path/to/data/file.pgdf')
+```
+
+You can then access the file headers and footers from the `PGBFile` object like so.
+
+```python
+df.file_header # file header
+df.module_header # module header
+df.module_footer # module footer
+df.file_footer # file footer
+```
+
+Access the module data itself like so.
+
+```python
+len(df.data_set) # number of module data chunks
+df.data_set[0] # the first module data chunk
+```
+
+All headers, footers, and module data, contain attributes that were read from the binary file. For example, each file header will **always** contain a `version`. This can intuitively be accessed like an attribute of an object. Some example are shown below.
+
+```python
+df.file_header.version # integer
+df.file_header.module_type # bytes
+```
+
+You can access a detailed list of all attributes of each chunk by converting it to a string and/or printing it. Exact attributes of each header, footer or module data chunk are not listed in this README as they may change in between file versions. It is recommended to run the library yourself on a particular data file and find the attributes yourself.
+
+```python
+print(df.file_header)
+
+# OUTPUT
+#
+# File Header
+#         length (<class 'int'>): 103
+#         identifier (<class 'int'>): -1
+#         file_format (<class 'int'>): 0
+#         pamguard (<class 'bytes'>): b'PAMGUARDDATA'
+#         version (<class 'bytes'>): b'1.15.03'
+#         branch (<class 'bytes'>): b'BETA'
+#         data_date (<class 'datetime.datetime'>): 2016-09-03 00:42:14+00:00
+#         analysis_date (<class 'datetime.datetime'>): 2016-10-27 19:43:26.511000+00:00
+#         start_sample (<class 'int'>): 0
+#         module_type (<class 'bytes'>): b'Click Detector'
+#         module_name (<class 'bytes'>): b'Click Detector'
+#         stream_name (<class 'bytes'>): b'Clicks'
+#         extra_info_len (<class 'int'>): 0
+```
+
+See the extended README file below, and the API reference for more information on data types, filtering, and creating your own modules.
+
+## Fundamentals
+
+### Data Types
+
+Headers, footers and module data automatically read data into their _native_ (or close to) Python data types, to allow for easy use. 
+
+Python-core and standard third-party data types are:
+
+- `int` (whole numbers)
+- `float` (decimal numbers)
+- `bytes` (strings) 
+- `datetime.datetime` (dates and times)
+- `numpy.array` (arrays of ints or floats)
+
+PyPAMGuard has its own `core.Bitmap` class which is used to abstract the reading and processing of integer bitmap flags. A brief example is given below on how to interact with a Bitmap, but more information can be found in the API reference.
+
+```python
+import pypamguard
+# the 4-bit representation of 2 in binary is 0010
+bm = pypamguard.utils.bitmap.Bitmap(size=4, value=2) 
+bm.get_set_bits() # returns [1]
+bm.set(3) # sets bit 3
+bm.get_set_bits() # returns [1, 3]
+bm.clear(1) # clears bit 1
+bm.get_set_bits() # returns [3] 
+```
