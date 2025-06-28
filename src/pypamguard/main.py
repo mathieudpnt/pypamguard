@@ -12,15 +12,15 @@ def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_END
     
     """
 
-    d1 = datetime.datetime.strptime('2016-09-03 00:42:30.404000+00:00', '%Y-%m-%d %H:%M:%S.%f%z')
-    d2 = datetime.datetime.strptime('2016-09-03 00:42:40.404000+00:00', '%Y-%m-%d %H:%M:%S.%f%z')
+    # d1 = datetime.datetime.strptime('2016-09-03 00:42:30.404000+00:00', '%Y-%m-%d %H:%M:%S.%f%z')
+    # d2 = datetime.datetime.strptime('2016-09-03 00:42:40.404000+00:00', '%Y-%m-%d %H:%M:%S.%f%z')
 
-    pg_filters = Filters({
-        'daterange': DateFilter(d1, d2)
-    })
+    # pg_filters = Filters({
+    #     'daterange': DateFilter(d1, d2)
+    # })
 
 
-    # pg_filters = Filters()
+    pg_filters = Filters()
 
 
     if buffering and type(buffering) != int:

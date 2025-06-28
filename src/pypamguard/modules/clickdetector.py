@@ -19,6 +19,7 @@ class ClickDetectorFooter(StandardModuleFooter):
 
 class ClickDetector(StandardModule):
 
+    _minimum_version = 2
     _footer = ClickDetectorFooter
 
     def __init__(self, file_header, module_header):

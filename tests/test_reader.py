@@ -1,8 +1,8 @@
 import pytest
 
 from . import _constants
-from pypamguard.reader import load_pamguard_binary_file
-from pypamguard.binary_file import PGBFile
+from pypamguard.main import load_pamguard_binary_file
+from pypamguard.core.pgbfile import PGBFile
 
 
 

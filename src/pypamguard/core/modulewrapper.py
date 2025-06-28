@@ -11,6 +11,12 @@ class ModuleWrapper():
         self.filters = pg_filters
         self.objects = []
     
+    def __len__(self):
+        return len(self.objects)
+
+    def __getitem__(self, index):
+        return self.objects[index]
+
     def read_next(self, data: io.BufferedReader, chunk_info: GenericChunkInfo):
         self.filters.position = None
         module_object = self.__module(self.file_header, self.module_header)
@@ -21,6 +27,10 @@ class ModuleWrapper():
     def read_header(self, data: io.BufferedReader, chunk_info: GenericChunkInfo):
         self.module_header = self.__module._header(self.file_header)
         self.module_header.process(data, chunk_info)
+        # if self.file_header.version < self.__module._minimum_version:
+        #     raise ValueError(f"Module {self.__module.__name__} requires version {self.__module._minimum_version} or higher.")
+        # if self.file_header.version > self.__module._maximum_version:
+        #     raise ValueError(f"Module {self.__module.__name__} requires version {self.__module._maximum_version} or lower.")
         return self.module_header
 
     def read_footer(self, data: io.BufferedReader, chunk_info: GenericChunkInfo):
@@ -35,4 +45,4 @@ class ModuleWrapper():
         return self.__module(self.file_header, self.module_header).get_attrs()
 
     def __str__(self):
-        return (f"Module wrapper for {self.__module.__name__} with {len(self.objects)} objects")
+        return (f"Module wrapper for {self.__module} with {len(self.objects)} objects")

@@ -4,6 +4,20 @@
 from pypamguard.modules import ClickDetector, RWEdgeDetector
 from pypamguard.generics import GenericModule
 
+MODULES = {
+    b"Click Detector": ClickDetector,
+    b"Right Whale Edge Detector": RWEdgeDetector
+}
+
+def module_metadata(module):
+    return {
+        "name": module,
+        "class": MODULES[module],
+        "minimum_version": MODULES[module]._minimum_version,
+        "maximum_version": MODULES[module]._maximum_version,
+    }
+
+
 class ModuleRegistry:
     def __init__(self):
         self.modules = {}
@@ -30,10 +44,6 @@ class ModuleRegistry:
         return None
 
 def register_preinstalled_modules(registry: ModuleRegistry):
-    MODULES = [
-        (b"Click Detector", ClickDetector),
-        (b"Right Whale Edge Detector", RWEdgeDetector)
-    ]
 
     for module in MODULES:
-        registry.register_module(module[0], module[1])
+        registry.register_module(module, MODULES[module])
