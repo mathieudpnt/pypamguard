@@ -15,12 +15,10 @@ class StandardChunkInfo(GenericChunkInfo):
         self.identifier: int = NumericalBinaryReader(INTS.INT).process(data)
 
     def skip(self, data: io.BufferedReader):
-        if not self.length:
-            raise ValueError("Chunk is not initialized. Call process() first.")
-        data.seek(self._start + self.length, io.SEEK_SET)
+        """Skips the current chunk in the binary file."""
+        data.seek(self.next_chunk, io.SEEK_SET)
 
-    def get_next_chunk(self) -> int:
-        """
-        Returns the position of the next chunk in the file
-        """
+    @property
+    def next_chunk(self) -> int:
+        """Position of the next chunk in the binary file."""
         return self._start + self.length

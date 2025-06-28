@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 
 from pypamguard.base import BaseChunk
 
-from .fileheader import GenericFileHeader
-from .moduleheader import GenericModuleHeader
-from .modulefooter import GenericModuleFooter
+from .genfileheader import GenericFileHeader
+from .genmoduleheader import GenericModuleHeader
+from .genmodulefooter import GenericModuleFooter
 
 from pypamguard.core.filters import FILTER_POSITION, Filters
 

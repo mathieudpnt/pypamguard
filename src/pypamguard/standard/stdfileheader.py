@@ -7,6 +7,8 @@ class StandardFileHeader(GenericFileHeader):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.length: int = None
+        self.identifier: int = None
         self.file_format: int = None
         self.pamguard: str = None
         self.version: str = None

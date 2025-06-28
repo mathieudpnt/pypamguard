@@ -24,7 +24,7 @@ class BaseChunk(ABC):
         lines = []
         for attr, value in self.__dict__.items():
             if not attr.startswith('_'):  # ignore special attributes
-                lines.append(f"{attr}: ")
+                lines.append(f"{attr} ({type(value)}): ")
                 # Custom code to print the signature of a list
                 if isinstance(value, list) and len(value) > 0:
                     shape = []
@@ -35,4 +35,4 @@ class BaseChunk(ABC):
                 else:
                     lines[-1] += f"{value}"
 
-        return '\n'.join(lines)
+        return '\t' + '\n\t'.join(lines)

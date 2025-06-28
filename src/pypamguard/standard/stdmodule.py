@@ -1,7 +1,8 @@
 import datetime
 
 from pypamguard.generics import GenericModule, GenericModuleFooter
-from .modulefooter import StandardModuleFooter
+from .stdmodulefooter import StandardModuleFooter
+from .stdmoduleheader import StandardModuleHeader
 from pypamguard.core.readers import *
 
 DATA_FLAG_FIELDS = [
@@ -24,6 +25,7 @@ DATA_FLAG_FIELDS = [
 class StandardModule(GenericModule):
 
     _footer = StandardModuleFooter
+    _header = StandardModuleHeader
 
     def __init__(self, file_header, module_header, *args, **kwargs):
         super().__init__(file_header, module_header, *args, **kwargs)

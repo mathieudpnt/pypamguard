@@ -1,4 +1,4 @@
-from .utils.readers import *
+from pypamguard.core.readers import *
 
 def read_beam_former_annotation(self, data):
     self.hydrophones = NumericalBinaryReader(INTS.UINT).process(data)

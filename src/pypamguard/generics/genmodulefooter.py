@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 
 from pypamguard.base import BaseChunk
 
-from .fileheader import GenericFileHeader
-from .moduleheader import GenericModuleHeader
+from .genfileheader import GenericFileHeader
+from .genmoduleheader import GenericModuleHeader
 
 class GenericModuleFooter(BaseChunk, ABC):
     
@@ -11,6 +11,9 @@ class GenericModuleFooter(BaseChunk, ABC):
         super().__init__(*args, **kwargs)
         self._file_header = file_header
         self._module_header = module_header
+
+        self.length: int = None
+        self.identifier: int = None
     
     @abstractmethod
     def process(self, data, chunk_info):

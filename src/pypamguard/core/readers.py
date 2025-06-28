@@ -6,9 +6,10 @@ from enum import Enum
 from abc import ABC, abstractmethod
 import numpy as np
 import io
+import datetime
 
-from pypamguard.bitmap import Bitmap
-from pypamguard.constants import BYTE_ORDERS
+from pypamguard.utils.bitmap import Bitmap
+from pypamguard.utils.constants import BYTE_ORDERS
 
 
 class TypeFormat():
@@ -147,7 +148,7 @@ class DateBinaryReader(NumericalBinaryReader):
 
     def process(self, data):
         epoch_millis = super().process(data)
-        return epoch_millis
+        return datetime.datetime.fromtimestamp(epoch_millis / 1000, datetime.UTC)
 
 class BitmapBinaryReader(NumericalBinaryReader):
     def __init__(self, format: INTS, labels = None):

@@ -1,10 +1,10 @@
 
 # from .fileheader import FileHeader
 # from .filefooter import FileFooter
-from .chunkinfo import StandardChunkInfo
-from .module import StandardModule
-from .fileheader import StandardFileHeader
-from .filefooter import StandardFileFooter
-from .moduleheader import StandardModuleHeader
-from .modulefooter import StandardModuleFooter
+from .stdchunkinfo import StandardChunkInfo
+from .stdmodule import StandardModule
+from .stdfileheader import StandardFileHeader
+from .stdfilefooter import StandardFileFooter
+from .stdmoduleheader import StandardModuleHeader
+from .stdmodulefooter import StandardModuleFooter
 

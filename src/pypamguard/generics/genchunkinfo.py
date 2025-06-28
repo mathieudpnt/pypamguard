@@ -17,6 +17,7 @@ class GenericChunkInfo(BaseChunk, ABC):
     def skip(self, data: io.BufferedReader):
         raise NotImplementedError()
 
+    @property
     @abstractmethod
-    def get_next_chunk(self) -> int:
+    def next_chunk(self) -> int:
         raise NotImplementedError()
