@@ -23,7 +23,7 @@ class BaseChunk(ABC):
     def __str__(self):
         lines = []
         for attr, value in self.__dict__.items():
-            if not attr.startswith('_'):  # ignore special attributes
+            if not attr.startswith('_'):
                 lines.append(f"{attr} ({type(value)}): ")
                 # Custom code to print the signature of a list
                 if isinstance(value, list) and len(value) > 0:

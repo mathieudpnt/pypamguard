@@ -1,1 +1,1 @@
-from .main import load_pamguard_binary_file
+from .load_pamguard_binary_file import load_pamguard_binary_file

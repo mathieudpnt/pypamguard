@@ -10,7 +10,7 @@ import datetime
 
 from pypamguard.utils.bitmap import Bitmap
 from pypamguard.utils.constants import BYTE_ORDERS
-
+from pypamguard.logger import logger
 
 class TypeFormat():
     def __init__(self, formatter: str, size: int):
@@ -50,13 +50,14 @@ import io
 
 class BinaryReader(ABC):
 
-    def __init__(self):
+    def __init__(self, as_helper = False, var_name = None):
         """
         A class that represents a field in a PAMGuard Binary File. This class is used
         to define a data type (during construction) and then read the data from a binary
         file (using the `process()` method).
         """
-        pass
+        self.as_helper = as_helper
+        self.var_name=var_name
     
     @abstractmethod
     def process(self, data: io.BufferedReader, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
@@ -66,10 +67,15 @@ class BinaryReader(ABC):
         if not isinstance(data, io.BufferedReader): raise ValueError(f"data must be of type io.BufferedReader (got {type(data)}).")
         if order not in list(BYTE_ORDERS): raise ValueError(f"order must be one of: {list(BYTE_ORDERS)} (got {str(order)}).")
 
+    def __str__(self):
+        return f"{self.__class__.__name__}({self.__dict__})"
+
+    def print(self, result = None):
+        logger.debug(f"{self.var_name} = {result}")
 
 class NumericalBinaryReader(BinaryReader):
 
-    def __init__(self, format: INTS | FLOATS, shape: tuple[int] = None, post_processor: callable = None):
+    def __init__(self, format: INTS | FLOATS, shape: tuple[int] = None, post_processor: callable = None, as_helper = False, var_name = None):
         """
         A reader class for numerical data types in a PAMGuard Binary File. The constructure will configure the reader
         to read data of a specific format and optionally apply a post processor.
@@ -88,7 +94,7 @@ class NumericalBinaryReader(BinaryReader):
         self.shape = shape
         self.format = format
         self.post_processor = post_processor
-        super().__init__()
+        super().__init__(as_helper, var_name=var_name)
 
     def process(self, data, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN) -> int | float | np.ndarray:
         super().process(data, order) # type checking inputs
@@ -96,10 +102,15 @@ class NumericalBinaryReader(BinaryReader):
         result = np.frombuffer(data.read(byte_size), dtype= np.dtype(order.value + self.format.value.formatter))
         if self.shape: result = result.reshape(self.shape)
         if self.post_processor is not None: result = self.post_processor(result)
-        return result.item() if not self.shape else result
+        result = result.item() if not self.shape else result
+        self.print(result)
+        return result
+
+    def __str__(self):
+        return f"{self.__class__.__name__}('shape'={self.shape}, 'format'={self.format}, 'post_processor'={self.post_processor})"
 
 class StringNBinaryReader(BinaryReader):
-    def __init__(self, length: int, post_processor: callable = None):
+    def __init__(self, length: int, post_processor: callable = None, as_helper = False, var_name = None):
         """
         A class that represents a string field in a PAM file.
         """
@@ -109,53 +120,62 @@ class StringNBinaryReader(BinaryReader):
         self.length = length
         self.post_processor = post_processor
 
-        super().__init__()
+        super().__init__(as_helper, var_name=var_name)
     
     def process(self, data, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
         super().process(data, order) # type checking inputs
         result = struct.unpack(order.value + f"{self.length}s", data.read(self.length))[0]
         if self.post_processor is not None: result = self.post_processor(result)
+        self.print(result)
         return result
 
 class StringBinaryReader(BinaryReader):
     # TODO: change to inherit from StringNType
-    def __init__(self):
+    def __init__(self, as_helper = False, var_name=None):
         """
         A class that represents a string field in a PAM file,
         where the length of the string is preceeded by a 16 bit integer.
         """
         self.length_type = NumericalBinaryReader(INTS.USHORT)
+        super().__init__(as_helper, var_name=var_name)
     
     def process(self, data, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
         super().process(data, order)
         length = self.length_type.process(data)
-        return StringNBinaryReader(length).process(data)
+        result = StringNBinaryReader(length, as_helper=True).process(data)
+        self.print(result)
+        return result
 
 class CustomBinaryReader(BinaryReader):
-    def __init__(self, function, count):
+    def __init__(self, function, count, var_name=None):
         self.function = function
         self.count = count
+        super().__init__(var_name=var_name)
     
     def process(self, data, order):
         super().process(data, order)
         return self.function(data, self.count)
     
-class DateBinaryReader(NumericalBinaryReader):
+class DateBinaryReader(BinaryReader):
     """Date in millis"""
 
-    def __init__(self):
-        super().__init__(INTS.LONG)
+    def __init__(self, as_helper = False, var_name=None):
+        super().__init__(as_helper, var_name=var_name)
 
     def process(self, data):
-        epoch_millis = super().process(data)
-        return datetime.datetime.fromtimestamp(epoch_millis / 1000, datetime.UTC)
+        epoch_millis = NumericalBinaryReader(INTS.LONG, as_helper=True).process(data)
+        result = datetime.datetime.fromtimestamp(epoch_millis / 1000, datetime.UTC)
+        self.print(result)
+        return result
 
-class BitmapBinaryReader(NumericalBinaryReader):
-    def __init__(self, format: INTS, labels = None):
-        super().__init__(format)
+class BitmapBinaryReader(BinaryReader):
+    def __init__(self, format: INTS, labels = None, as_helper = False, var_name=None):
+        super().__init__(as_helper, var_name=var_name)
+        self.format = format
         self.labels = labels
         self.bm = Bitmap(format.value.size * 8, labels)
     
     def process(self, data):
-        self.bm.bits = super().process(data)
+        self.bm.bits = NumericalBinaryReader(self.format, as_helper=True).process(data)
+        self.print(self.bm)
         return self.bm

@@ -1,0 +1,39 @@
+import enum
+
+class Verbosity(enum.IntEnum):
+    CRITICAL = 0
+    ERROR = 1
+    WARNING = 2
+    INFO = 3
+    DEBUG = 4
+
+class Logger:
+
+    def __init__(self):
+        self.verbosity = Verbosity.INFO
+
+    def set_verbosity(self, verbosity):
+        self.verbosity = verbosity
+
+    def _log(self, level, message):
+        lines = message.split('\n')
+        print(f"[{level}] {lines[0]}")
+        for line in lines[1:]:
+            print(f"\t{line}")
+
+    def info(self, message):
+        if self.verbosity >= Verbosity.INFO:
+            self._log("INFO", message)
+
+    def debug(self, message):
+        if self.verbosity >= Verbosity.DEBUG:
+            self._log("DEBUG", message)
+
+    def warning(self, message):
+        if self.verbosity >= Verbosity.WARNING:
+            self._log("WARNING", message)
+
+    def error(self, message):
+        self._log("ERROR", message)
+
+logger = Logger()

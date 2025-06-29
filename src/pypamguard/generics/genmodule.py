@@ -14,11 +14,12 @@ class GenericModule(BaseChunk, ABC):
     _maximum_version = None
     _footer = GenericModuleFooter # store the class of the footer
 
-    def __init__(self, file_header: GenericFileHeader, module_header: GenericModuleHeader, *args, **kwargs):
+    def __init__(self, file_header: GenericFileHeader, module_header: GenericModuleHeader, filters: Filters, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._file_header = file_header
         self._module_header = module_header
+        self._filters = filters
         
     @abstractmethod
-    def process(self, data, chunk_info, pg_filters: Filters) -> FILTER_POSITION:
+    def process(self, data, chunk_info) -> FILTER_POSITION:
         raise NotImplementedError()
