@@ -127,7 +127,7 @@ class StringNBinaryReader(BinaryReader):
         result = struct.unpack(order.value + f"{self.length}s", data.read(self.length))[0]
         if self.post_processor is not None: result = self.post_processor(result)
         self.print(result)
-        return result
+        return result.decode() if type(result) == bytes else result
 
 class StringBinaryReader(BinaryReader):
     # TODO: change to inherit from StringNType
@@ -144,7 +144,7 @@ class StringBinaryReader(BinaryReader):
         length = self.length_type.process(data)
         result = StringNBinaryReader(length, as_helper=True).process(data)
         self.print(result)
-        return result
+        return result.decode() if type(result) == bytes else result
 
 class CustomBinaryReader(BinaryReader):
     def __init__(self, function, count, var_name=None):

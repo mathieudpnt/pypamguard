@@ -15,7 +15,8 @@ class ClickDetectorFooter(StandardModuleFooter):
 
         if self.binary_length > 0:
             self.types_count_length = NumericalBinaryReader(INTS.SHORT).process(data)
-            self.types_count = NumericalBinaryReader(INTS.INT, shape = self.types_count_length).process(data)
+            if self.types_count_length > 0: self.types_count = NumericalBinaryReader(INTS.INT, shape = self.types_count_length).process(data)
+            else: self.types_count = []
 
 class ClickDetector(StandardModule):
 
@@ -31,8 +32,8 @@ class ClickDetector(StandardModule):
         self.type: int = None
         self.flags: Bitmap = None
         self.delays: float = None
-        self.angles: float = None
-        self.angle_errors: float = None
+        self.angles: list[float] = []
+        self.angle_errors: list[float] = []
         self.duration: int = None
         self.wave: np.ndarray = None
 
@@ -40,11 +41,13 @@ class ClickDetector(StandardModule):
         super().process(data, chunk_info)
 
         # data_length should be INTS.INT but fsm this works
-        data_length = NumericalBinaryReader(INTS.SHORT, var_name='data_length').process(data)
+        data_length = NumericalBinaryReader(INTS.INT, var_name='data_length').process(data)
 
         if self._module_header.version <= 3:
             self.start_sample = NumericalBinaryReader(INTS.LONG, var_name='start_sample').process(data)
             self.channel_map = BitmapBinaryReader(INTS.INT, var_name='channel_map').process(data)
+
+        self.n_chan = len(self.channel_map.get_set_bits())
 
         self.trigger_map = BitmapBinaryReader(INTS.INT, var_name='trigger_map').process(data)
         self.type = NumericalBinaryReader(INTS.SHORT, var_name='type').process(data)

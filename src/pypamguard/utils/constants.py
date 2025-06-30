@@ -19,3 +19,4 @@ class IdentifierType(Enum):
     FILE_FOOTER = -2
     MODULE_HEADER = -3
     MODULE_FOOTER = -4
+    IGNORE = -5

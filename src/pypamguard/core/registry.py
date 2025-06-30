@@ -5,8 +5,8 @@ from pypamguard.modules import ClickDetector, RWEdgeDetector
 from pypamguard.generics import GenericModule
 
 MODULES = {
-    b"Click Detector": ClickDetector,
-    b"Right Whale Edge Detector": RWEdgeDetector
+    "Click Detector": ClickDetector,
+    "Right Whale Edge Detector": RWEdgeDetector
 }
 
 def module_metadata(module):
