@@ -85,6 +85,97 @@ print(df.file_header)
 
 See the extended README file below, and the API reference for more information on data types, filtering, and creating your own modules.
 
+## Customisation
+
+### Logger Verbosity
+
+PyPAMGuard has its own logging capabilities to Python's standard output stream. You can pass in an argument `verbosity` to `load_pamguard_data_file` using a class of imported enums from `pypamguard.logger` (see below).
+
+```python
+import pypamguard
+debug_verbosity = pypamguard.logger.Verbosity.DEBUG
+pypamguard.load_pamguard_binary_file('path/to/data/file.pgdf' verbosity=debug_verbosity)
+```
+
+The `Verbosity` enum that can be imported from `pypamguard.logger` can be set to the following values:
+
+- `Verbosity.DEBUG` print debug info, info, warnings and errors
+- `Verbosity.INFO` print info, warnings and errors
+- `Verbosity.WARNING` print warnings and errors
+- `Verbosity.ERROR` print errors
+
+### Filtering
+
+PyPAMGuard allows you to filter data as it is being streamed into its internal data structures. This offers various speed and memory efficiencies, particularly with large data files. To do this, you must pass in a `Filters` object from `pypamguard.core.filters` as shown below.
+
+```python
+from pypamguard.core.filters import Filters
+from pypamguard import load_pamguard_binary_file
+
+filters = Filters()
+df = load_pamguard_binary_file('path/to/data/file.pgdf', filters=filters)
+```
+
+An empty `Filters` object will have no effect on filtering. The following filters were defined at the time of writing this documentation, however you can access the most up-to-date list by printing `pypamguard.core.filters.Filters.INSTALLED_FILTERS`.
+
+```python
+{
+    'uidlist': <class 'pypamguard.core.filters.WhitelistFilter'>,
+    'uidrange': <class 'pypamguard.core.filters.RangeFilter'>,
+    'daterange': <class 'pypamguard.core.filters.DateFilter'>
+}
+```
+
+#### UID List Filter
+
+Filtering by whitelist allows you to define a specific list of values that can be accepted.
+
+```python
+from pypamguard.core.filters import Filter, WhitelistFilter
+from pypamguard import load_pamguard_binary_file
+filters = Filters({
+    'uidlist': WhitelistFilter([1,2,3,10])
+})
+load_pamguard_binary_file('path/to/data/file.pgdf', filters=filters)
+```
+
+#### UID Range Filter
+
+A range filter is a kind of filter that takes a start and end point, and includes all the date between these (inclusive). Define a range filter like so.
+
+> WARNING: passing `ordered=True` will cause data chunks to be skipped once the first item out of the upper bound is reached, so is dangerous to use on unordered or unknown data.
+
+```python
+from pypamguard.core.filters import Filters, RangeFilter
+from pypamguard import load_pamguard_binary_file
+filters = Filters({
+    'uidlist': RangeFilter(start=1, end=10, ordered=False)
+})
+load_pamguard_binary_file('path/to/data/file.pgdf', filters=filters)
+```
+
+#### Date Range Filter
+
+Filtering by date range is similar to filtering by generic range, except you pass in `datetime.datetime` objects to the constructor of the filter. Note that the datetime objects must contain UTC timezone information, otherwise the filter will throw a `ValueError` exception.
+
+```python
+from pypamguard.core.filters import Filters, DateFilter
+from pypamguard import load_pamguard_binary_file
+import datetime
+
+from_timestamp: datetime.datetime # some UTC datetime object
+to_timestamp: datetime.datetime # some UTC datetime object
+
+filters = Filters({
+    'daterange': DateFilter(from_timestamp, to_timestamp, ordered=True)
+})
+load_pamguard_binary_file('path/to/data/file.pgdf', filters=filters)
+```
+
+
+
+
+
 ## Fundamentals
 
 ### Data Types
