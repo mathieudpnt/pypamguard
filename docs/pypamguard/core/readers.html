@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>pypamguard.core.readers API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pypamguard.core.readers</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pypamguard.core.readers.BinaryReader"><code class="flex name class">
+<span>class <span class="ident">BinaryReader</span></span>
+<span>(</span><span>as_helper=False, var_name=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BinaryReader(ABC):
+
+    def __init__(self, as_helper = False, var_name = None):
+        &#34;&#34;&#34;
+        A class that represents a field in a PAMGuard Binary File. This class is used
+        to define a data type (during construction) and then read the data from a binary
+        file (using the `process()` method).
+        &#34;&#34;&#34;
+        self.as_helper = as_helper
+        self.var_name=var_name
+    
+    @abstractmethod
+    def process(self, data: io.BufferedReader, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
+        &#34;&#34;&#34;
+        Reads data from a binary file (as configured in the constructor).
+        &#34;&#34;&#34;
+        if not isinstance(data, io.BufferedReader): raise ValueError(f&#34;data must be of type io.BufferedReader (got {type(data)}).&#34;)
+        if order not in list(BYTE_ORDERS): raise ValueError(f&#34;order must be one of: {list(BYTE_ORDERS)} (got {str(order)}).&#34;)
+
+    def __str__(self):
+        return f&#34;{self.__class__.__name__}({self.__dict__})&#34;
+
+    def print(self, result = None):
+        logger.debug(f&#34;{self.var_name} = {result}&#34;)</code></pre>
+</details>
+<div class="desc"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<p>A class that represents a field in a PAMGuard Binary File. This class is used
+to define a data type (during construction) and then read the data from a binary
+file (using the <code>process()</code> method).</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="pypamguard.core.readers.BitmapBinaryReader" href="#pypamguard.core.readers.BitmapBinaryReader">BitmapBinaryReader</a></li>
+<li><a title="pypamguard.core.readers.CustomBinaryReader" href="#pypamguard.core.readers.CustomBinaryReader">CustomBinaryReader</a></li>
+<li><a title="pypamguard.core.readers.DateBinaryReader" href="#pypamguard.core.readers.DateBinaryReader">DateBinaryReader</a></li>
+<li><a title="pypamguard.core.readers.NumericalBinaryReader" href="#pypamguard.core.readers.NumericalBinaryReader">NumericalBinaryReader</a></li>
+<li><a title="pypamguard.core.readers.StringBinaryReader" href="#pypamguard.core.readers.StringBinaryReader">StringBinaryReader</a></li>
+<li><a title="pypamguard.core.readers.StringNBinaryReader" href="#pypamguard.core.readers.StringNBinaryReader">StringNBinaryReader</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="pypamguard.core.readers.BinaryReader.print"><code class="name flex">
+<span>def <span class="ident">print</span></span>(<span>self, result=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print(self, result = None):
+    logger.debug(f&#34;{self.var_name} = {result}&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.BinaryReader.process"><code class="name flex">
+<span>def <span class="ident">process</span></span>(<span>self,<br>data: _io.BufferedReader,<br>order: <a title="pypamguard.utils.constants.BYTE_ORDERS" href="../utils/constants.html#pypamguard.utils.constants.BYTE_ORDERS">BYTE_ORDERS</a> = BYTE_ORDERS.BIG_ENDIAN)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def process(self, data: io.BufferedReader, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
+    &#34;&#34;&#34;
+    Reads data from a binary file (as configured in the constructor).
+    &#34;&#34;&#34;
+    if not isinstance(data, io.BufferedReader): raise ValueError(f&#34;data must be of type io.BufferedReader (got {type(data)}).&#34;)
+    if order not in list(BYTE_ORDERS): raise ValueError(f&#34;order must be one of: {list(BYTE_ORDERS)} (got {str(order)}).&#34;)</code></pre>
+</details>
+<div class="desc"><p>Reads data from a binary file (as configured in the constructor).</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pypamguard.core.readers.BitmapBinaryReader"><code class="flex name class">
+<span>class <span class="ident">BitmapBinaryReader</span></span>
+<span>(</span><span>format: <a title="pypamguard.core.readers.INTS" href="#pypamguard.core.readers.INTS">INTS</a>,<br>labels=None,<br>as_helper=False,<br>var_name=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BitmapBinaryReader(BinaryReader):
+    def __init__(self, format: INTS, labels = None, as_helper = False, var_name=None):
+        super().__init__(as_helper, var_name=var_name)
+        self.format = format
+        self.labels = labels
+        self.bm = Bitmap(format.value.size * 8, labels)
+    
+    def process(self, data):
+        self.bm.bits = NumericalBinaryReader(self.format, as_helper=True).process(data)
+        self.print(self.bm)
+        return self.bm</code></pre>
+</details>
+<div class="desc"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<p>A class that represents a field in a PAMGuard Binary File. This class is used
+to define a data type (during construction) and then read the data from a binary
+file (using the <code>process()</code> method).</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pypamguard.core.readers.BinaryReader.process" href="#pypamguard.core.readers.BinaryReader.process">process</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="pypamguard.core.readers.CustomBinaryReader"><code class="flex name class">
+<span>class <span class="ident">CustomBinaryReader</span></span>
+<span>(</span><span>function, count, var_name=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CustomBinaryReader(BinaryReader):
+    def __init__(self, function, count, var_name=None):
+        self.function = function
+        self.count = count
+        super().__init__(var_name=var_name)
+    
+    def process(self, data, order):
+        super().process(data, order)
+        return self.function(data, self.count)</code></pre>
+</details>
+<div class="desc"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<p>A class that represents a field in a PAMGuard Binary File. This class is used
+to define a data type (during construction) and then read the data from a binary
+file (using the <code>process()</code> method).</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pypamguard.core.readers.BinaryReader.process" href="#pypamguard.core.readers.BinaryReader.process">process</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES"><code class="flex name class">
+<span>class <span class="ident">DTYPES</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DTYPES(Enum):
+    CHAR = TypeFormat(&#34;b&#34;,1)
+    UCHAR = TypeFormat(&#34;B&#34;,1)
+    SHORT = TypeFormat(&#34;h&#34;,2)
+    USHORT = TypeFormat(&#34;H&#34;,2)
+    INT = TypeFormat(&#34;i&#34;,4)
+    UINT = TypeFormat(&#34;I&#34;,4)
+    LONG = TypeFormat(&#34;q&#34;,8)
+    ULONG = TypeFormat(&#34;Q&#34;,8)
+    FLOAT = TypeFormat(&#34;f&#34;,4)
+    DOUBLE = TypeFormat(&#34;d&#34;,8)
+    STRING = TypeFormat(&#34;s&#34;,1)</code></pre>
+</details>
+<div class="desc"><p>Create a collection of name/value pairs.</p>
+<p>Example enumeration:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; class Color(Enum):
+...     RED = 1
+...     BLUE = 2
+...     GREEN = 3
+</code></pre>
+<p>Access them by:</p>
+<ul>
+<li>attribute access:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color.RED
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>value lookup:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color(1)
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>name lookup:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color['RED']
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Enumerations can be iterated over, and know how many members they have:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; len(Color)
+3
+</code></pre>
+<pre><code class="language-python-repl">&gt;&gt;&gt; list(Color)
+[&lt;Color.RED: 1&gt;, &lt;Color.BLUE: 2&gt;, &lt;Color.GREEN: 3&gt;]
+</code></pre>
+<p>Methods can be added to enumerations, and members can have their own
+attributes &ndash; see the documentation for details.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pypamguard.core.readers.DTYPES.CHAR"><code class="name">var <span class="ident">CHAR</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES.DOUBLE"><code class="name">var <span class="ident">DOUBLE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES.FLOAT"><code class="name">var <span class="ident">FLOAT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES.INT"><code class="name">var <span class="ident">INT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES.LONG"><code class="name">var <span class="ident">LONG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES.SHORT"><code class="name">var <span class="ident">SHORT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES.STRING"><code class="name">var <span class="ident">STRING</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES.UCHAR"><code class="name">var <span class="ident">UCHAR</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES.UINT"><code class="name">var <span class="ident">UINT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES.ULONG"><code class="name">var <span class="ident">ULONG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.DTYPES.USHORT"><code class="name">var <span class="ident">USHORT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pypamguard.core.readers.DateBinaryReader"><code class="flex name class">
+<span>class <span class="ident">DateBinaryReader</span></span>
+<span>(</span><span>as_helper=False, var_name=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DateBinaryReader(BinaryReader):
+    &#34;&#34;&#34;Date in millis&#34;&#34;&#34;
+
+    def __init__(self, as_helper = False, var_name=None):
+        super().__init__(as_helper, var_name=var_name)
+
+    def process(self, data):
+        epoch_millis = NumericalBinaryReader(INTS.LONG, as_helper=True).process(data)
+        result = datetime.datetime.fromtimestamp(epoch_millis / 1000, datetime.UTC)
+        self.print(result)
+        return result</code></pre>
+</details>
+<div class="desc"><p>Date in millis</p>
+<p>A class that represents a field in a PAMGuard Binary File. This class is used
+to define a data type (during construction) and then read the data from a binary
+file (using the <code>process()</code> method).</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pypamguard.core.readers.BinaryReader.process" href="#pypamguard.core.readers.BinaryReader.process">process</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="pypamguard.core.readers.FLOATS"><code class="flex name class">
+<span>class <span class="ident">FLOATS</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FLOATS(Enum):
+    FLOAT = TypeFormat(&#34;f&#34;,4)
+    DOUBLE = TypeFormat(&#34;d&#34;,8)</code></pre>
+</details>
+<div class="desc"><p>Create a collection of name/value pairs.</p>
+<p>Example enumeration:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; class Color(Enum):
+...     RED = 1
+...     BLUE = 2
+...     GREEN = 3
+</code></pre>
+<p>Access them by:</p>
+<ul>
+<li>attribute access:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color.RED
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>value lookup:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color(1)
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>name lookup:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color['RED']
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Enumerations can be iterated over, and know how many members they have:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; len(Color)
+3
+</code></pre>
+<pre><code class="language-python-repl">&gt;&gt;&gt; list(Color)
+[&lt;Color.RED: 1&gt;, &lt;Color.BLUE: 2&gt;, &lt;Color.GREEN: 3&gt;]
+</code></pre>
+<p>Methods can be added to enumerations, and members can have their own
+attributes &ndash; see the documentation for details.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pypamguard.core.readers.FLOATS.DOUBLE"><code class="name">var <span class="ident">DOUBLE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.FLOATS.FLOAT"><code class="name">var <span class="ident">FLOAT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pypamguard.core.readers.INTS"><code class="flex name class">
+<span>class <span class="ident">INTS</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class INTS(Enum):
+    CHAR = TypeFormat(&#34;b&#34;,1)
+    UCHAR = TypeFormat(&#34;B&#34;,1)
+    SHORT = TypeFormat(&#34;h&#34;,2)
+    USHORT = TypeFormat(&#34;H&#34;,2)
+    INT = TypeFormat(&#34;i&#34;,4)
+    UINT = TypeFormat(&#34;I&#34;,4)
+    LONG = TypeFormat(&#34;q&#34;,8)
+    ULONG = TypeFormat(&#34;Q&#34;,8)</code></pre>
+</details>
+<div class="desc"><p>Create a collection of name/value pairs.</p>
+<p>Example enumeration:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; class Color(Enum):
+...     RED = 1
+...     BLUE = 2
+...     GREEN = 3
+</code></pre>
+<p>Access them by:</p>
+<ul>
+<li>attribute access:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color.RED
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>value lookup:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color(1)
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>name lookup:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color['RED']
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Enumerations can be iterated over, and know how many members they have:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; len(Color)
+3
+</code></pre>
+<pre><code class="language-python-repl">&gt;&gt;&gt; list(Color)
+[&lt;Color.RED: 1&gt;, &lt;Color.BLUE: 2&gt;, &lt;Color.GREEN: 3&gt;]
+</code></pre>
+<p>Methods can be added to enumerations, and members can have their own
+attributes &ndash; see the documentation for details.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pypamguard.core.readers.INTS.CHAR"><code class="name">var <span class="ident">CHAR</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.INTS.INT"><code class="name">var <span class="ident">INT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.INTS.LONG"><code class="name">var <span class="ident">LONG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.INTS.SHORT"><code class="name">var <span class="ident">SHORT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.INTS.UCHAR"><code class="name">var <span class="ident">UCHAR</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.INTS.UINT"><code class="name">var <span class="ident">UINT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.INTS.ULONG"><code class="name">var <span class="ident">ULONG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pypamguard.core.readers.INTS.USHORT"><code class="name">var <span class="ident">USHORT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pypamguard.core.readers.NumericalBinaryReader"><code class="flex name class">
+<span>class <span class="ident">NumericalBinaryReader</span></span>
+<span>(</span><span>format: <a title="pypamguard.core.readers.INTS" href="#pypamguard.core.readers.INTS">INTS</a> | <a title="pypamguard.core.readers.FLOATS" href="#pypamguard.core.readers.FLOATS">FLOATS</a>,<br>shape: tuple[int] = None,<br>post_processor: <built-in function callable> = None,<br>as_helper=False,<br>var_name=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NumericalBinaryReader(BinaryReader):
+
+    def __init__(self, format: INTS | FLOATS, shape: tuple[int] = None, post_processor: callable = None, as_helper = False, var_name = None):
+        &#34;&#34;&#34;
+        A reader class for numerical data types in a PAMGuard Binary File. The constructure will configure the reader
+        to read data of a specific format and optionally apply a post processor.
+
+        @param format: The format of the data to read (see constants.INTS and constants.FLOATS).
+        @param post_processor: A function that will be applied to the data read from the file (must be callable).
+        @param shape: The shape of the data to be read. For example `shape=(5)` means that 5 values will be read and returned
+                    as a 1D numpy array. `shape=(2,40)` means that 2 rows, with 40 elements  each will be read and returned as
+                    a 2D numpy array (an entire row is read from the binary file before starting on the next one). If shape is
+                    left as `None` then a single primitive (`int` or `float`) will be returned.
+        &#34;&#34;&#34;
+        if post_processor and not callable(post_processor): raise ValueError(&#34;post_processor must be callable (try a lambda function).&#34;)
+        if format not in INTS and format not in FLOATS: raise ValueError(f&#34;format must be one of: {list(INTS) + list(FLOATS)} (got {str(format)}).&#34;)
+        if shape and not isinstance(shape, (int, tuple)): raise ValueError(f&#34;shape must be of type tuple (got {type(shape)}).&#34;)
+
+        self.shape = shape
+        self.format = format
+        self.post_processor = post_processor
+        super().__init__(as_helper, var_name=var_name)
+
+    def process(self, data, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN) -&gt; int | float | np.ndarray:
+        super().process(data, order) # type checking inputs
+        byte_size = self.format.value.size * np.prod(self.shape) if self.shape else self.format.value.size
+        result = np.frombuffer(data.read(byte_size), dtype= np.dtype(order.value + self.format.value.formatter))
+        if self.shape: result = result.reshape(self.shape)
+        if self.post_processor is not None: result = self.post_processor(result)
+        result = result.item() if not self.shape else result
+        self.print(result)
+        return result
+
+    def __str__(self):
+        return f&#34;{self.__class__.__name__}(&#39;shape&#39;={self.shape}, &#39;format&#39;={self.format}, &#39;post_processor&#39;={self.post_processor})&#34;</code></pre>
+</details>
+<div class="desc"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<p>A reader class for numerical data types in a PAMGuard Binary File. The constructure will configure the reader
+to read data of a specific format and optionally apply a post processor.</p>
+<p>@param format: The format of the data to read (see constants.INTS and constants.FLOATS).
+@param post_processor: A function that will be applied to the data read from the file (must be callable).
+@param shape: The shape of the data to be read. For example <code>shape=(5)</code> means that 5 values will be read and returned
+as a 1D numpy array. <code>shape=(2,40)</code> means that 2 rows, with 40 elements
+each will be read and returned as
+a 2D numpy array (an entire row is read from the binary file before starting on the next one). If shape is
+left as <code>None</code> then a single primitive (<code>int</code> or <code>float</code>) will be returned.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pypamguard.core.readers.BinaryReader.process" href="#pypamguard.core.readers.BinaryReader.process">process</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="pypamguard.core.readers.StringBinaryReader"><code class="flex name class">
+<span>class <span class="ident">StringBinaryReader</span></span>
+<span>(</span><span>as_helper=False, var_name=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StringBinaryReader(BinaryReader):
+    # TODO: change to inherit from StringNType
+    def __init__(self, as_helper = False, var_name=None):
+        &#34;&#34;&#34;
+        A class that represents a string field in a PAM file,
+        where the length of the string is preceeded by a 16 bit integer.
+        &#34;&#34;&#34;
+        self.length_type = NumericalBinaryReader(INTS.USHORT)
+        super().__init__(as_helper, var_name=var_name)
+    
+    def process(self, data, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
+        super().process(data, order)
+        length = self.length_type.process(data)
+        result = StringNBinaryReader(length, as_helper=True).process(data)
+        self.print(result)
+        return result.decode() if type(result) == bytes else result</code></pre>
+</details>
+<div class="desc"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<p>A class that represents a string field in a PAM file,
+where the length of the string is preceeded by a 16 bit integer.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pypamguard.core.readers.BinaryReader.process" href="#pypamguard.core.readers.BinaryReader.process">process</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="pypamguard.core.readers.StringNBinaryReader"><code class="flex name class">
+<span>class <span class="ident">StringNBinaryReader</span></span>
+<span>(</span><span>length: int,<br>post_processor: <built-in function callable> = None,<br>as_helper=False,<br>var_name=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StringNBinaryReader(BinaryReader):
+    def __init__(self, length: int, post_processor: callable = None, as_helper = False, var_name = None):
+        &#34;&#34;&#34;
+        A class that represents a string field in a PAM file.
+        &#34;&#34;&#34;
+        if post_processor and not callable(post_processor): raise ValueError(&#34;post_processor must be callable (try a lambda function).&#34;)
+        if not isinstance(length, int): raise ValueError(f&#34;length must be of type int (got {type(length)}).&#34;)
+
+        self.length = length
+        self.post_processor = post_processor
+
+        super().__init__(as_helper, var_name=var_name)
+    
+    def process(self, data, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
+        super().process(data, order) # type checking inputs
+        result = struct.unpack(order.value + f&#34;{self.length}s&#34;, data.read(self.length))[0]
+        if self.post_processor is not None: result = self.post_processor(result)
+        self.print(result)
+        return result.decode() if type(result) == bytes else result</code></pre>
+</details>
+<div class="desc"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<p>A class that represents a string field in a PAM file.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pypamguard.core.readers.BinaryReader.process" href="#pypamguard.core.readers.BinaryReader.process">process</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="pypamguard.core.readers.TypeFormat"><code class="flex name class">
+<span>class <span class="ident">TypeFormat</span></span>
+<span>(</span><span>formatter: str, size: int)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TypeFormat():
+    def __init__(self, formatter: str, size: int):
+        self.formatter = formatter
+        self.size = size</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pypamguard.core" href="index.html">pypamguard.core</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pypamguard.core.readers.BinaryReader" href="#pypamguard.core.readers.BinaryReader">BinaryReader</a></code></h4>
+<ul class="">
+<li><code><a title="pypamguard.core.readers.BinaryReader.print" href="#pypamguard.core.readers.BinaryReader.print">print</a></code></li>
+<li><code><a title="pypamguard.core.readers.BinaryReader.process" href="#pypamguard.core.readers.BinaryReader.process">process</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pypamguard.core.readers.BitmapBinaryReader" href="#pypamguard.core.readers.BitmapBinaryReader">BitmapBinaryReader</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pypamguard.core.readers.CustomBinaryReader" href="#pypamguard.core.readers.CustomBinaryReader">CustomBinaryReader</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pypamguard.core.readers.DTYPES" href="#pypamguard.core.readers.DTYPES">DTYPES</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pypamguard.core.readers.DTYPES.CHAR" href="#pypamguard.core.readers.DTYPES.CHAR">CHAR</a></code></li>
+<li><code><a title="pypamguard.core.readers.DTYPES.DOUBLE" href="#pypamguard.core.readers.DTYPES.DOUBLE">DOUBLE</a></code></li>
+<li><code><a title="pypamguard.core.readers.DTYPES.FLOAT" href="#pypamguard.core.readers.DTYPES.FLOAT">FLOAT</a></code></li>
+<li><code><a title="pypamguard.core.readers.DTYPES.INT" href="#pypamguard.core.readers.DTYPES.INT">INT</a></code></li>
+<li><code><a title="pypamguard.core.readers.DTYPES.LONG" href="#pypamguard.core.readers.DTYPES.LONG">LONG</a></code></li>
+<li><code><a title="pypamguard.core.readers.DTYPES.SHORT" href="#pypamguard.core.readers.DTYPES.SHORT">SHORT</a></code></li>
+<li><code><a title="pypamguard.core.readers.DTYPES.STRING" href="#pypamguard.core.readers.DTYPES.STRING">STRING</a></code></li>
+<li><code><a title="pypamguard.core.readers.DTYPES.UCHAR" href="#pypamguard.core.readers.DTYPES.UCHAR">UCHAR</a></code></li>
+<li><code><a title="pypamguard.core.readers.DTYPES.UINT" href="#pypamguard.core.readers.DTYPES.UINT">UINT</a></code></li>
+<li><code><a title="pypamguard.core.readers.DTYPES.ULONG" href="#pypamguard.core.readers.DTYPES.ULONG">ULONG</a></code></li>
+<li><code><a title="pypamguard.core.readers.DTYPES.USHORT" href="#pypamguard.core.readers.DTYPES.USHORT">USHORT</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pypamguard.core.readers.DateBinaryReader" href="#pypamguard.core.readers.DateBinaryReader">DateBinaryReader</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pypamguard.core.readers.FLOATS" href="#pypamguard.core.readers.FLOATS">FLOATS</a></code></h4>
+<ul class="">
+<li><code><a title="pypamguard.core.readers.FLOATS.DOUBLE" href="#pypamguard.core.readers.FLOATS.DOUBLE">DOUBLE</a></code></li>
+<li><code><a title="pypamguard.core.readers.FLOATS.FLOAT" href="#pypamguard.core.readers.FLOATS.FLOAT">FLOAT</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pypamguard.core.readers.INTS" href="#pypamguard.core.readers.INTS">INTS</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pypamguard.core.readers.INTS.CHAR" href="#pypamguard.core.readers.INTS.CHAR">CHAR</a></code></li>
+<li><code><a title="pypamguard.core.readers.INTS.INT" href="#pypamguard.core.readers.INTS.INT">INT</a></code></li>
+<li><code><a title="pypamguard.core.readers.INTS.LONG" href="#pypamguard.core.readers.INTS.LONG">LONG</a></code></li>
+<li><code><a title="pypamguard.core.readers.INTS.SHORT" href="#pypamguard.core.readers.INTS.SHORT">SHORT</a></code></li>
+<li><code><a title="pypamguard.core.readers.INTS.UCHAR" href="#pypamguard.core.readers.INTS.UCHAR">UCHAR</a></code></li>
+<li><code><a title="pypamguard.core.readers.INTS.UINT" href="#pypamguard.core.readers.INTS.UINT">UINT</a></code></li>
+<li><code><a title="pypamguard.core.readers.INTS.ULONG" href="#pypamguard.core.readers.INTS.ULONG">ULONG</a></code></li>
+<li><code><a title="pypamguard.core.readers.INTS.USHORT" href="#pypamguard.core.readers.INTS.USHORT">USHORT</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pypamguard.core.readers.NumericalBinaryReader" href="#pypamguard.core.readers.NumericalBinaryReader">NumericalBinaryReader</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pypamguard.core.readers.StringBinaryReader" href="#pypamguard.core.readers.StringBinaryReader">StringBinaryReader</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pypamguard.core.readers.StringNBinaryReader" href="#pypamguard.core.readers.StringNBinaryReader">StringNBinaryReader</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pypamguard.core.readers.TypeFormat" href="#pypamguard.core.readers.TypeFormat">TypeFormat</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

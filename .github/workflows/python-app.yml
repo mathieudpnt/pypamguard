@@ -38,12 +38,12 @@ jobs:
       run: |
         pytest tests
         # flake8 src
-    # - run: |
-    #     rm -f -r docs
-    #     pdoc --html -o docs src
-    # - uses: actions/upload-pages-artifact@v3
-    #   with:
-    #     path: docs/
+    - run: |
+        rm -f -r docs
+        pdoc --html -o docs src/pypamguard
+    - uses: actions/upload-pages-artifact@v3
+      with:
+        path: docs/
 
   # Deploy the artifact to GitHub pages.
   # This is a separate job so that only actions/deploy-pages has the necessary permissions.
