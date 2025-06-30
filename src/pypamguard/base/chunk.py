@@ -1,5 +1,9 @@
 from abc import ABC, abstractmethod
 import io
+import numpy as np
+import datetime
+from pypamguard.utils.bitmap import Bitmap
+from pypamguard.utils.serializer import serialize
 
 class BaseChunk(ABC):
 
@@ -36,3 +40,10 @@ class BaseChunk(ABC):
                     lines[-1] += f"{value}"
 
         return '\t' + '\n\t'.join(lines)
+    
+    def json(self):
+        re = {}
+        for attr, value in self.__dict__.items():
+            if not attr.startswith('_'):
+                re[attr] = serialize(value)
+        return re

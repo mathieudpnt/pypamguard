@@ -1,12 +1,15 @@
 # registry.py
 # A module for registering the available modules (subclasses of PAMChunk)
 
-from pypamguard.modules import ClickDetector, RWEdgeDetector
+from pypamguard.modules import *
 from pypamguard.generics import GenericModule
+from pypamguard.core.exceptions import ModuleNotFoundException
 
 MODULES = {
     "Click Detector": ClickDetector,
-    "Right Whale Edge Detector": RWEdgeDetector
+    "Right Whale Edge Detector": RWEdgeDetector,
+    "Clip generator": ClipGenerator,
+    "Whistle and Moan Detector": WhistleAndMoanDetector
 }
 
 def module_metadata(module):
@@ -41,7 +44,7 @@ class ModuleRegistry:
     def get_module(self, module_name: str) -> GenericModule:
         if module_name in self.modules:
             return self.modules[module_name]
-        return None
+        raise ModuleNotFoundException(f"Module '{module_name}' is not registered.")
 
 def register_preinstalled_modules(registry: ModuleRegistry):
 

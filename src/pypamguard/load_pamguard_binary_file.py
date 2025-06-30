@@ -4,7 +4,7 @@ from pypamguard.core.filters import Filters, DateFilter
 import datetime
 from .logger import logger, Verbosity
 
-def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, buffering: int | None = DEFAULT_BUFFER_SIZE, verbosity: Verbosity = Verbosity.WARNING) -> PGBFile:
+def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, buffering: int | None = DEFAULT_BUFFER_SIZE, verbosity: Verbosity = Verbosity.INFO) -> PGBFile:
     """
     Read a binary PAMGuard data file into a PAMFile object
     :param filename: absolute or relative path to the .pgdt file to read

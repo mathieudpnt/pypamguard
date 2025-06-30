@@ -1,6 +1,5 @@
 from pypamguard.standard import StandardModule, StandardModuleFooter
 from pypamguard.core.readers import *
-from pypamguard.core.filters import Filters
 
 class ClickDetectorFooter(StandardModuleFooter):
 
@@ -32,8 +31,8 @@ class ClickDetector(StandardModule):
         self.type: int = None
         self.flags: Bitmap = None
         self.delays: float = None
-        self.angles: list[float] = []
-        self.angle_errors: list[float] = []
+        self.angles: np.ndarray = np.array([])
+        self.angle_errors: np.ndarray = np.array([])
         self.duration: int = None
         self.wave: np.ndarray = None
 

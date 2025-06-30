@@ -163,6 +163,15 @@ class PGBFile:
                 if not self.__file_header: raise StructuralException(self.__fp, "File header not found before file footer")
                 self.__file_footer = self.__process_chunk(self.__file_footer, chunk_info)
 
+    def json(self):
+        return {
+            "file_header": self.__file_header.json(),
+            "module_header": self.__module_header.json(),
+            "module_footer": self.__module_footer.json(),
+            "file_footer": self.__file_footer.json(),
+            "data": [chunk.json() for chunk in self.__data]
+        }
+
     def __str__(self):
         ret = f"PAMGuard Binary File (filename={self.__path}, size={self.size} bytes, order={self.__order})\n\n"
         ret += f"{self.__filters}\n"

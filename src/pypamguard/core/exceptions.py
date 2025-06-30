@@ -34,6 +34,9 @@ class ChunkLengthMismatch(WarningException):
 class CriticalException(BinaryFileException):
     pass
 
+class ModuleNotFoundException(Exception):
+    pass
+
 class FileCorruptedException(CriticalException):
     pass
 
