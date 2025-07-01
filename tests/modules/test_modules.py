@@ -4,25 +4,27 @@ from pypamguard.core.pgbfile import PGBFile
 from pypamguard.base import BaseChunk
 from pypamguard.utils.bitmap import Bitmap
 from pypamguard.utils.serializer import serialize
+from pypamguard.core.filters import Filters, DateFilter, RangeFilter, WhitelistFilter, BaseFilter
 import datetime
 from numpy import ndarray
+from pypamguard.logger import Verbosity
 import os, json
+import pytest
+
+@pytest.fixture
+def filters():
+    return Filters()
 
 def _test_chunk(chunk: BaseChunk, test_data: dict, test_name, chunk_name):
+    chunk_json: dict = chunk.to_json()
     for attr, expected in test_data.items():
-        assert hasattr(chunk, attr), f"Test {test_name}: chunk '{chunk_name}' does not have attribute '{attr}'"
-        data = getattr(chunk, attr)
-        
-        data = serialize(data)
-        
-        if type(data) == float: data = round(data, 3)
-        if type(expected) == float: expected = round(expected, 3)
-        
-        assert data == expected, f"Test {test_name}: chunk '{chunk_name}' attribute '{attr}' has unexpected value: expected {expected}, got {data}"
+        assert attr in chunk_json, f"Test {test_name}: chunk '{chunk_name}' does not have attribute '{attr}'"
+        data = chunk_json[attr]
+        assert data == expected, f"Test {test_name}: chunk '{chunk_name}' attribute '{attr}' has unexpected value: expected {expected} ({type(expected)}), got {data} ({type(data)})"
 
 def _get_paths(test_metadata):
     directory = os.path.join(test_metadata["directory"], test_metadata["filename"])
-    json_path = f"{directory}.json"
+    json_path = os.path.join(test_metadata["directory"], test_metadata["json"])
     pgdf_path = f"{directory}.pgdf"
     pgdx_path = f"{directory}.pgdx"
     pgnf_path = f"{directory}.pgnf"
@@ -51,24 +53,39 @@ def _run_footer_tests(file: PGBFile, json_data, test_name):
     _test_chunk(file.file_footer, json_data["file_footer"], test_name, "file_footer")
 
 def _run_data_tests(file: PGBFile, json_data, test_name):
-    for index in json_data["data"]:
-        _test_chunk(file.data[int(index)], json_data["data"][index], test_name, f"data[{index}]")
+    json_data_len = len(json_data["data"])
+    assert len(file.data) == len(json_data["data"]), f"Test {test_name}: data length mismatch: expected {json_data_len}, got {len(file.data)}"
+    for index, json_chunk in enumerate(json_data["data"]):
+        _test_chunk(file.data[index], json_chunk, test_name, f"data[{index}]")
 
 def _run_pgdf_tests(file: PGBFile, json_data, test_name):
     _run_header_tests(file, json_data, test_name)
-    # _run_footer_tests(file, json_data, test_name)
-    # _run_data_tests(file, json_data, test_name)
+    _run_footer_tests(file, json_data, test_name)
+    _run_data_tests(file, json_data, test_name)
 
 def _run_pgnf_tests(file: PGBFile, json_data, test_name):
     _run_header_tests(file, json_data, test_name)
     _run_footer_tests(file, json_data, test_name)
 
+def get_filters(test_data, filters):
+    # assert test_data == {}
+    filters_json = test_data["filters"]
+    # assert filters_json == ""
+    for filter in filters_json:
+        filters.add(filter, BaseFilter.from_json(filters_json[filter]))
+    return filters
+
 import pytest
-@pytest.mark.parametrize("test_data", TESTS, ids=[os.path.join(x["directory"], x["filename"]) for x in TESTS])
-def test_module(test_data):
+@pytest.mark.parametrize("test_data", TESTS, ids=[os.path.join(x["directory"], x["json"]) for x in TESTS])
+def test_module(test_data, filters):
+    print(filters)
+    
     directory, json_path, pgdf_path, pgdx_path, pgnf_path = _get_paths(test_data)
     json_data = _get_json_data(json_path)
+    get_filters(json_data, filters)
+    print(json_data["filters"])
+    print(filters)
 
-    file_pgdf = load_pamguard_binary_file(pgdf_path)    
+    file_pgdf = load_pamguard_binary_file(pgdf_path, verbosity=Verbosity.WARNING, filters=filters)   
     assert isinstance(file_pgdf, PGBFile)
-    _run_pgdf_tests(file_pgdf, json_data, pgdf_path)
+    _run_pgdf_tests(file_pgdf, json_data, json_path)
