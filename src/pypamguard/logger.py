@@ -1,4 +1,5 @@
 import enum
+from contextlib import contextmanager
 
 class Verbosity(enum.IntEnum):
     CRITICAL = 0
@@ -6,6 +7,13 @@ class Verbosity(enum.IntEnum):
     WARNING = 2
     INFO = 3
     DEBUG = 4
+
+@contextmanager
+def logger_config(verbosity: Verbosity):
+    old_verbosity = logger.verbosity
+    logger.set_verbosity(verbosity)
+    yield
+    logger.set_verbosity(old_verbosity)
 
 class Logger:
 

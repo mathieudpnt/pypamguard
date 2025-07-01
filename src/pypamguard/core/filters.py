@@ -2,6 +2,7 @@ import datetime
 import enum
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
+from pypamguard.core.serializable import Serializable
 
 class FilterMismatchException(Exception):
     """
@@ -15,8 +16,7 @@ class FILTER_POSITION(enum.Enum):
     KEEP = 1 # include this object
     STOP = 2 # ignore this, and all following objects
 
-@dataclass
-class BaseFilter(ABC):
+class BaseFilter(Serializable, ABC):
     """Base class for all filters."""
 
     @abstractmethod
@@ -26,6 +26,18 @@ class BaseFilter(ABC):
         from the `FILTER_POSITION` enum. 
         """
         raise NotImplementedError
+
+    @classmethod
+    def from_json(self, json):
+        name = json.pop("__name__")
+        if name == "WhitelistFilter":
+            return WhitelistFilter.from_json(json)
+        elif name == "RangeFilter":
+            return RangeFilter.from_json(json)
+        elif name == "DateFilter":
+            return DateFilter.from_json(json)
+        else:
+            raise NotImplementedError(f"Implement the .from_json() method for the {name} filter to deserialize from JSON.")
 
 class WhitelistFilter(BaseFilter):
     """A filter that checks if a value is in a set of whitelisted values."""
@@ -41,6 +53,11 @@ class WhitelistFilter(BaseFilter):
 
     def __str__(self):
         return f"WhitelistFilter({len(self.whitelist)} elements)"
+
+    @classmethod
+    def from_json(cls, json):
+        self = cls(whitelist=set(json["whitelist"]))
+        return self
 
 class RangeFilter(BaseFilter):
     def __init__(self, start, end, comparator=None, validation_func=None, ordered=False, ignore_none=False):
@@ -86,6 +103,10 @@ class RangeFilter(BaseFilter):
     def __str__(self):
         return f"RangeFilter(start={self.start}, end={self.end}, ordered={self.ordered}, ignore_none={self.ignore_none})"
 
+    @classmethod
+    def from_json(cls, json):
+        return cls(json["start"], json["end"], json["ordered"], json["ignore_none"])
+
 class DateFilter(RangeFilter):
     def __init__(self, start_date, end_date, ordered=False, ignore_timezone=False, ignore_none=False):
         """
@@ -105,6 +126,9 @@ class DateFilter(RangeFilter):
     def __str__(self):
         return f"DateFilter(start={self.start}, end={self.end}, ordered={self.ordered}, ignore_timezone={self.ignore_timezone}, ignore_none={self.ignore_none})"
 
+    @classmethod
+    def from_json(cls, json):
+        return cls(datetime.datetime.fromtimestamp(json["start"], tz=datetime.UTC), datetime.datetime.fromtimestamp(json["end"], tz=datetime.UTC), json["ordered"], json["ignore_timezone"], json["ignore_none"])
 
 class Filters:
 
@@ -115,13 +139,23 @@ class Filters:
     }
 
 
-    def __init__(self, filters: dict[str, BaseFilter] = {}):
+    def __init__(self, filters: dict[str, BaseFilter] = None):
+        if not filters: filters = {}
         for key, value in filters.items():
             self.__validate(key, value)
 
         self.__filters: dict[str, BaseFilter] = filters
         self.position: FILTER_POSITION = None
     
+    def add(self, key, value):
+        self.__validate(key, value)
+        self.__filters[key] = value
+    
+    def to_json(self):
+        return {
+            key: value.to_json() for key, value in self.__filters.items()
+        }
+
     def __validate(self, key, value):
         if key in self.INSTALLED_FILTERS and not isinstance(value, self.INSTALLED_FILTERS[key]):
             raise ValueError(f"Filter {key} must be of type {self.INSTALLED_FILTERS[key]}")

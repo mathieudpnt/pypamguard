@@ -1,39 +1,37 @@
+import time
 from pypamguard.core.pgbfile import PGBFile
 from pypamguard.utils.constants import BYTE_ORDERS, DEFAULT_BUFFER_SIZE
 from pypamguard.core.filters import Filters, DateFilter
-import datetime
-from .logger import logger, Verbosity
+from .logger import logger, Verbosity, logger_config
+import io, json
+from contextlib import contextmanager
 
-def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, buffering: int | None = DEFAULT_BUFFER_SIZE, verbosity: Verbosity = Verbosity.INFO) -> PGBFile:
+@contextmanager
+def timer(label):
+    logger.info(f"Started {label}")
+    start_time = time.perf_counter()
+    yield
+    total_time = time.perf_counter() - start_time
+    logger.info(f"Finished {label} in {total_time:.3f} seconds")
+
+def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, buffering: int | None = DEFAULT_BUFFER_SIZE, verbosity: Verbosity = Verbosity.INFO, filters: Filters = Filters(), output: io.TextIOWrapper | None = None) -> PGBFile:
     """
     Read a binary PAMGuard data file into a PAMFile object
     :param filename: absolute or relative path to the .pgdt file to read
     :param order: endianess of data (defaults to 'network')
     :param buffering: number of bytes to buffer
-    
+    :param verbosity: logger verbosity level
+    :param filters: filters to apply to data
+    :param output: write json to a file stream (must be write-enabled)
     """
 
-    # d1 = datetime.datetime.strptime('2016-09-03 00:42:30.404000+00:00', '%Y-%m-%d %H:%M:%S.%f%z')
-    # d2 = datetime.datetime.strptime('2016-09-03 00:42:40.404000+00:00', '%Y-%m-%d %H:%M:%S.%f%z')
-
-    # pg_filters = Filters({
-    #     'daterange': DateFilter(d1, d2)
-    # })
-
-    logger.set_verbosity(verbosity)
-
-    pg_filters = Filters()
-
-    if buffering and type(buffering) != int:
-        raise ValueError(f"buffering must be of type int or None (got {type(buffering)}).")
-    if not filename or type(filename) != str:
-        raise ValueError(f"filename must be of type str (got {type(filename)}).")
-
-    data = open(filename, "rb", buffering=buffering)
-    pamfile = PGBFile(path=filename, fp=data, order=order, filters=pg_filters)
-    pamfile.load()
-    logger.info(str(pamfile))
-
-
-    return pamfile
+    with logger_config(verbosity=verbosity):
+        with timer("loading PAMGuard binary file"):
+            with open(filename, "rb", buffering=buffering) as f:
+                pgbfile = PGBFile(path=filename, fp=f, order=order, filters=filters)
+                pgbfile.load()
+        if output:
+            with timer(f"writing output JSON to {output.name}"):
+                json.dump(pgbfile.to_json(), output, indent=4, separators=(",", ": "))
+    return pgbfile
 

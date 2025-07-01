@@ -9,8 +9,9 @@ from pypamguard.utils.constants import IdentifierType
 from pypamguard.core.readers import BYTE_ORDERS
 from pypamguard.core.filters import Filters, FILTER_POSITION, FilterMismatchException
 from pypamguard.logger import logger
+from pypamguard.core.serializable import Serializable
 
-class Report:
+class Report(Serializable):
     warnings = []
 
     def add_warning(self, warning: Warning):
@@ -22,7 +23,7 @@ class Report:
             return "No warnings"
         return f"{len(self.warnings)} warnings.\n"
 
-class PGBFile:
+class PGBFile(Serializable):
     """
     This class represents a PAMGuard Binary File
     """
@@ -163,13 +164,15 @@ class PGBFile:
                 if not self.__file_header: raise StructuralException(self.__fp, "File header not found before file footer")
                 self.__file_footer = self.__process_chunk(self.__file_footer, chunk_info)
 
-    def json(self):
+    def to_json(self):
         return {
-            "file_header": self.__file_header.json(),
-            "module_header": self.__module_header.json(),
-            "module_footer": self.__module_footer.json(),
-            "file_footer": self.__file_footer.json(),
-            "data": [chunk.json() for chunk in self.__data]
+            "filters": self.filters.to_json(),
+            "report": self.__report.to_json(),
+            "file_header": self.__file_header.to_json(),
+            "module_header": self.__module_header.to_json(),
+            "module_footer": self.__module_footer.to_json(),
+            "file_footer": self.__file_footer.to_json(),
+            "data": [chunk.to_json() for chunk in self.__data],
         }
 
     def __str__(self):

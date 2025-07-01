@@ -4,8 +4,9 @@ import numpy as np
 import datetime
 from pypamguard.utils.bitmap import Bitmap
 from pypamguard.utils.serializer import serialize
+from pypamguard.core.serializable import Serializable
 
-class BaseChunk(ABC):
+class BaseChunk(Serializable, ABC):
 
     def __init__(self, *args, **kwargs):
         pass
@@ -41,9 +42,9 @@ class BaseChunk(ABC):
 
         return '\t' + '\n\t'.join(lines)
     
-    def json(self):
-        re = {}
-        for attr, value in self.__dict__.items():
-            if not attr.startswith('_'):
-                re[attr] = serialize(value)
-        return re
+    # def json(self):
+    #     re = {}
+    #     for attr, value in self.__dict__.items():
+    #         if not attr.startswith('_'):
+    #             re[attr] = serialize(value)
+    #     return re
