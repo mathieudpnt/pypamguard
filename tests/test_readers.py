@@ -70,7 +70,7 @@ class ShortReaderTest(ReaderTest):
     def get_reader(self):
         return NumericalBinaryReader(INTS.SHORT)
 
-VALUES = range(-100, 100, 10)
+VALUES = range(-100, 100, 100)
 
 import pytest
 

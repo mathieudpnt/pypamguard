@@ -21,15 +21,18 @@ TESTS = [
         "json": "ClickDetector_v4_test1.json",
         "filename": "ClickDetector_v4_test1",
         "directory": PATH_CLICK_DETECTOR,
+        "keyword": "ClickDetector"
     },
     {
         "json": "ClickDetector_v4_test1_daterange.json",
         "filename": "ClickDetector_v4_test1",
         "directory": PATH_CLICK_DETECTOR,
+        "keyword": "ClickDetector"
     },
     {
         "json": "ClickDetector_v4_test1_uidlist.json",
         "filename": "ClickDetector_v4_test1",
         "directory": PATH_CLICK_DETECTOR,
+        "keyword": "ClickDetector"
     }
 ]

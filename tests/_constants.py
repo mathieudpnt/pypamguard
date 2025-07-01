@@ -1,3 +1,32 @@
-TESTING_ROOT_PATH = "tests/samples"
+import os
 
-CLICK_DETECTOR_FILEPATH = f"{TESTING_ROOT_PATH}/Click_Detector_Click_Detector_Clicks_20240806_121502.pgdf"
+DATASET_PATH = os.path.join("tests", "dataset")
+CLICK_DETECTOR_DIR = os.path.join(DATASET_PATH, "ClickDetector")
+WHISTLES_MOANS_DIR = os.path.join(DATASET_PATH, "WhistlesMoans")
+
+TESTS = [
+    {
+        "json": "ClickDetector_v4_test1.json",
+        "filename": "ClickDetector_v4_test1",
+        "directory": CLICK_DETECTOR_DIR,
+        "keyword": "ClickDetector"
+    },
+    {
+        "json": "ClickDetector_v4_test1_daterange.json",
+        "filename": "ClickDetector_v4_test1",
+        "directory": CLICK_DETECTOR_DIR,
+        "keyword": "ClickDetector"
+    },
+    {
+        "json": "ClickDetector_v4_test1_uidlist.json",
+        "filename": "ClickDetector_v4_test1",
+        "directory": CLICK_DETECTOR_DIR,
+        "keyword": "ClickDetector"
+    },
+    {
+        "json": "WhistlesMoans_v2_test1.json",
+        "filename": "WhistlesMoans_v2_test1",
+        "directory": WHISTLES_MOANS_DIR,
+        "keyword": "WhistlesMoans"
+    }
+]
