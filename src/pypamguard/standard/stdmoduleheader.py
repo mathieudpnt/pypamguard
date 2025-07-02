@@ -1,5 +1,5 @@
 from pypamguard.generics import GenericModuleHeader
-from pypamguard.core.readers import *
+from pypamguard.core.readers_new import *
 
 class StandardModuleHeader(GenericModuleHeader):
     
@@ -11,8 +11,8 @@ class StandardModuleHeader(GenericModuleHeader):
         self.version: str = None
         self.binary_length: int = None
 
-    def process(self, data, chunk_info):
+    def process(self, br: BinaryReader, chunk_info):
         self.length = chunk_info.length
         self.identifier = chunk_info.identifier
-        self.version: int = NumericalBinaryReader(INTS.INT, var_name='version').process(data)
-        self.binary_length: int = NumericalBinaryReader(INTS.INT, var_name='binary_length').process(data)
+        self.version: int = br.read_numeric(DTYPES.INT32)
+        self.binary_length: int = br.read_numeric(DTYPES.INT32)

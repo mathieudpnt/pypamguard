@@ -40,14 +40,24 @@ class Shape:
             return f"{self.length} * {self.shape}"
 
 class BinaryReader:
-    def __init__(self, fp: io.BufferedReader):
-        self.fp = fp
+    def __init__(self, fp: io.BufferedReader, length: int):
+        self.chunk_data = bytearray(length)
+        self.length = length
+        self.offset = 0
+        self.file_offset = fp.tell()
+        fp.readinto(self.chunk_data)
+        
+        
 
     def __collate(self, data, dtypes, shape):
         for i, dtype_i in enumerate(dtypes):
             d = data[f'f{i}'][0] if (len(shape) == 1 and shape[0] == 1) else data[f'f{i}'].reshape(shape)
             yield dtype_i[1](d) if dtype_i[1] is not None else d
 
+    def __read(self, length: int) -> bytes:
+        self.offset += length
+        return self.chunk_data[self.offset - length : self.offset]
+    
     def read_numeric(self, dtype: DTYPES | list[DTYPES], shape: tuple = (1,)) -> int | float | np.ndarray | tuple[np.ndarray]:
         """
         Read numeric data from the file. This function is polymorphic in the sense that it
@@ -62,7 +72,7 @@ class BinaryReader:
 
         dtypes = [(dtype_i, None) if isinstance(dtype_i, DTYPES) else dtype_i for dtype_i in ([dtype] if not isinstance(dtype, list) else dtype)]
         data_length = sum(dtype_i[0].value.itemsize for dtype_i in dtypes) * np.prod(shape)   
-        data = np.frombuffer(self.fp.read(data_length), dtype=[(f'f{i}', dtype_i[0].value) for i, dtype_i in enumerate(dtypes)])
+        data = np.frombuffer(self.__read(data_length), dtype=[(f'f{i}', dtype_i[0].value) for i, dtype_i in enumerate(dtypes)])
         ret_val = tuple(self.__collate(data, dtypes, shape))
         return ret_val[0] if len(ret_val) == 1 else ret_val
 
@@ -71,7 +81,7 @@ class BinaryReader:
         return timestamp, datetime.datetime.fromtimestamp(timestamp / 1000, tz=datetime.UTC)
 
     def read_nstring(self, length: int) -> str:
-        return self.fp.read(length).decode("utf-8")
+        return self.__read(length).decode("utf-8")
 
     def read_string(self) -> str:
         return self.read_nstring(self.read_numeric(DTYPES.INT16))

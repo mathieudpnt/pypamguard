@@ -10,9 +10,8 @@ class ClickDetectorFooter(StandardModuleFooter):
         self.types_count_length: int = None
         self.types_count: list[int] = None
 
-    def process(self, data, chunk_info):
-        super().process(data, chunk_info)
-        br = BinaryReader(data)
+    def process(self, br, chunk_info):
+        super().process(br, chunk_info)
 
         if self.binary_length > 0:
             self.types_count_length = br.read_numeric(DTYPES.INT16)
@@ -38,10 +37,8 @@ class ClickDetector(StandardModule):
         self.duration: int = None
         self.wave: np.ndarray = None
 
-    def process(self, data, chunk_info):
-        super().process(data, chunk_info)
-
-        br = BinaryReader(data)
+    def process(self, br, chunk_info):
+        super().process(br, chunk_info)
 
         # data_length should be INTS.INT but fsm this works
         data_length = br.read_numeric(DTYPES.INT32)

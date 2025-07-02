@@ -12,9 +12,8 @@ class WhistleAndMoanDetectorHeader(StandardModuleHeader):
 
         self.delay_scale: int = None
     
-    def process(self, data, chunk_info):
-        super().process(data, chunk_info)
-        br = BinaryReader(data)
+    def process(self, br, chunk_info):
+        super().process(br, chunk_info)
         if self.binary_length != 0:
             self.delay_scale = br.read_numeric(DTYPES.INT32)
             print(self.delay_scale, type(self.delay_scale))
@@ -37,9 +36,8 @@ class WhistleAndMoanDetector(StandardModule):
 
         
     
-    def process(self, data, chunk_info):
-        super().process(data, chunk_info)
-        br = BinaryReader(data)
+    def process(self, br, chunk_info):
+        super().process(br, chunk_info)
         data_length = br.read_numeric(DTYPES.INT32)
 
         # self.n_slices = br.read_numeric(DTYPES.INT16)

@@ -17,10 +17,8 @@ class RWEdgeDetector(StandardModule):
         self.hi_freqs: np.ndarray = None
         self.peak_amp: np.ndarray = None
 
-    def process(self, data, chunk_info):
-        super().process(data, chunk_info)
-
-        br = BinaryReader(data)
+    def process(self, br, chunk_info):
+        super().process(br, chunk_info)
 
         data_length = br.read_numeric(DTYPES.INT32)
         self.type = br.read_numeric(DTYPES.INT16)

@@ -2,7 +2,7 @@ import io
 
 from . import StandardChunkInfo
 from pypamguard.generics import GenericFileHeader, GenericFileFooter
-from pypamguard.core.readers import *
+from pypamguard.core.readers_new import *
 
 class StandardFileFooter(GenericFileFooter):
     
@@ -17,16 +17,16 @@ class StandardFileFooter(GenericFileFooter):
         self.file_length: int = None
         self.end_reason: int = None
 
-    def process(self, data: io.BufferedReader, chunk_info: StandardChunkInfo):
+    def process(self, br: BinaryReader, chunk_info: StandardChunkInfo):
         self.length = chunk_info.length
         self.identifier = chunk_info.identifier
 
-        self.n_objects = NumericalBinaryReader(INTS.INT).process(data)
-        self.data_date = DateBinaryReader().process(data)
-        self.analysis_date = DateBinaryReader().process(data)
-        self.end_sample = NumericalBinaryReader(INTS.LONG).process(data)
+        self.n_objects = br.read_numeric(DTYPES.INT32)
+        self.data_date_raw, self.data_date = br.read_timestamp()
+        self.analysis_date_raw, self.analysis_date = br.read_timestamp()
+        self.end_sample = br.read_numeric(DTYPES.INT64)
         if self._file_header.file_format >= 3:
-            self.lowest_uid = NumericalBinaryReader(INTS.LONG).process(data)
-            self.highest_uid = NumericalBinaryReader(INTS.LONG).process(data)
-        self.file_length = NumericalBinaryReader(INTS.LONG).process(data)
-        self.end_reason = NumericalBinaryReader(INTS.INT).process(data)
+            self.lowest_uid = br.read_numeric(DTYPES.INT64)
+            self.highest_uid = br.read_numeric(DTYPES.INT64)
+        self.file_length = br.read_numeric(DTYPES.INT64)
+        self.end_reason = br.read_numeric(DTYPES.INT32)

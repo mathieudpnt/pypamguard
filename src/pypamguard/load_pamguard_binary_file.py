@@ -5,14 +5,15 @@ from pypamguard.core.filters import Filters, DateFilter
 from .logger import logger, Verbosity, logger_config
 import io, json
 from contextlib import contextmanager
+import time
 
 @contextmanager
 def timer(label):
-    logger.info(f"Started {label}")
+    logger.debug(f"Started {label}")
     start_time = time.perf_counter()
     yield
     total_time = time.perf_counter() - start_time
-    logger.info(f"Finished {label} in {total_time:.3f} seconds")
+    logger.debug(f"Finished {label} in {total_time:.3f} seconds")
 
 def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, buffering: int | None = DEFAULT_BUFFER_SIZE, verbosity: Verbosity = Verbosity.INFO, filters: Filters = Filters(), output: io.TextIOWrapper | None = None) -> PGBFile:
     """
@@ -31,7 +32,9 @@ def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_END
                 pgbfile = PGBFile(path=filename, fp=f, order=order, filters=filters)
                 pgbfile.load()
         if output:
+            logger.start_progress_bar(100, "Writing JSON output", show_info=False)
             with timer(f"writing output JSON to {output.name}"):
                 json.dump(pgbfile.to_json(), output, indent=4, separators=(",", ": "))
+            logger.log_progress(100)
     return pgbfile
 

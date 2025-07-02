@@ -15,7 +15,6 @@ if __name__ == "__main__":
         # 'uidlist': WhitelistFilter([5000037])
     })
 
-
     with open("test1.json", "w") as f:
         pgdf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/dataset/ClickDetector/ClickDetector_v4_test1.pgdf", verbosity=Verbosity.INFO, output=f, filters=pg_filters)
         # pdgf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/samples/test.pgdf")

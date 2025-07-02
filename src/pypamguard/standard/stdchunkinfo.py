@@ -1,5 +1,5 @@
 from pypamguard.base import BaseChunk
-from pypamguard.core.readers import *
+from pypamguard.core.readers_new import *
 from pypamguard.generics import GenericChunkInfo
 from pypamguard.utils.constants import IdentifierType
 from pypamguard.core.exceptions import CriticalException, FileCorruptedException
@@ -11,12 +11,10 @@ class StandardChunkInfo(GenericChunkInfo):
         self.length: int = None
         self.identifier: int = None
 
-    def process(self, data):
-        self._start = data.tell()
-        self.length: int = NumericalBinaryReader(INTS.INT, var_name='length').process(data)
-        self.identifier: int = NumericalBinaryReader(INTS.INT, var_name='identifier').process(data)
+    def process(self, br: BinaryReader):
+        self.length, self.identifier = br.read_numeric([DTYPES.INT32, DTYPES.INT32])
         if self.length < 0 or (self.identifier < 0 and self.identifier not in IdentifierType):
-            raise FileCorruptedException(data)
+            raise FileCorruptedException(br.file_offset)
 
     def skip(self, data: io.BufferedReader):
         """Skips the current chunk in the binary file."""

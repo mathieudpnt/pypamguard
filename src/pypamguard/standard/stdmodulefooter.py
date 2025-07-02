@@ -1,7 +1,7 @@
 import io
 
 from pypamguard.generics import GenericChunkInfo, GenericFileHeader, GenericModuleFooter, GenericModuleHeader
-from pypamguard.core.readers import *
+from pypamguard.core.readers_new import *
 
 class StandardModuleFooter(GenericModuleFooter):
     
@@ -12,7 +12,7 @@ class StandardModuleFooter(GenericModuleFooter):
         self.identifier: int = None
         self.binary_length: int = None
     
-    def process(self, data, chunk_info):
+    def process(self, br: BinaryReader, chunk_info):
         self.length = chunk_info.length
         self.identifier = chunk_info.identifier
-        self.binary_length = NumericalBinaryReader(INTS.INT).process(data)
+        self.binary_length = br.read_numeric(DTYPES.INT32)

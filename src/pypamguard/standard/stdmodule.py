@@ -21,11 +21,19 @@ DATA_FLAG_FIELDS = [
     "HASSIGNAL",
     "HASSIGNALEXCESS"
 ]
+import pickle
 
 class StandardModule(GenericModule):
 
     _footer = StandardModuleFooter
     _header = StandardModuleHeader
+
+    def pickleable(self):
+        try:
+            pickle.dumps(self)
+        except pickle.PicklingError:
+            return False
+        return True
 
     def __init__(self, file_header, module_header, filters, *args, **kwargs):
         super().__init__(file_header, module_header, filters, *args, **kwargs)
@@ -45,9 +53,8 @@ class StandardModule(GenericModule):
         self.signal: float = None
         self.signal_excess: float = None
 
-    def process(self, data, chunk_info):
+    def process(self, br: BinaryReader, chunk_info):
 
-        br = BinaryReader(data)
 
         self.millis, self.date = br.read_timestamp()        
         self._filters.filter('daterange', self.date)
