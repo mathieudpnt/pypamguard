@@ -17,18 +17,19 @@ class TypeFormat():
         self.formatter = formatter
         self.size = size
 
+
 class DTYPES(Enum):
-    CHAR = TypeFormat("b",1)
-    UCHAR = TypeFormat("B",1)
-    SHORT = TypeFormat("h",2)
-    USHORT = TypeFormat("H",2)
-    INT = TypeFormat("i",4)
-    UINT = TypeFormat("I",4)
-    LONG = TypeFormat("q",8)
-    ULONG = TypeFormat("Q",8)
-    FLOAT = TypeFormat("f",4)
-    DOUBLE = TypeFormat("d",8)
-    STRING = TypeFormat("s",1)
+    CHAR = TypeFormat(np.int8,1)
+    UCHAR = TypeFormat(np.uint8,1)
+    SHORT = TypeFormat(np.int16,2)
+    USHORT = TypeFormat(np.uint16,2)
+    INT = TypeFormat(np.int32,4)
+    UINT = TypeFormat(np.uint32,4)
+    LONG = TypeFormat(np.int64,8)
+    ULONG = TypeFormat(np.uint64,8)
+    FLOAT = TypeFormat(np.float32,4)
+    DOUBLE = TypeFormat(np.float64,8)
+
 
 class INTS(Enum):
     CHAR = TypeFormat("b",1)

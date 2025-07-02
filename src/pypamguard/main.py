@@ -12,13 +12,14 @@ if __name__ == "__main__":
 
     pg_filters = Filters({
         # 'daterange': DateFilter(d1, d2),
-        # 'uidlist': WhitelistFilter([5001713, 5002388, 5003215, 5008381])
+        # 'uidlist': WhitelistFilter([5000037])
     })
 
 
     with open("test1.json", "w") as f:
-        # pgdf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/dataset/ClickDetector/ClickDetector_v4_test1.pgdf", verbosity=Verbosity.INFO, output=f, filters=pg_filters)
+        pgdf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/dataset/ClickDetector/ClickDetector_v4_test1.pgdf", verbosity=Verbosity.INFO, output=f, filters=pg_filters)
         # pdgf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/samples/test.pgdf")
-        # pgdf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/samples/RW_Edge_Detector_Right_Whale_Edge_Detector_Edges_20090328_000000.pgdf")
+        # pgdf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/samples/RW_Edge_Detector_Right_Whale_Edge_Detector_Edges_20090328_000000.pgdf", verbosity=Verbosity.DEBUG, output=f)
         #pgdf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/samples/Clip_Generator_Clip_generator_Clips_20170903_222955.pgdf", verbosity=Verbosity.DEBUG)
-        pgdf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/samples/WhistlesMoans_Whistle_and_Moan_Detector_Contours_20240806_121502.pgdf", output=f, verbosity=Verbosity.INFO)
+        # pgdf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/dataset/WhistlesMoans/WhistlesMoans_v2_test1.pgdf", output=f, verbosity=Verbosity.INFO)
+        # print(pgdf.data[0])

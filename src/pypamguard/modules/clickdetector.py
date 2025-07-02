@@ -1,5 +1,6 @@
 from pypamguard.standard import StandardModule, StandardModuleFooter
-from pypamguard.core.readers import *
+
+from pypamguard.core.readers_new import *
 
 class ClickDetectorFooter(StandardModuleFooter):
 
@@ -11,10 +12,11 @@ class ClickDetectorFooter(StandardModuleFooter):
 
     def process(self, data, chunk_info):
         super().process(data, chunk_info)
+        br = BinaryReader(data)
 
         if self.binary_length > 0:
-            self.types_count_length = NumericalBinaryReader(INTS.SHORT).process(data)
-            if self.types_count_length > 0: self.types_count = NumericalBinaryReader(INTS.INT, shape = self.types_count_length).process(data)
+            self.types_count_length = br.read_numeric(DTYPES.INT16)
+            if self.types_count_length > 0: self.types_count = br.read_numeric(DTYPES.INT32, shape=self.types_count_length)
             else: self.types_count = []
 
 class ClickDetector(StandardModule):
@@ -39,36 +41,35 @@ class ClickDetector(StandardModule):
     def process(self, data, chunk_info):
         super().process(data, chunk_info)
 
+        br = BinaryReader(data)
+
         # data_length should be INTS.INT but fsm this works
-        data_length = NumericalBinaryReader(INTS.INT, var_name='data_length').process(data)
+        data_length = br.read_numeric(DTYPES.INT32)
 
         if self._module_header.version <= 3:
-            self.start_sample = NumericalBinaryReader(INTS.LONG, var_name='start_sample').process(data)
-            self.channel_map = BitmapBinaryReader(INTS.INT, var_name='channel_map').process(data)
+            self.start_sample, self.channel_map = br.read_numeric([DTYPES.INT64, DTYPES.INT32])
 
         self.n_chan = len(self.channel_map.get_set_bits())
 
-        self.trigger_map = BitmapBinaryReader(INTS.INT, var_name='trigger_map').process(data)
-        self.type = NumericalBinaryReader(INTS.SHORT, var_name='type').process(data)
-        self.flags = BitmapBinaryReader(INTS.INT, var_name='flags').process(data)
+        self.trigger_map, self.type = br.read_numeric([DTYPES.INT32, DTYPES.INT16])
+        self.flags = br.read_bitmap(DTYPES.INT32)
 
         if self._module_header.version <= 3:
-            n_delays = NumericalBinaryReader(INTS.SHORT, var_name='n_delays').process(data)
-            if n_delays: self.delays = NumericalBinaryReader(FLOATS.FLOAT, var_name='delays').process(data)
+            n_delays = br.read_numeric(DTYPES.INT16)
+            if n_delays: self.delays = br.read_numeric(DTYPES.FLOAT32, shape=n_delays)
 
-        n_angles = NumericalBinaryReader(INTS.SHORT, var_name='n_angles').process(data)
-        if n_angles: self.angles = NumericalBinaryReader(FLOATS.FLOAT, shape=n_angles, var_name='angles').process(data)
+        n_angles = br.read_numeric(DTYPES.INT16)
+        if n_angles: self.angles = br.read_numeric(DTYPES.FLOAT32, shape=n_delays)
         
-        n_angle_errors = NumericalBinaryReader(INTS.SHORT, var_name='n_angle_errors').process(data)
-        if n_angle_errors: self.angle_errors = NumericalBinaryReader(FLOATS.FLOAT, shape=n_angle_errors, var_name='angle_errors').process(data)
+        n_angle_errors = br.read_numeric(DTYPES.INT16)
+        if n_angle_errors: self.angle_errors = br.read_numeric(DTYPES.FLOAT32, shape=n_angle_errors)
 
-        if self._module_header.version <= 3: self.duration = NumericalBinaryReader(INTS.USHORT, var_name='duration').process(data)
+        if self._module_header.version <= 3: self.duration = br.read_numeric(DTYPES.UINT16)
         else: self.duration = self.sample_duration
 
-        max_val = NumericalBinaryReader(FLOATS.FLOAT, var_name='max_val').process(data)
+        max_val = br.read_numeric(DTYPES.FLOAT32)
 
         def normalize_wave(x):
-            result = x * max_val / 127
-            return np.round(result, 4)
+            return np.round(x * max_val / 127, 4)
 
-        self.wave = NumericalBinaryReader(INTS.CHAR, post_processor=normalize_wave, shape=(len(self.channel_map.get_set_bits()), self.duration), var_name='wave').process(data)
+        self.wave = br.read_numeric((DTYPES.INT8, normalize_wave), shape=(self.n_chan, self.duration))

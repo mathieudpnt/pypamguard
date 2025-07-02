@@ -5,11 +5,16 @@ import datetime
 from pypamguard.utils.bitmap import Bitmap
 from pypamguard.utils.serializer import serialize
 from pypamguard.core.serializable import Serializable
+from pypamguard.logger import logger
 
 class BaseChunk(Serializable, ABC):
 
     def __init__(self, *args, **kwargs):
         pass
+
+    def __setattr__(self, name, value):
+        if name: logger.debug(f"Setting {name} ({type(value)}) = {str(value)}")
+        super().__setattr__(name, value)
 
     @abstractmethod
     def process(self, data: io.BufferedReader):

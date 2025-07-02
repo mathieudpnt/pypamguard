@@ -3,7 +3,7 @@ import datetime
 from pypamguard.generics import GenericModule, GenericModuleFooter
 from .stdmodulefooter import StandardModuleFooter
 from .stdmoduleheader import StandardModuleHeader
-from pypamguard.core.readers import *
+from pypamguard.core.readers_new import *
 
 DATA_FLAG_FIELDS = [
     "TIMEMILLISECONDS",
@@ -47,56 +47,52 @@ class StandardModule(GenericModule):
 
     def process(self, data, chunk_info):
 
-        self.millis = NumericalBinaryReader(INTS.LONG, var_name='millis').process(data)
-        
-        self.date = datetime.datetime.fromtimestamp(self.millis / 1000, datetime.UTC)
+        br = BinaryReader(data)
+
+        self.millis, self.date = br.read_timestamp()        
         self._filters.filter('daterange', self.date)
 
-        self.flag_bitmap = BitmapBinaryReader(INTS.SHORT, DATA_FLAG_FIELDS, var_name='flag_bitmap').process(data)
+        self.flag_bitmap = br.read_bitmap(DTYPES.INT16, DATA_FLAG_FIELDS)
         set_flags = self.flag_bitmap.get_set_bits()
         
         if "TIMENANOSECONDS" in set_flags:
-            self.time_ns = NumericalBinaryReader(INTS.LONG, var_name='time_ns').process(data)
+            self.time_ns = br.read_numeric(DTYPES.INT64)
         
         if "CHANNELMAP" in set_flags:
-            self.channel_map = BitmapBinaryReader(INTS.INT, var_name='channel_map').process(data)
+            self.channel_map = br.read_bitmap(DTYPES.INT32)
         
         if "UID" in set_flags:
-            self.uid = NumericalBinaryReader(INTS.LONG, var_name='uid').process(data)
+            self.uid = br.read_numeric(DTYPES.INT64)
             self._filters.filter('uidrange', self.uid)
             self._filters.filter('uidlist', self.uid)
         
         if "STARTSAMPLE" in set_flags:
-            self.start_sample = NumericalBinaryReader(INTS.LONG, var_name='start_sample').process(data)
+            self.start_sample = br.read_numeric(DTYPES.INT64)
         
         if "SAMPLEDURATION" in set_flags:
-            self.sample_duration = NumericalBinaryReader(INTS.INT, var_name='sample_duration').process(data)
+            self.sample_duration = br.read_numeric(DTYPES.INT32)
         
         if "FREQUENCYLIMITS" in set_flags:
-            self.freq_limits = [
-                NumericalBinaryReader(FLOATS.FLOAT).process(data), NumericalBinaryReader(FLOATS.FLOAT, var_name='freq_limits').process(data)
-            ]
+            self.freq_limits = br.read_numeric(DTYPES.FLOAT32, shape=(2,))
 
         if "MILLISDURATION" in set_flags:
-            self.millis_duration = NumericalBinaryReader(FLOATS.FLOAT, var_name='millis_duration').process(data)
+            self.millis_duration = br.read_numeric(DTYPES.FLOAT32)
         
         if "TIMEDELAYSECONDS" in set_flags:
-            self.time_delays = []
-            num_time_delays = NumericalBinaryReader(INTS.SHORT, var_name='num_time_delays').process(data)
-            for i in range(num_time_delays):
-                self.time_delays.append(NumericalBinaryReader(FLOATS.FLOAT, var_name='time_delays').process(data))
+            num_time_delays = br.read_numeric(DTYPES.INT16)
+            self.time_delays = br.read_numeric(DTYPES.FLOAT32, shape=(num_time_delays,))
 
         if "HASSEQUENCEMAP" in set_flags:
-            self.sequence_map = NumericalBinaryReader(INTS.INT, var_name='sequence_map').process(data)
+            self.sequence_map = br.read_numeric(DTYPES.INT32)
 
         if "HASNOISE" in set_flags:
-            self.noise = NumericalBinaryReader(FLOATS.FLOAT, var_name='noise').process(data)
+            self.noise = br.read_numeric(DTYPES.FLOAT32)
 
         if "HASSIGNAL" in set_flags:
-            self.signal = NumericalBinaryReader(FLOATS.FLOAT, var_name='signal').process(data)
+            self.signal = br.read_numeric(DTYPES.FLOAT32)
 
         if "HASSIGNALEXCESS" in set_flags:
-            self.signal_excess = NumericalBinaryReader(FLOATS.FLOAT, var_name='signal_excess').process(data)
+            self.signal_excess = br.read_numeric(DTYPES.FLOAT32)
 
         # NOT COMPLETED YET
         # if "HASBINARYANNOTATIONS" in set_flags:

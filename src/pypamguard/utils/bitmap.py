@@ -7,7 +7,7 @@ class Bitmap:
         is labelled when a list of fields is provided and each
         bit corresponds to a field.
         
-        :param size: the number of bits in the bitmap
+        :param size: the number of bytes in the bitmap
         :param fields: a list of fields to label the bitmap from least significant to most significant.
             (defaults to None, in which case the bitmap is unlabelled and each bit corresponds only to an index)
         :param value: the initial value of the bitmap (defaults to 0)
@@ -33,21 +33,21 @@ class Bitmap:
     def set(self, field_or_index):
         """Sets the field or index in the bitmap. """
         index = self.__get_index(field_or_index)
-        if index < 0 or index >= self.size:
+        if index < 0 or index >= (self.size * 8):
             raise ValueError("Index out of range")
         self.bits |= 1 << index
     
     def clear(self, field_or_index):
         """Clears the field or index in the bitmap. """
         index = self.__get_index(field_or_index)
-        if index < 0 or index >= self.size:
+        if index < 0 or index >= (self.size * 8):
             raise ValueError("Index out of range")
         self.bits &= ~(1 << index)
     
     def is_set(self, field_or_index):
         """Returns True if the field or index is set in the bitmap. """
         index = self.__get_index(field_or_index)
-        if index < 0 or index >= self.size:
+        if index < 0 or index >= (self.size * 8):
             raise ValueError("Index out of range")
         return (self.bits & (1 << index)) != 0
 
@@ -55,12 +55,15 @@ class Bitmap:
         """Returns a list of fields or indices that are set in the bitmap. """
         return [
             self.index2fields.get(index, index)
-            for index in range(self.size)
+            for index in range(self.size * 8)
             if (self.bits & (1 << index)) != 0
         ]
+    
+    def get_binary_representation(self):
+        return bin(self.bits)[2:].zfill(self.size * 8)
 
     def __len__(self):
-        return self.size
+        return self.size * 8
 
     def __repr__(self):
         return f"Bitmap(size={self.size}, bits={self.bits}, set_bits={self.get_set_bits()})"

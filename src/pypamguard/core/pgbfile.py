@@ -10,6 +10,7 @@ from pypamguard.core.readers import BYTE_ORDERS
 from pypamguard.core.filters import Filters, FILTER_POSITION, FilterMismatchException
 from pypamguard.logger import logger
 from pypamguard.core.serializable import Serializable
+import threading
 
 class Report(Serializable):
     warnings = []
@@ -146,6 +147,7 @@ class PGBFile(Serializable):
                 self.__module_header = self.__process_chunk(self.__module_class._header(self.__file_header), chunk_info)
 
             elif chunk_info.identifier >= 0:
+
                 if not self.module_header: raise StructuralException(self.__fp, "Module header not found before data")
                 
                 # If filter is set to terminate, skip the chunk
