@@ -8,7 +8,7 @@ from pypamguard.core.registry import ModuleRegistry
 from pypamguard.utils.constants import IdentifierType
 from pypamguard.core.readers import BYTE_ORDERS
 from pypamguard.core.filters import Filters, FILTER_POSITION, FilterMismatchException
-from pypamguard.logger import logger
+from pypamguard.logger import logger, ProgressBar
 from pypamguard.core.serializable import Serializable
 import threading
 from pypamguard.core.readers_new import *
@@ -16,7 +16,7 @@ import concurrent.futures
 import multiprocessing
 import time, os
 import sys
-import tqdm
+import gc
 
 class Report(Serializable):
     warnings = []
@@ -31,19 +31,18 @@ class Report(Serializable):
         return f"{len(self.warnings)} warnings.\n"
 
 
-def process_chunk(binary_reader: BinaryReader, chunk: GenericFileHeader | GenericModuleHeader | GenericModule | GenericModuleFooter | GenericFileFooter, chunk_info: StandardChunkInfo, reconcile_chunk_length: bool = True, i = None):
-    # try:
-    chunk.process(binary_reader, chunk_info)
-    logger.debug(f"Processed chunk: {chunk.__class__} - {chunk}")
-    # except FilterMismatchException as e:
-    #     chunk_info.skip(self.__fp)
-    #     logger.debug(f"Filter skipped chunk: {chunk.__class__} - {chunk}")
-    #     return
-    # except (WarningException) as e:
-    #     self.__report.add_warning(e)
-    #     chunk_info.skip(self.__fp)
-    #     return
-    logger.log_progress(binary_reader.file_offset)
+def process_chunk(binary_reader: BinaryReader, chunk: GenericFileHeader | GenericModuleHeader | GenericModule | GenericModuleFooter | GenericFileFooter, chunk_info: StandardChunkInfo, progress_bar: ProgressBar = None):
+    try:
+        chunk.process(binary_reader, chunk_info)
+        logger.debug(f"Processed chunk: {chunk.__class__} - {chunk}")
+    except FilterMismatchException as e:
+        # chunk_info.skip(self.__fp)
+        # logger.debug(f"Filter skipped chunk: {chunk.__class__} - {chunk}")
+        return chunk
+    except (WarningException) as e:
+        # self.__report.add_warning(e)
+        # chunk_info.skip(self.__fp)
+        return
     return chunk
 
 class PGBFile(Serializable):
@@ -130,13 +129,18 @@ class PGBFile(Serializable):
         
     def load(self):
         self.__fp.seek(0, io.SEEK_SET) # reset
-        logger.start_progress_bar(self.__size, f"Processing", unit="KB", scale=1/1024, rounding=0)
+        progress_bar = ProgressBar(
+            name="Processing",
+            limit=self.__size,
+            scale=1/1024,
+            unit="KB",
+            rounding=0
+        )
         
         chunk_info = StandardChunkInfo()
 
-        with multiprocessing.Pool(processes=20) as pool:
+        with multiprocessing.Pool(processes=4) as pool:
             futures = []
-            i = 0
             while True:
                 start_pos = self.__fp.tell()
 
@@ -147,19 +151,20 @@ class PGBFile(Serializable):
 
                 chunk_info.process(BinaryReader(self.__fp, 8))
                 
+                
                 if chunk_info.identifier == IdentifierType.FILE_HEADER.value:
-                    chunk_info.length = 107
+                    chunk_info.length += 4
                     binary_reader = BinaryReader(self.__fp, chunk_info.length - 8)
-                    self.__file_header = process_chunk(binary_reader, self.__file_header, chunk_info, reconcile_chunk_length=False)
-                    self.__module_class = self.__module_registry.get_module(self.__file_header.module_name)
-
-
+                    self.__file_header = process_chunk(binary_reader, self.__file_header, chunk_info)
+                    self.__module_class = self.__module_registry.get_module(self.__file_header.module_type)
+                    
+                    del binary_reader
 
                 elif chunk_info.identifier == IdentifierType.MODULE_HEADER.value:
                     binary_reader = BinaryReader(self.__fp, chunk_info.length - 8)
                     if not self.__file_header: raise StructuralException(self.__fp, "File header not found before module header")
                     self.__module_header = process_chunk(binary_reader, self.__module_class._header(self.__file_header), chunk_info)
-
+                    del binary_reader
 
                 elif chunk_info.identifier >= 0:
                     binary_reader = BinaryReader(self.__fp, chunk_info.length - 8)
@@ -171,25 +176,44 @@ class PGBFile(Serializable):
                         continue
 
                     args = (binary_reader, self.__module_class(self.__file_header, self.__module_header, self.__filters), chunk_info)
-                    future = pool.apply_async(process_chunk, args)
-                    i += 1
-                    futures.append(future)
+                    futures.append(pool.apply_async(process_chunk, args))
+                    progress_bar.update(binary_reader.file_offset)
+                    del binary_reader
 
                 elif chunk_info.identifier == IdentifierType.MODULE_FOOTER.value:
                     binary_reader = BinaryReader(self.__fp, chunk_info.length - 8)
                     if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before module footer")
                     self.__module_footer = process_chunk(binary_reader, self.__module_class._footer(self.__file_header, self.__module_header), chunk_info)
+                    del binary_reader
 
                 elif chunk_info.identifier == IdentifierType.FILE_FOOTER.value:
                     binary_reader = BinaryReader(self.__fp, chunk_info.length - 8)
                     if not self.__file_header: raise StructuralException(self.__fp, "File header not found before file footer")
                     self.__file_footer = process_chunk(binary_reader, self.__file_footer, chunk_info)
+                    del binary_reader
 
-            for future in futures:
+            progress_bar.complete()
+            del progress_bar
+            progress_bar = ProgressBar(
+                name="Collecting",
+                limit=len(futures),
+                scale=1,
+                unit="objects",
+                rounding=0
+            )
+            for i, future in enumerate(futures):
                 chunk = future.get()
-                if chunk: self.__data.append(chunk)
+                if chunk and not chunk._filters.position in (FILTER_POSITION.SKIP, FILTER_POSITION.STOP): self.__data.append(chunk)
+                elif chunk._filters.position == FILTER_POSITION.STOP:
+                    # for future in futures[i+1:]: future.cancel()
+                    pool.close()
+                    break
+                progress_bar.update(i)
+                
+            progress_bar.complete()
 
-            logger.log_progress(self.__fp.tell())
+        
+        del progress_bar
 
         return chunk
 

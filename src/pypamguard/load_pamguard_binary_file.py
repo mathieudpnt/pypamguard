@@ -32,9 +32,12 @@ def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_END
                 pgbfile = PGBFile(path=filename, fp=f, order=order, filters=filters)
                 pgbfile.load()
         if output:
-            logger.start_progress_bar(100, "Writing JSON output", show_info=False)
+            # logger.start_progress_bar(limit=100, name="Writing JSON output", unit="MB", scale=1/1024 ** 2, rounding=2, show_info=False)
+            json_data = json.dumps(pgbfile.to_json(), indent=0, separators=(",", ": "))
+            json_size = len(json_data.encode())
+            # logger.update_progress_bar(limit=json_size, show_info=True)
             with timer(f"writing output JSON to {output.name}"):
-                json.dump(pgbfile.to_json(), output, indent=4, separators=(",", ": "))
-            logger.log_progress(100)
+                output.write(json_data)
+            # logger.log_progress(json_size)
     return pgbfile
 

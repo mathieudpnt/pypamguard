@@ -179,3 +179,6 @@ class Filters:
         for filter in self.__filters:
             ret += f"\t{filter}: {self.__filters[filter]}\n"
         return ret
+    
+    def __len__(self):
+        return len(self.__filters)

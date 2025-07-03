@@ -1,20 +1,11 @@
 from abc import ABC, abstractmethod
 import io
-import numpy as np
-import datetime
-from pypamguard.utils.bitmap import Bitmap
-from pypamguard.utils.serializer import serialize
 from pypamguard.core.serializable import Serializable
-from pypamguard.logger import logger
 
 class BaseChunk(Serializable, ABC):
 
     def __init__(self, *args, **kwargs):
         pass
-
-    def __setattr__(self, name, value):
-        if name: logger.debug(f"Setting {name} ({type(value)}) = {str(value)}")
-        super().__setattr__(name, value)
 
     @abstractmethod
     def process(self, data: io.BufferedReader):
@@ -46,10 +37,3 @@ class BaseChunk(Serializable, ABC):
                     lines[-1] += f"{value}"
 
         return '\t' + '\n\t'.join(lines)
-    
-    # def json(self):
-    #     re = {}
-    #     for attr, value in self.__dict__.items():
-    #         if not attr.startswith('_'):
-    #             re[attr] = serialize(value)
-    #     return re

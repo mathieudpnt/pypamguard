@@ -15,7 +15,7 @@ class ClickDetectorFooter(StandardModuleFooter):
 
         if self.binary_length > 0:
             self.types_count_length = br.read_numeric(DTYPES.INT16)
-            if self.types_count_length > 0: self.types_count = br.read_numeric(DTYPES.INT32, shape=self.types_count_length)
+            if self.types_count_length > 0: self.types_count = br.read_numeric(DTYPES.INT32, shape=(self.types_count_length,))
             else: self.types_count = []
 
 class ClickDetector(StandardModule):
@@ -56,7 +56,7 @@ class ClickDetector(StandardModule):
             if n_delays: self.delays = br.read_numeric(DTYPES.FLOAT32, shape=n_delays)
 
         n_angles = br.read_numeric(DTYPES.INT16)
-        if n_angles: self.angles = br.read_numeric(DTYPES.FLOAT32, shape=n_delays)
+        if n_angles: self.angles = br.read_numeric(DTYPES.FLOAT32, shape=n_angles)
         
         n_angle_errors = br.read_numeric(DTYPES.INT16)
         if n_angle_errors: self.angle_errors = br.read_numeric(DTYPES.FLOAT32, shape=n_angle_errors)

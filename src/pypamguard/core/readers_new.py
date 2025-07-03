@@ -69,7 +69,7 @@ class BinaryReader:
         4. Read in an interleaved array of values of a given datatype (for example `read_numeric([DTYPES.INT32, DTYPES.INT32], (5,))`).
 
         """
-
+        if not type(shape) == tuple: shape = (shape,)
         dtypes = [(dtype_i, None) if isinstance(dtype_i, DTYPES) else dtype_i for dtype_i in ([dtype] if not isinstance(dtype, list) else dtype)]
         data_length = sum(dtype_i[0].value.itemsize for dtype_i in dtypes) * np.prod(shape)   
         data = np.frombuffer(self.__read(data_length), dtype=[(f'f{i}', dtype_i[0].value) for i, dtype_i in enumerate(dtypes)])
