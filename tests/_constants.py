@@ -3,6 +3,7 @@ import os
 DATASET_PATH = os.path.join("tests", "dataset")
 CLICK_DETECTOR_DIR = os.path.join(DATASET_PATH, "ClickDetector")
 WHISTLES_MOANS_DIR = os.path.join(DATASET_PATH, "WhistlesMoans")
+LTSA_DIR = os.path.join(DATASET_PATH, "LTSA")
 
 TESTS = [
     {
@@ -28,5 +29,11 @@ TESTS = [
         "filename": "WhistlesMoans_v2_test1",
         "directory": WHISTLES_MOANS_DIR,
         "keyword": "WhistlesMoans"
+    },
+    {
+        "json": "LTSA_v2_test1.json",
+        "filename": "LTSA_v2_test1",
+        "directory": LTSA_DIR,
+        "keyword": "LTSA"
     }
 ]

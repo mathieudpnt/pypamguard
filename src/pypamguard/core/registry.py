@@ -2,6 +2,7 @@
 # A module for registering the available modules (subclasses of PAMChunk)
 
 from pypamguard.modules import *
+from pypamguard.modules.ltsa import LTSA
 from pypamguard.generics import GenericModule
 from pypamguard.core.exceptions import ModuleNotFoundException
 
@@ -9,7 +10,8 @@ MODULES = {
     "Click Detector": ClickDetector,
     "Right Whale Edge Detector": RWEdgeDetector,
     "Clip generator": ClipGenerator,
-    "Whistle and Moan Detector": WhistleAndMoanDetector
+    "Whistle and Moan Detector": WhistleAndMoanDetector,
+    "Long Term Spectral Average": LTSA,
 }
 
 def module_metadata(module):

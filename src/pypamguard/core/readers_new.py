@@ -96,6 +96,7 @@ class BinaryReader:
         bin_read(DTYPES.FLOAT32, (5, 2))
         ```
         """
+        if type(shape) != tuple: shape = (shape,)
         dtypes = [(dtype_i, None) if isinstance(dtype_i, DTYPES) else dtype_i for dtype_i in ([dtype] if not isinstance(dtype, list) else dtype)]
         data = np.frombuffer(self.__read(sum(dtype_i[0].value.itemsize for dtype_i in dtypes) * np.prod(shape)   ), dtype=[(f'f{i}', dtype_i[0].value.newbyteorder(ENDIANESS)) for i, dtype_i in enumerate(dtypes)])
         ret_val = tuple(self.__collate(data, dtypes, shape))

@@ -187,7 +187,7 @@ class PGBFile(Serializable):
                         logger.debug(f"Processing data chunk {i}")
                         i += 1
                         if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
-                        args = (self.__module_class(self.__file_header, self.__module_header, self.__filters), chunk_info, self.__fp.fileno(), chunk_pos, True)
+                        args = (self.__module_class(self.__file_header, self.__module_header, self.__filters), chunk_info, self.__fp.fileno(), chunk_pos, False)
                         futures.append(pool.apply_async(create_mmap_and_process_chunk, args))
                         # Because we are asynchronously processing chunks, we need to seek to the end of the chunk manually
                         mm.seek(chunk_pos + chunk_info.length - chunk_info._measured_length, io.SEEK_SET)
