@@ -23,16 +23,29 @@ If you want to learn more about how these files are produced, please inspect the
 
 ### Installation
 
-Before proceeding, ensure you have Python installed on your local Windows, Linux or MacOS system. You can install PyPAMGuard from the [Python Package Index](https://pypi.org/) using the following command.
+Before proceeding, ensure you have Python installed on your local Windows, Linux or MacOS system.
+
+#### Python Package Index
+
+>NOT READY YET. SEE 'CLONED REPOSITORY' BELOW FOR ALTERNATIVE.
+
+You can install PyPAMGuard from the [Python Package Index](https://pypi.org/) using the following command.
 ```
 pip install pypamguard
 ```
+
+#### Cloned Repository
+
+Clone the PyPAMGuard repository onto your local system using `git clone`. Note that this will download all assets of the program including the automated tests and associated binary files (for a leightweight version take what is in the `src` directory or download `pypamguard` from Pip).
+
+From within the `src/` directory, start a Python shell. If running another program with a PyPAMGuard dependency, ensure `src/pypamguard/` is in the working directory. You can now follow the Quick Start guide below for basic functionality.
 
 ### Quick Start
 
 Processing a data file using PyPAMGuard is as easy as importing the library, and calling one function, passing in the path to the data file. This will return a `core.PGBFile` object.
 
 ```python
+# file.py
 import pypamguard
 df = pypamguard.load_binary_data_file('path/to/data/file.pgdf')
 ```
@@ -49,8 +62,8 @@ df.file_footer # file footer
 Access the module data itself like so.
 
 ```python
-len(df.data_set) # number of module data chunks
-df.data_set[0] # the first module data chunk
+len(df.data) # number of module data chunks
+df.data[0] # the first module data chunk
 ```
 
 All headers, footers, and module data, contain attributes that were read from the binary file. For example, each file header will **always** contain a `version`. This can intuitively be accessed like an attribute of an object. Some example are shown below.

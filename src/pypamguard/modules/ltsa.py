@@ -17,6 +17,7 @@ class LTSAHeader(StandardModuleHeader):
 class LTSA(StandardModule):
 
     _header = LTSAHeader
+    _minimum_version = 2
 
     a = 127 * 2 / np.log(32767)
     b = -127
