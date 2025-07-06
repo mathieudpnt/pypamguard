@@ -12,11 +12,10 @@ class WhistleAndMoanDetectorHeader(StandardModuleHeader):
 
         self.delay_scale: int = None
     
-    def process(self, br, chunk_info):
-        super().process(br, chunk_info)
+    def _process(self, br, chunk_info):
+        super()._process(br, chunk_info)
         if self.binary_length != 0:
-            self.delay_scale = br.read_numeric(DTYPES.INT32)
-            print(self.delay_scale, type(self.delay_scale))
+            self.delay_scale = br.bin_read(DTYPES.INT32)
 
 class WhistleAndMoanDetector(StandardModule):
 
@@ -36,14 +35,14 @@ class WhistleAndMoanDetector(StandardModule):
 
         
     
-    def process(self, br, chunk_info):
-        super().process(br, chunk_info)
-        data_length = br.read_numeric(DTYPES.INT32)
+    def _process(self, br, chunk_info):
+        super()._process(br, chunk_info)
+        data_length = br.bin_read(DTYPES.INT32)
 
         # self.n_slices = br.read_numeric(DTYPES.INT16)
         # self.amplitude = br.read_numeric(DTYPES.INT16) / 100
 
-        self.n_slices, self.amplitude = br.read_numeric([(DTYPES.INT16), (DTYPES.INT16, lambda x: x / 100)])
+        self.n_slices, self.amplitude = br.bin_read([(DTYPES.INT16), (DTYPES.INT16, lambda x: x / 100)])
 
         self.slice_numbers = np.ndarray((self.n_slices,), dtype=np.int32)
         self.n_peaks = np.ndarray((self.n_slices,), dtype=np.int8)
@@ -52,9 +51,9 @@ class WhistleAndMoanDetector(StandardModule):
         self.contour_width = np.ndarray((self.n_slices), dtype=np.int16)
 
         for i in range(self.n_slices):
-            self.slice_numbers[i] = br.read_numeric(DTYPES.INT32)
-            self.n_peaks[i] = br.read_numeric(DTYPES.INT8)
-            self.peak_data[i] = br.read_numeric(DTYPES.INT16, (self.n_peaks[i], 4))            
+            self.slice_numbers[i] = br.bin_read(DTYPES.INT32)
+            self.n_peaks[i] = br.bin_read(DTYPES.INT8)
+            self.peak_data[i] = br.bin_read(DTYPES.INT16, (self.n_peaks[i], 4))            
             self.contour[i] = self.peak_data[i][0][1]
             self.contour_width[i] = self.peak_data[i][0][2] - self.peak_data[i][0][0] + 1
         

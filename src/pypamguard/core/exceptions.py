@@ -29,7 +29,7 @@ class ChunkLengthMismatch(WarningException):
         super().__init__(file, chunk_info, chunk)
     
     def __str__(self):
-        return super().__str__() + f", expected position {self.chunk_info.next_chunk if self.chunk_info else 'unknown'} bytes"
+        return super().__str__() + f", expected chunk length {self.chunk_info.length if self.chunk_info else 'unknown'} bytes, got {self.chunk._measured_length + self.chunk_info._measured_length if self.chunk else 'unknown'} bytes"
 
 class CriticalException(BinaryFileException):
     pass

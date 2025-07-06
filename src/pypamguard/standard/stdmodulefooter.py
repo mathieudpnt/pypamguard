@@ -12,7 +12,7 @@ class StandardModuleFooter(GenericModuleFooter):
         self.identifier: int = None
         self.binary_length: int = None
     
-    def process(self, br: BinaryReader, chunk_info):
+    def _process(self, br: BinaryReader, chunk_info):
         self.length = chunk_info.length
         self.identifier = chunk_info.identifier
-        self.binary_length = br.read_numeric(DTYPES.INT32)
+        self.binary_length = br.bin_read(DTYPES.INT32)

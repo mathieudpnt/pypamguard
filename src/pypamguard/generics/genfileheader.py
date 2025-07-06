@@ -20,8 +20,3 @@ class GenericFileHeader(BaseChunk, ABC):
         self.module_name: str = None
         self.stream_name: str = None
         self.extra_info_len: int = None
-
-
-    @abstractmethod
-    def process(self, data, chunk_info):
-        raise NotImplementedError()

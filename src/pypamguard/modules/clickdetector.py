@@ -1,6 +1,6 @@
 from pypamguard.standard import StandardModule, StandardModuleFooter
-
 from pypamguard.core.readers_new import *
+from pypamguard.logger import logger
 
 class ClickDetectorFooter(StandardModuleFooter):
 
@@ -10,12 +10,12 @@ class ClickDetectorFooter(StandardModuleFooter):
         self.types_count_length: int = None
         self.types_count: list[int] = None
 
-    def process(self, br, chunk_info):
-        super().process(br, chunk_info)
+    def _process(self, br, chunk_info):
+        super()._process(br, chunk_info)
 
         if self.binary_length > 0:
-            self.types_count_length = br.read_numeric(DTYPES.INT16)
-            if self.types_count_length > 0: self.types_count = br.read_numeric(DTYPES.INT32, shape=(self.types_count_length,))
+            self.types_count_length = br.bin_read(DTYPES.INT16)
+            if self.types_count_length > 0: self.types_count = br.bin_read(DTYPES.INT32, shape=(self.types_count_length,))
             else: self.types_count = []
 
 class ClickDetector(StandardModule):
@@ -37,36 +37,31 @@ class ClickDetector(StandardModule):
         self.duration: int = None
         self.wave: np.ndarray = None
 
-    def process(self, br, chunk_info):
-        super().process(br, chunk_info)
+    def _process(self, br, chunk_info):
+        super()._process(br, chunk_info)
 
-        # data_length should be INTS.INT but fsm this works
-        data_length = br.read_numeric(DTYPES.INT32)
-
-        if self._module_header.version <= 3:
-            self.start_sample, self.channel_map = br.read_numeric([DTYPES.INT64, DTYPES.INT32])
-
+        data_length = br.bin_read(DTYPES.INT32)
         self.n_chan = len(self.channel_map.get_set_bits())
 
-        self.trigger_map, self.type = br.read_numeric([DTYPES.INT32, DTYPES.INT16])
-        self.flags = br.read_bitmap(DTYPES.INT32)
-
         if self._module_header.version <= 3:
-            n_delays = br.read_numeric(DTYPES.INT16)
-            if n_delays: self.delays = br.read_numeric(DTYPES.FLOAT32, shape=n_delays)
+            self.start_sample, self.channel_map = br.bin_read([DTYPES.INT64, DTYPES.INT32])
 
-        n_angles = br.read_numeric(DTYPES.INT16)
-        if n_angles: self.angles = br.read_numeric(DTYPES.FLOAT32, shape=n_angles)
+        self.trigger_map, self.type = br.bin_read([DTYPES.INT32, DTYPES.INT16])
+        self.flags = br.bitmap_read(DTYPES.INT32)
         
-        n_angle_errors = br.read_numeric(DTYPES.INT16)
-        if n_angle_errors: self.angle_errors = br.read_numeric(DTYPES.FLOAT32, shape=n_angle_errors)
-
-        if self._module_header.version <= 3: self.duration = br.read_numeric(DTYPES.UINT16)
+        if self._module_header.version <= 3:
+            n_delays = br.bin_read(DTYPES.INT16)
+            if n_delays: self.delays = br.bin_read(DTYPES.FLOAT32, shape=n_delays)
+        
+        n_angles = br.bin_read(DTYPES.INT16)
+        if n_angles: self.angles = br.bin_read(DTYPES.FLOAT32, shape=n_angles)
+        
+        n_angle_errors = br.bin_read(DTYPES.INT16)
+        if n_angle_errors: self.angle_errors = br.bin_read(DTYPES.FLOAT32, shape=n_angle_errors)
+        
+        if self._module_header.version <= 3: self.duration = br.bin_read(DTYPES.UINT16)
         else: self.duration = self.sample_duration
-
-        max_val = br.read_numeric(DTYPES.FLOAT32)
-
-        def normalize_wave(x):
-            return np.round(x * max_val / 127, 4)
-
-        self.wave = br.read_numeric((DTYPES.INT8, normalize_wave), shape=(self.n_chan, self.duration))
+        
+        max_val = br.bin_read(DTYPES.FLOAT32)
+        def normalize_wave(x): return np.round(x * max_val / 127, 4)
+        self.wave = br.bin_read((DTYPES.INT8, normalize_wave), shape=(self.n_chan, self.duration))

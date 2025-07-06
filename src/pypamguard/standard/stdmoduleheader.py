@@ -11,8 +11,8 @@ class StandardModuleHeader(GenericModuleHeader):
         self.version: str = None
         self.binary_length: int = None
 
-    def process(self, br: BinaryReader, chunk_info):
+    def _process(self, br: BinaryReader, chunk_info):
         self.length = chunk_info.length
         self.identifier = chunk_info.identifier
-        self.version: int = br.read_numeric(DTYPES.INT32)
-        self.binary_length: int = br.read_numeric(DTYPES.INT32)
+        self.version: int = br.bin_read(DTYPES.INT32)
+        self.binary_length: int = br.bin_read(DTYPES.INT32)

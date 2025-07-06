@@ -1,16 +1,21 @@
 from abc import ABC, abstractmethod
 import io
 from pypamguard.core.serializable import Serializable
+from pypamguard.core.readers_new import BinaryReader
 
 class BaseChunk(Serializable, ABC):
 
     def __init__(self, *args, **kwargs):
+        self._measured_length = None
+
+    def _process(self, br: BinaryReader):
         pass
 
-    @abstractmethod
-    def process(self, data: io.BufferedReader):
-        if not isinstance(data, io.BufferedReader): raise ValueError(f"data must be of type io.BufferedReader (got {type(data)}).")
- 
+    def process(self, br: BinaryReader, *args, **kwargs):
+        start = br.tell()
+        self._process(br, *args, **kwargs)
+        self._measured_length = br.tell() - start 
+
     def get_attrs(self):
         return [attr for attr in self.__dict__ if not attr.startswith('_')]
 

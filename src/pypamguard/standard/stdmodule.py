@@ -53,53 +53,53 @@ class StandardModule(GenericModule):
         self.signal: float = None
         self.signal_excess: float = None
 
-    def process(self, br: BinaryReader, chunk_info):
+    def _process(self, br: BinaryReader, chunk_info):
 
 
-        self.millis, self.date = br.read_timestamp()        
+        self.millis, self.date = br.timestamp_read()        
         self._filters.filter('daterange', self.date)
 
-        self.flag_bitmap = br.read_bitmap(DTYPES.INT16, DATA_FLAG_FIELDS)
+        self.flag_bitmap = br.bitmap_read(DTYPES.INT16, DATA_FLAG_FIELDS)
         set_flags = self.flag_bitmap.get_set_bits()
         
         if "TIMENANOSECONDS" in set_flags:
-            self.time_ns = br.read_numeric(DTYPES.INT64)
+            self.time_ns = br.bin_read(DTYPES.INT64)
         
         if "CHANNELMAP" in set_flags:
-            self.channel_map = br.read_bitmap(DTYPES.INT32)
+            self.channel_map = br.bitmap_read(DTYPES.INT32)
         
         if "UID" in set_flags:
-            self.uid = br.read_numeric(DTYPES.INT64)
+            self.uid = br.bin_read(DTYPES.INT64)
             self._filters.filter('uidrange', self.uid)
             self._filters.filter('uidlist', self.uid)
         
         if "STARTSAMPLE" in set_flags:
-            self.start_sample = br.read_numeric(DTYPES.INT64)
+            self.start_sample = br.bin_read(DTYPES.INT64)
         
         if "SAMPLEDURATION" in set_flags:
-            self.sample_duration = br.read_numeric(DTYPES.INT32)
+            self.sample_duration = br.bin_read(DTYPES.INT32)
         
         if "FREQUENCYLIMITS" in set_flags:
-            self.freq_limits = br.read_numeric(DTYPES.FLOAT32, shape=(2,))
+            self.freq_limits = br.bin_read(DTYPES.FLOAT32, shape=(2,))
 
         if "MILLISDURATION" in set_flags:
-            self.millis_duration = br.read_numeric(DTYPES.FLOAT32)
+            self.millis_duration = br.bin_read(DTYPES.FLOAT32)
         
         if "TIMEDELAYSECONDS" in set_flags:
-            num_time_delays = br.read_numeric(DTYPES.INT16)
-            self.time_delays = br.read_numeric(DTYPES.FLOAT32, shape=(num_time_delays,))
+            num_time_delays = br.bin_read(DTYPES.INT16)
+            self.time_delays = br.bin_read(DTYPES.FLOAT32, shape=(num_time_delays,))
 
         if "HASSEQUENCEMAP" in set_flags:
-            self.sequence_map = br.read_numeric(DTYPES.INT32)
+            self.sequence_map = br.bin_read(DTYPES.INT32)
 
         if "HASNOISE" in set_flags:
-            self.noise = br.read_numeric(DTYPES.FLOAT32)
+            self.noise = br.bin_read(DTYPES.FLOAT32)
 
         if "HASSIGNAL" in set_flags:
-            self.signal = br.read_numeric(DTYPES.FLOAT32)
+            self.signal = br.bin_read(DTYPES.FLOAT32)
 
         if "HASSIGNALEXCESS" in set_flags:
-            self.signal_excess = br.read_numeric(DTYPES.FLOAT32)
+            self.signal_excess = br.bin_read(DTYPES.FLOAT32)
 
         # NOT COMPLETED YET
         # if "HASBINARYANNOTATIONS" in set_flags:

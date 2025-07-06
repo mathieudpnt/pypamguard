@@ -1,4 +1,6 @@
+from contextlib import contextmanager
 import io
+import time
 
 from pypamguard.core.exceptions import BinaryFileException, WarningException, CriticalException, ChunkLengthMismatch, StructuralException
 from pypamguard.base import BaseChunk
@@ -8,41 +10,70 @@ from pypamguard.core.registry import ModuleRegistry
 from pypamguard.utils.constants import IdentifierType
 from pypamguard.core.readers import BYTE_ORDERS
 from pypamguard.core.filters import Filters, FILTER_POSITION, FilterMismatchException
-from pypamguard.logger import logger, ProgressBar
+from pypamguard.logger import logger, Verbosity
 from pypamguard.core.serializable import Serializable
-import threading
 from pypamguard.core.readers_new import *
-import concurrent.futures
 import multiprocessing
-import time, os
-import sys
-import gc
+import os
+import mmap
 
 class Report(Serializable):
     warnings = []
-
-    def add_warning(self, warning: Warning):
-        logger.warning(str(warning))
+    
+    def __init__(self):
+        self.warnings = []
+    
+    def add_warning(self, warning: WarningException):
         self.warnings.append(warning)
+        logger.warning(warning)
+    
     
     def __str__(self):
         if len(self.warnings) == 0:
             return "No warnings"
         return f"{len(self.warnings)} warnings.\n"
 
+# Global report variable to be used for warning handling
+report = Report()
 
-def process_chunk(binary_reader: BinaryReader, chunk: GenericFileHeader | GenericModuleHeader | GenericModule | GenericModuleFooter | GenericFileFooter, chunk_info: StandardChunkInfo, progress_bar: ProgressBar = None):
+@contextmanager
+def mmap_file(file: int, access=mmap.ACCESS_READ, flags=mmap.MAP_SHARED):
+    mm = mmap.mmap(file, 0, access=access, flags=flags)
     try:
-        chunk.process(binary_reader, chunk_info)
-        logger.debug(f"Processed chunk: {chunk.__class__} - {chunk}")
+        yield mm
+    finally:
+        mm.close()
+
+def process_chunk1(file: int, pos: int, chunk: GenericFileHeader | GenericModuleHeader | GenericModule | GenericModuleFooter | GenericFileFooter, chunk_info: StandardChunkInfo, absorb_errors: bool = False):
+    with mmap_file(file) as mm:
+        return process_chunk(mm, pos, chunk, chunk_info, absorb_errors)
+
+
+def create_mmap_and_process_chunk(chunk: GenericFileHeader | GenericModuleHeader | GenericModule | GenericModuleFooter | GenericFileFooter, chunk_info: StandardChunkInfo, fileno: int, pos: int, aborb_errors: bool = False):
+    with mmap_file(fileno) as mm:
+        return process_chunk(chunk, chunk_info, mm=mm, pos=pos, absorb_errors=aborb_errors)
+
+def process_chunk(chunk, chunk_info, mm: mmap.mmap = None, pos: int = 0, absorb_errors: bool = False):
+    mm.seek(pos)
+    try:
+        chunk.process(BinaryReader(mm), chunk_info)
+        # Compare the actual chunk length to the expected chunk length
+        if chunk._measured_length != chunk_info.length - chunk_info._measured_length:
+            raise ChunkLengthMismatch(mm, chunk_info, chunk)
+    except WarningException as e:
+        # Warnings are added to a global report
+        # Chunks with warnings are NOT SKIPPED
+        report.add_warning(e)
     except FilterMismatchException as e:
-        # chunk_info.skip(self.__fp)
-        # logger.debug(f"Filter skipped chunk: {chunk.__class__} - {chunk}")
-        return chunk
-    except (WarningException) as e:
-        # self.__report.add_warning(e)
-        # chunk_info.skip(self.__fp)
-        return
+        # Chunks with filter mismatches are SKIPPED
+        return None
+    except Exception as e:
+        # Chunks with errors are SKIPPED
+        # Errors will terminate the program if absorb_errors is False,
+        # otherwise logged.
+        if not absorb_errors: raise e
+        logger.error(e)
+        return None
     return chunk
 
 class PGBFile(Serializable):
@@ -60,6 +91,8 @@ class PGBFile(Serializable):
         :param filters: The filters (optional)
         """
 
+        global report
+        report = Report()
         self.__path: str = path
         self.__filename = os.path.basename(self.__path)
         self.__fp: io.BufferedReader = fp
@@ -68,8 +101,8 @@ class PGBFile(Serializable):
         self.__filters: Filters = filters
         self.__module_class: GenericModule # will be overriden by module registry
         self.__size: int = self.__get_size()
+        self.total_time: int = 0
 
-        self.__report: Report = Report()
         self.__file_header: GenericFileHeader = StandardFileHeader()
         self.__module_header: GenericModuleHeader = None
         self.__module_footer: GenericModuleFooter = None
@@ -126,101 +159,62 @@ class PGBFile(Serializable):
         size = self.__fp.tell()
         self.__fp.seek(temp, io.SEEK_SET)
         return size
-        
+
     def load(self):
-        self.__fp.seek(0, io.SEEK_SET) # reset
-        progress_bar = ProgressBar(
-            name="Processing",
-            limit=self.__size,
-            scale=1/1024,
-            unit="KB",
-            rounding=0
-        )
-        
-        chunk_info = StandardChunkInfo()
+        start_time = time.time()
+        self.__fp.seek(0, io.SEEK_SET)
+        with mmap_file(self.__fp.fileno()) as mm:
+            # We use a pool to process chunks in parallel (asynchronously)
+            # Note that headers and footers are still processed synchronously
+            with multiprocessing.Pool(processes=1 if logger.verbosity == Verbosity.DEBUG else multiprocessing.cpu_count()) as pool:
+                futures = []
+                i = 0
+                while True:
+                    if mm.tell() == self.__size: break
+                    chunk_info = StandardChunkInfo()
+                    chunk_info.process(BinaryReader(mm))
+                    chunk_pos = mm.tell()
 
-        with multiprocessing.Pool(processes=4) as pool:
-            futures = []
-            while True:
-                start_pos = self.__fp.tell()
+                    if chunk_info.identifier == IdentifierType.FILE_HEADER.value:
+                        self.__file_header = process_chunk(self.__file_header, chunk_info, mm=mm, pos=chunk_pos, absorb_errors=False)
+                        self.__module_class = self.__module_registry.get_module(self.__file_header.module_name)
+                        
+                    elif chunk_info.identifier == IdentifierType.MODULE_HEADER.value:
+                        if not self.__file_header: raise StructuralException(self.__fp, "File header not found before module header")
+                        self.__module_header = process_chunk(self.__module_class._header(self.__file_header), chunk_info, mm=mm, pos=chunk_pos, absorb_errors=False)
 
-                # EOF checking is encouraged within modules. However this check
-                # can prevent infinite loops and other errors.
-                if start_pos == self.__size:
-                    break
+                    elif chunk_info.identifier >= 0:
+                        logger.debug(f"Processing data chunk {i}")
+                        i += 1
+                        if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
+                        args = (self.__module_class(self.__file_header, self.__module_header, self.__filters), chunk_info, self.__fp.fileno(), chunk_pos, True)
+                        futures.append(pool.apply_async(create_mmap_and_process_chunk, args))
+                        # Because we are asynchronously processing chunks, we need to seek to the end of the chunk manually
+                        mm.seek(chunk_pos + chunk_info.length - chunk_info._measured_length, io.SEEK_SET)
 
-                chunk_info.process(BinaryReader(self.__fp, 8))
-                
-                
-                if chunk_info.identifier == IdentifierType.FILE_HEADER.value:
-                    chunk_info.length += 4
-                    binary_reader = BinaryReader(self.__fp, chunk_info.length - 8)
-                    self.__file_header = process_chunk(binary_reader, self.__file_header, chunk_info)
-                    self.__module_class = self.__module_registry.get_module(self.__file_header.module_type)
-                    
-                    del binary_reader
+                    elif chunk_info.identifier == IdentifierType.MODULE_FOOTER.value:
+                        if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before module footer")
+                        self.__module_footer = process_chunk(self.__module_class._footer(self.__file_header, self.__module_header), chunk_info, mm=mm, pos=chunk_pos)
 
-                elif chunk_info.identifier == IdentifierType.MODULE_HEADER.value:
-                    binary_reader = BinaryReader(self.__fp, chunk_info.length - 8)
-                    if not self.__file_header: raise StructuralException(self.__fp, "File header not found before module header")
-                    self.__module_header = process_chunk(binary_reader, self.__module_class._header(self.__file_header), chunk_info)
-                    del binary_reader
+                    elif chunk_info.identifier == IdentifierType.FILE_FOOTER.value:
+                        if not self.__file_header: raise StructuralException(self.__fp, "File header not found before file footer")
+                        self.__file_footer = process_chunk(self.__file_footer, chunk_info, mm=mm, pos=chunk_pos)
 
-                elif chunk_info.identifier >= 0:
-                    binary_reader = BinaryReader(self.__fp, chunk_info.length - 8)
+                for future in futures:
+                    chunk = future.get()
+                    if chunk and not chunk._filters.position in (FILTER_POSITION.SKIP, FILTER_POSITION.STOP): self.__data.append(chunk)
+                    elif chunk and chunk._filters.position == FILTER_POSITION.STOP:
+                        pool.terminate()
+                        break
 
-                    if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
-                    
-                    if self.__filters.position == FILTER_POSITION.STOP:
-                        chunk_info.skip(self.__fp)
-                        continue
-
-                    args = (binary_reader, self.__module_class(self.__file_header, self.__module_header, self.__filters), chunk_info)
-                    futures.append(pool.apply_async(process_chunk, args))
-                    progress_bar.update(binary_reader.file_offset)
-                    del binary_reader
-
-                elif chunk_info.identifier == IdentifierType.MODULE_FOOTER.value:
-                    binary_reader = BinaryReader(self.__fp, chunk_info.length - 8)
-                    if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before module footer")
-                    self.__module_footer = process_chunk(binary_reader, self.__module_class._footer(self.__file_header, self.__module_header), chunk_info)
-                    del binary_reader
-
-                elif chunk_info.identifier == IdentifierType.FILE_FOOTER.value:
-                    binary_reader = BinaryReader(self.__fp, chunk_info.length - 8)
-                    if not self.__file_header: raise StructuralException(self.__fp, "File header not found before file footer")
-                    self.__file_footer = process_chunk(binary_reader, self.__file_footer, chunk_info)
-                    del binary_reader
-
-            progress_bar.complete()
-            del progress_bar
-            progress_bar = ProgressBar(
-                name="Collecting",
-                limit=len(futures),
-                scale=1,
-                unit="objects",
-                rounding=0
-            )
-            for i, future in enumerate(futures):
-                chunk = future.get()
-                if chunk and not chunk._filters.position in (FILTER_POSITION.SKIP, FILTER_POSITION.STOP): self.__data.append(chunk)
-                elif chunk._filters.position == FILTER_POSITION.STOP:
-                    # for future in futures[i+1:]: future.cancel()
-                    pool.close()
-                    break
-                progress_bar.update(i)
-                
-            progress_bar.complete()
-
-        
-        del progress_bar
-
-        return chunk
+                pool.terminate()
+                mm.close()
+            
+        self.total_time = time.time() - start_time
 
     def to_json(self):
         return {
             "filters": self.filters.to_json(),
-            "report": self.__report.to_json(),
             "file_header": self.__file_header.to_json(),
             "module_header": self.__module_header.to_json(),
             "module_footer": self.__module_footer.to_json(),
@@ -231,12 +225,11 @@ class PGBFile(Serializable):
     def __str__(self):
         ret = f"PAMGuard Binary File (filename={self.__path}, size={self.size} bytes, order={self.__order})\n\n"
         ret += f"{self.__filters}\n"
-        
-        ret += f"{self.__report}"
-
+        ret += f"{report}"
         ret += f"File Header\n{self.__file_header}\n\n"
         ret += f"Module Header\n{self.__module_header}\n\n"
         ret += f"Module Footer\n{self.__module_footer}\n\n"
         ret += f"File Footer\n{self.__file_footer}\n\n"
         ret += f"Data Set: {len(self.__data)} objects\n"
+        ret += f"Total time: {self.total_time:.2f} seconds\n"
         return ret

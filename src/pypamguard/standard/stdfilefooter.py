@@ -17,16 +17,16 @@ class StandardFileFooter(GenericFileFooter):
         self.file_length: int = None
         self.end_reason: int = None
 
-    def process(self, br: BinaryReader, chunk_info: StandardChunkInfo):
+    def _process(self, br: BinaryReader, chunk_info: StandardChunkInfo):
         self.length = chunk_info.length
         self.identifier = chunk_info.identifier
 
-        self.n_objects = br.read_numeric(DTYPES.INT32)
-        self.data_date_raw, self.data_date = br.read_timestamp()
-        self.analysis_date_raw, self.analysis_date = br.read_timestamp()
-        self.end_sample = br.read_numeric(DTYPES.INT64)
+        self.n_objects = br.bin_read(DTYPES.INT32)
+        self.data_date_raw, self.data_date = br.timestamp_read()
+        self.analysis_date_raw, self.analysis_date = br.timestamp_read()
+        self.end_sample = br.bin_read(DTYPES.INT64)
         if self._file_header.file_format >= 3:
-            self.lowest_uid = br.read_numeric(DTYPES.INT64)
-            self.highest_uid = br.read_numeric(DTYPES.INT64)
-        self.file_length = br.read_numeric(DTYPES.INT64)
-        self.end_reason = br.read_numeric(DTYPES.INT32)
+            self.lowest_uid = br.bin_read(DTYPES.INT64)
+            self.highest_uid = br.bin_read(DTYPES.INT64)
+        self.file_length = br.bin_read(DTYPES.INT64)
+        self.end_reason = br.bin_read(DTYPES.INT32)

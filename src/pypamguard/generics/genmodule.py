@@ -19,7 +19,4 @@ class GenericModule(BaseChunk, ABC):
         self._file_header = file_header
         self._module_header = module_header
         self._filters = filters
-        
-    @abstractmethod
-    def process(self, data, chunk_info) -> FILTER_POSITION:
-        raise NotImplementedError()
+  

@@ -17,13 +17,13 @@ class RWEdgeDetector(StandardModule):
         self.hi_freqs: np.ndarray = None
         self.peak_amp: np.ndarray = None
 
-    def process(self, br, chunk_info):
-        super().process(br, chunk_info)
+    def _process(self, br, chunk_info):
+        super()._process(br, chunk_info)
 
-        data_length = br.read_numeric(DTYPES.INT32)
-        self.type = br.read_numeric(DTYPES.INT16)
-        self.signal = br.read_numeric(DTYPES.FLOAT32)
-        self.noise = br.read_numeric(DTYPES.FLOAT32)
-        self.n_slices = br.read_numeric(DTYPES.INT16)
+        data_length = br.bin_read(DTYPES.INT32)
+        self.type = br.bin_read(DTYPES.INT16)
+        self.signal = br.bin_read(DTYPES.FLOAT32)
+        self.noise = br.bin_read(DTYPES.FLOAT32)
+        self.n_slices = br.bin_read(DTYPES.INT16)
 
-        (self.slice_nums, self.lo_freqs, self.peak_freqs, self.hi_freqs, self.peak_amp) = br.read_numeric([DTYPES.INT16, DTYPES.INT16, DTYPES.INT16, DTYPES.INT16, DTYPES.FLOAT32], (self.n_slices,))
+        (self.slice_nums, self.lo_freqs, self.peak_freqs, self.hi_freqs, self.peak_amp) = br.bin_read([DTYPES.INT16, DTYPES.INT16, DTYPES.INT16, DTYPES.INT16, DTYPES.FLOAT32], (self.n_slices,))

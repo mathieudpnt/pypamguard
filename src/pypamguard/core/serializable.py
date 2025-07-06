@@ -19,12 +19,14 @@ class Serializable(ABC):
             elif isinstance(l, np.generic):
                 return l.item()
             return l
+        
+        if type(value) == Exception:
+            print(value)
 
         if type(value) == np.ndarray or type(value) == list or type(value) == set: return serialize_list(value)
         if type(value) == datetime.datetime: return value.timestamp()
         if type(value) == Bitmap: return value.bits
         if isinstance(value, np.generic): return value.item()
-
         if isinstance(value, (int, float, str, bool, type(None))): return value
         return str(value)
     

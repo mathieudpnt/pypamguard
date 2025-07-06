@@ -14,7 +14,3 @@ class GenericModuleFooter(BaseChunk, ABC):
 
         self.length: int = None
         self.identifier: int = None
-    
-    @abstractmethod
-    def process(self, data, chunk_info):
-        raise NotImplementedError()
