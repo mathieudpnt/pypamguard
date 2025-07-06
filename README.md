@@ -38,6 +38,8 @@ pip install pypamguard
 
 Clone the PyPAMGuard repository onto your local system using `git clone`. Note that this will download all assets of the program including the automated tests and associated binary files (for a leightweight version take what is in the `src` directory or download `pypamguard` from Pip).
 
+Install dependencies in a [Python Virtual Environment](https://docs.python.org/3/library/venv.html) by running `pip install -r requirements.txt` from the root directory.
+
 From within the `src/` directory, start a Python shell. If running another program with a PyPAMGuard dependency, ensure `src/pypamguard/` is in the working directory. You can now follow the Quick Start guide below for basic functionality.
 
 ### Quick Start
