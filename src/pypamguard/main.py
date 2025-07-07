@@ -13,5 +13,6 @@ if __name__ == "__main__":
         # 'uidlist': WhitelistFilter([15002421])
     })
 
-    pgdf = load_pamguard_binary_file("Click_Detector_Click_Detector_Clicks_20020814_115848.pgdf", verbosity=Verbosity.INFO, filters=pg_filters)
-    print(pgdf)
+    pgdf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/dataset/Energy Sum/Energy_Sum_Detector_Ishmael_energy_sum_Ishmael_Detections_20170903_222900.pgdf")
+    # pgdf = load_pamguard_binary_file("Click_Detector_Click_Detector_Clicks_20020814_115848.pgdf", verbosity=Verbosity.INFO, filters=pg_filters)
+    # print(pgdf)

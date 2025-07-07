@@ -177,7 +177,7 @@ class PGBFile(Serializable):
 
                     if chunk_info.identifier == IdentifierType.FILE_HEADER.value:
                         self.__file_header = process_chunk(self.__file_header, chunk_info, mm=mm, pos=chunk_pos, absorb_errors=False)
-                        self.__module_class = self.__module_registry.get_module(self.__file_header.module_name)
+                        self.__module_class = self.__module_registry.get_module(self.__file_header.module_type, self.__file_header.stream_name)
                         
                     elif chunk_info.identifier == IdentifierType.MODULE_HEADER.value:
                         if not self.__file_header: raise StructuralException(self.__fp, "File header not found before module header")
