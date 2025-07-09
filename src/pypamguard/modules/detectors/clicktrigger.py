@@ -19,7 +19,6 @@ class ClickTriggerBackground(StandardModule):
     
     def _process(self, br: BinaryReader, chunk_info: StandardChunkInfo):
         super()._process(br, chunk_info)
-        data_length = br.bin_read(DTYPES.INT32)
         self.scale = br.bin_read(DTYPES.FLOAT32)
         self.raw_levels = br.bin_read((DTYPES.INT16, lambda x: x / self.scale), shape=(self.n_chan,))
         

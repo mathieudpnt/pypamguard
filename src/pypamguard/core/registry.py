@@ -1,82 +1,84 @@
 # registry.py
 # A module for registering the available modules (subclasses of PAMChunk)
 
-from pypamguard.modules import *
-from pypamguard.modules.ltsa import LTSA
-from pypamguard.modules.ishmaeldetections import IshmaelDetections
-from pypamguard.modules.DLCdetections import *
-from pypamguard.modules.DLCmodels import DeelLearningClassifierModels
 from pypamguard.generics import GenericModule
 from pypamguard.core.exceptions import ModuleNotFoundException
 
-class Module:
-    def __init__(self, classes):
-        self.classes = classes
-    
-    def get_class(self, stream_name):
-        if type(self.classes) == dict: return self.classes[stream_name]
-        else: return self.classes
+from pypamguard.modules.processing.ais import AISProcessing
+ais_config = AISProcessing
 
-aisprocessing_config = None
-
-clickdetector_config = {
+from pypamguard.modules.detectors.click import ClickDetector
+click_config = {
     "Clicks": ClickDetector,
     "Trigger Background": None,
 }
 
+from pypamguard.modules.processing.clipgenerator import ClipGenerator
 clipgenerator_config = ClipGenerator
 
+from pypamguard.modules.classifiers.deeplearningclassifier import DLCDetections, DLCModels
 deeplearningclassifier_config = {
-    "DL_detection": None,
-    "DL detection": None,
-    "DL_Model_Data": DeelLearningClassifierModels,
-    "DL Model Data": DeelLearningClassifierModels,
+    "DL_detection": DLCDetections,
+    "DL detection": DLCDetections,
+    "DL_Model_Data": DLCModels,
+    "DL Model Data": DLCModels,
 }
 
-dbht_config = None
+from pypamguard.modules.processing.dbht import DbHtProcessing
+dbht_config = DbHtProcessing
 
-difarprocessing_config = None
+from pypamguard.modules.processing.difar import DIFARProcessing
+difar_config = DIFARProcessing
 
-noisemonitor_config = None
+from pypamguard.modules.processing.noisemonitor import NoiseMonitor
+noisemonitor_config = NoiseMonitor
 
-noiseband_config = None
+from pypamguard.modules.processing.noiseband import NoiseBandMonitor
+noiseband_config = NoiseBandMonitor
 
-gpldetector_config = None
+from pypamguard.modules.detectors.gpl import GPLDetector
+gpl_config = GPLDetector
 
-rwedgedetector_config = RWEdgeDetector
+from pypamguard.modules.detectors.rwedge import RWEdgeDetector
+rwedge_config = RWEdgeDetector
 
-wmdetector_config = WhistleAndMoanDetector
+from pypamguard.modules.detectors.whistleandmoan import WhistleAndMoanDetector
+whistleandmoan_config = WhistleAndMoanDetector
 
-ltsa_config = LTSA
+from pypamguard.modules.processing.longtermspectralaverage import LongTermSpectralAverage
+longtermspectralaverage_config = LongTermSpectralAverage
 
-ishmaeldetector_config = {
-    "Ishmael Peak Data": None,
+from pypamguard.modules.processing.ishmael import IshmaelData, IshmaelDetections
+ishmael_config = {
+    "Ishmael Peak Data": IshmaelData,
     "Ishmael Detections": IshmaelDetections,
 }
 
-ipimodule_config = None
+from pypamguard.modules.plugins.spermwhaleipi import SpermWhaleIPI
+spermwhaleipi_config = SpermWhaleIPI
 
-geminithresholddetector_config = None
+from pypamguard.modules.plugins.geminithreshold import GeminiThresholdDetector
+geminithreshold_config = GeminiThresholdDetector
 
 MODULES = {
-    "AIS Processing": Module(aisprocessing_config),
-    "Click Detector": Module(clickdetector_config),
-    "SoundTrap Click Detector": Module(clickdetector_config),
-    "Clip generator": Module(clipgenerator_config),
-    "Deep Learning Classifier": Module(deeplearningclassifier_config),
-    "DbHt": Module(dbht_config),
-    "DIFAR Processing": Module(difarprocessing_config),
-    "LTSA": Module(ltsa_config),
-    "Noise Monitor": Module(noisemonitor_config),
-    "Noise Band": Module(noiseband_config),
-    "GPL Detector": Module(gpldetector_config),
-    "RW Edge Detector": Module(rwedgedetector_config),
-    "WhistlesMoans": Module(wmdetector_config),
-    "Energy Sum Detector": Module(ishmaeldetector_config),
-    "Spectrogram Correlation Detector": Module(ishmaeldetector_config),
-    "Matched Filter Detector": Module(ishmaeldetector_config),
-    "Ipi module": Module(ipimodule_config),
-    "Gemini Threshold Detector": Module(geminithresholddetector_config),
+    "AIS Processing": ais_config,
+    "Click Detector": click_config,
+    "SoundTrap Click Detector": click_config,
+    "Clip generator": clipgenerator_config,
+    "Deep Learning Classifier": deeplearningclassifier_config,
+    "DbHt": dbht_config,
+    "DIFAR Processing": difar_config,
+    "LTSA": longtermspectralaverage_config,
+    "Noise Monitor": noisemonitor_config,
+    "NoiseBand": noiseband_config,
+    "GPL Detector": gpl_config,
+    "RW Edge Detector": rwedge_config,
+    "WhistlesMoans": whistleandmoan_config,
+    "Energy Sum Detector": ishmael_config,
+    "Spectrogram Correlation Detector": ishmael_config,
+    "Matched Filter Detector": ishmael_config,
+    "Ipi module": spermwhaleipi_config,
+    "Gemini Threshold Detector": geminithreshold_config,
 }
 
 def module_metadata(module):
@@ -93,8 +95,8 @@ class ModuleRegistry:
         self.modules = {}
         register_preinstalled_modules(self)
 
-    def register_module(self, module_name: str, module_class: Module):
-        """Register a new module (must be a subclass of GenericModule)"""
+    def register_module(self, module_name: str, module_class: GenericModule | dict):
+        """Register a new module (must be a subclass of GenericModule or a dictionary)"""
         if module_name in self.modules:
             raise ValueError(f"Module {module_name} is already registered. Deregister module first by calling `deregister_module('{module_name}')`.")
         self.modules[module_name] = module_class
@@ -107,9 +109,15 @@ class ModuleRegistry:
         return 0
     
     def get_module(self, module_name: str, module_stream) -> GenericModule:
-        if module_name in self.modules and type(self.modules[module_name]) == Module:
-            return self.modules[module_name].get_class(module_stream)
-        raise ModuleNotFoundException(f"Module '{module_name}' is not registered.")
+        if module_name in self.modules and type(self.modules[module_name]) == dict:
+            if module_stream in self.modules[module_name]: return self.modules[module_name][module_stream]
+            raise ModuleNotFoundException(f"Module '{module_name}' is not registered for stream '{module_stream}'.")
+        elif module_name in self.modules and issubclass(self.modules[module_name], GenericModule):
+            return self.modules[module_name]
+        elif module_name in self.modules:
+            raise ModuleNotFoundException(f"Module '{module_name}' is not registered correctly.")
+        else:
+            raise ModuleNotFoundException(f"Module '{module_name}' is not registered.")
 
 def register_preinstalled_modules(registry: ModuleRegistry):
 

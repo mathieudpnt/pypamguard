@@ -1,0 +1,112 @@
+{
+"filters": {
+"daterange": {
+"ignore_timezone": false,
+"start": 1499572333.281,
+"end": 1499572363.281,
+"comparator": "<bound method RangeFilter.default_comparator of <pypamguard.core.filters.DateFilter object at 0x776956fee1e0>>",
+"validation_func": null,
+"ordered": true,
+"ignore_none": false,
+"__name__": "DateFilter"
+}
+},
+"file_header": {
+"length": 109,
+"identifier": -1,
+"file_format": 7,
+"pamguard": "PAMGUARDDATA",
+"version": "2.02.16",
+"branch": "CORE",
+"data_date": 1499572303.281,
+"analysis_date": 1751820022.427,
+"start_sample": 0,
+"module_type": "NoiseBand",
+"module_name": "Filtered Noise Measurement",
+"stream_name": "Noise",
+"extra_info_len": 0,
+"data_date_raw": 1499572303281,
+"analysis_date_raw": 1751820022427,
+"__name__": "StandardFileHeader"
+},
+"module_header": {
+"length": 16,
+"identifier": -3,
+"version": 3,
+"binary_length": 0,
+"__name__": "StandardModuleHeader"
+},
+"module_footer": {
+"length": 12,
+"identifier": -4,
+"binary_length": 0,
+"__name__": "StandardModuleFooter"
+},
+"file_footer": {
+"length": 64,
+"identifier": -2,
+"n_objects": 6,
+"data_date_raw": 1499572363181,
+"data_date": 1499572363.181,
+"analysis_date_raw": 1751820028813,
+"analysis_date": 1751820028.813,
+"end_sample": 29950000,
+"lowest_uid": 2000000,
+"highest_uid": 2000006,
+"file_length": 477,
+"end_reason": 2,
+"__name__": "StandardFileFooter"
+},
+"data": [
+{
+"millis": 1499572343281,
+"date": 1499572343.281,
+"flags": null,
+"time_ns": null,
+"channel_map": 1,
+"uid": 2000004,
+"start_sample": 20000000,
+"sample_duration": 5000000,
+"freq_limits": null,
+"millis_duration": null,
+"time_delays": null,
+"sequence_map": null,
+"noise": null,
+"signal": null,
+"signal_excess": null,
+"flag_bitmap": 61,
+"annotations": [],
+"rms": 149.02,
+"zero_peak": 186.52,
+"peak_peak": 194.83,
+"sel": 163.91,
+"sel_secs": 40,
+"__name__": "NoiseBandMonitor"
+},
+{
+"millis": 1499572353281,
+"date": 1499572353.281,
+"flags": null,
+"time_ns": null,
+"channel_map": 1,
+"uid": 2000005,
+"start_sample": 25000000,
+"sample_duration": 5000000,
+"freq_limits": null,
+"millis_duration": null,
+"time_delays": null,
+"sequence_map": null,
+"noise": null,
+"signal": null,
+"signal_excess": null,
+"flag_bitmap": 61,
+"annotations": [],
+"rms": 146.9,
+"zero_peak": 182.67,
+"peak_peak": 187.39,
+"sel": 164.7,
+"sel_secs": 50,
+"__name__": "NoiseBandMonitor"
+}
+]
+}

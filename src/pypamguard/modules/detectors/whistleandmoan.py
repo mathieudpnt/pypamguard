@@ -37,7 +37,6 @@ class WhistleAndMoanDetector(StandardModule):
     
     def _process(self, br, chunk_info):
         super()._process(br, chunk_info)
-        data_length = br.bin_read(DTYPES.INT32)
 
         # self.n_slices = br.read_numeric(DTYPES.INT16)
         # self.amplitude = br.read_numeric(DTYPES.INT16) / 100

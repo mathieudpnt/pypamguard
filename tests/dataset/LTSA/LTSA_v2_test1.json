@@ -26,7 +26,7 @@
 "fft_length": 1024,
 "fft_hop": 30000000,
 "interval_seconds": 60,
-"__name__": "LTSAHeader"
+"__name__": "LongTermSpectralAverageHeader"
 },
 "module_footer": {
 "length": 12,
@@ -587,7 +587,7 @@
 ],
 "flag_bitmap": 61,
 "annotations": [],
-"__name__": "LTSA"
+"__name__": "LongTermSpectralAverage"
 },
 {
 "millis": 1499572620000,
@@ -1126,7 +1126,7 @@
 ],
 "flag_bitmap": 61,
 "annotations": [],
-"__name__": "LTSA"
+"__name__": "LongTermSpectralAverage"
 }
 ]
 }

@@ -20,12 +20,12 @@ class ClickDetectorFooter(StandardModuleFooter):
 
 class ClickDetector(StandardModule):
 
-    _minimum_version = 2
+    _minimum_version = 2 # As at 9 Jul 2025
     _footer = ClickDetectorFooter
 
     def __init__(self, file_header, module_header, filters):
         super().__init__(file_header, module_header, filters)
-
+        
         self.start_sample: int = None
         self.channel_map: Bitmap = None
         self.trigger_map: Bitmap = None
@@ -40,7 +40,6 @@ class ClickDetector(StandardModule):
     def _process(self, br, chunk_info):
         super()._process(br, chunk_info)
 
-        data_length = br.bin_read(DTYPES.INT32)
         self.n_chan = len(self.channel_map.get_set_bits())
 
         if self._module_header.version <= 3:

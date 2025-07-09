@@ -1,0 +1,109 @@
+{
+"filters": {
+"uidlist": {
+"whitelist": [
+2000003,
+2000006
+],
+"__name__": "WhitelistFilter"
+}
+},
+"file_header": {
+"length": 109,
+"identifier": -1,
+"file_format": 7,
+"pamguard": "PAMGUARDDATA",
+"version": "2.02.16",
+"branch": "CORE",
+"data_date": 1499572303.281,
+"analysis_date": 1751820022.427,
+"start_sample": 0,
+"module_type": "NoiseBand",
+"module_name": "Filtered Noise Measurement",
+"stream_name": "Noise",
+"extra_info_len": 0,
+"data_date_raw": 1499572303281,
+"analysis_date_raw": 1751820022427,
+"__name__": "StandardFileHeader"
+},
+"module_header": {
+"length": 16,
+"identifier": -3,
+"version": 3,
+"binary_length": 0,
+"__name__": "StandardModuleHeader"
+},
+"module_footer": {
+"length": 12,
+"identifier": -4,
+"binary_length": 0,
+"__name__": "StandardModuleFooter"
+},
+"file_footer": {
+"length": 64,
+"identifier": -2,
+"n_objects": 6,
+"data_date_raw": 1499572363181,
+"data_date": 1499572363.181,
+"analysis_date_raw": 1751820028813,
+"analysis_date": 1751820028.813,
+"end_sample": 29950000,
+"lowest_uid": 2000000,
+"highest_uid": 2000006,
+"file_length": 477,
+"end_reason": 2,
+"__name__": "StandardFileFooter"
+},
+"data": [
+{
+"millis": 1499572333281,
+"date": 1499572333.281,
+"flags": null,
+"time_ns": null,
+"channel_map": 1,
+"uid": 2000003,
+"start_sample": 15000000,
+"sample_duration": 5000000,
+"freq_limits": null,
+"millis_duration": null,
+"time_delays": null,
+"sequence_map": null,
+"noise": null,
+"signal": null,
+"signal_excess": null,
+"flag_bitmap": 61,
+"annotations": [],
+"rms": 148.33,
+"zero_peak": 186.33,
+"peak_peak": 193.52,
+"sel": 162.21,
+"sel_secs": 30,
+"__name__": "NoiseBandMonitor"
+},
+{
+"millis": 1499572363281,
+"date": 1499572363.281,
+"flags": null,
+"time_ns": null,
+"channel_map": 1,
+"uid": 2000006,
+"start_sample": 30000000,
+"sample_duration": 5000000,
+"freq_limits": null,
+"millis_duration": null,
+"time_delays": null,
+"sequence_map": null,
+"noise": null,
+"signal": null,
+"signal_excess": null,
+"flag_bitmap": 61,
+"annotations": [],
+"rms": 144.26,
+"zero_peak": 179.61,
+"peak_peak": 185.16,
+"sel": 165.08,
+"sel_secs": 60,
+"__name__": "NoiseBandMonitor"
+}
+]
+}

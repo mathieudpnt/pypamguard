@@ -2,7 +2,7 @@ from pypamguard.core.readers_new import *
 from pypamguard.standard import StandardModule, StandardModuleHeader
 from pypamguard.generics import GenericChunkInfo
 
-class LTSAHeader(StandardModuleHeader):
+class LongTermSpectralAverageHeader(StandardModuleHeader):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
@@ -14,9 +14,9 @@ class LTSAHeader(StandardModuleHeader):
             self.fft_hop = br.bin_read(DTYPES.INT32)
             self.interval_seconds = br.bin_read(DTYPES.INT32)
 
-class LTSA(StandardModule):
+class LongTermSpectralAverage(StandardModule):
 
-    _header = LTSAHeader
+    _header = LongTermSpectralAverageHeader
     _minimum_version = 2
 
     a = 127 * 2 / np.log(32767)
@@ -35,8 +35,6 @@ class LTSA(StandardModule):
 
     def _process(self, br: BinaryReader, chunk_info: GenericChunkInfo):
         super()._process(br, chunk_info)
-
-        data_length = br.bin_read(DTYPES.INT32)
         
         self.end_date, self.end_millis = br.timestamp_read()
 

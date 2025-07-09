@@ -4,6 +4,7 @@ from pypamguard.generics import GenericModule, GenericModuleFooter
 from .stdmodulefooter import StandardModuleFooter
 from .stdmoduleheader import StandardModuleHeader
 from pypamguard.core.readers_new import *
+from pypamguard.core.exceptions import WarningException
 
 DATA_FLAG_FIELDS = [
     "TIMEMILLISECONDS",
@@ -119,3 +120,6 @@ class StandardModule(GenericModule):
         #     self.annotations = []
 
         self.annotations = []
+
+        data_length = br.bin_read(DTYPES.INT32)
+        if data_length <= 0: raise WarningException(br, chunk_info, self)

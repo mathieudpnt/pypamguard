@@ -104,7 +104,6 @@ class NumericalBinaryReader(BinaryReader):
         if self.shape: result = result.reshape(self.shape)
         if self.post_processor is not None: result = self.post_processor(result)
         result = result.item() if not self.shape else result
-        self.print(result)
         return result
 
     def __str__(self):
@@ -127,7 +126,6 @@ class StringNBinaryReader(BinaryReader):
         super().process(data, order) # type checking inputs
         result = struct.unpack(order.value + f"{self.length}s", data.read(self.length))[0]
         if self.post_processor is not None: result = self.post_processor(result)
-        self.print(result)
         return result.decode() if type(result) == bytes else result
 
 class StringBinaryReader(BinaryReader):
@@ -144,7 +142,6 @@ class StringBinaryReader(BinaryReader):
         super().process(data, order)
         length = self.length_type.process(data)
         result = StringNBinaryReader(length, as_helper=True).process(data)
-        self.print(result)
         return result.decode() if type(result) == bytes else result
 
 class CustomBinaryReader(BinaryReader):
@@ -166,7 +163,6 @@ class DateBinaryReader(BinaryReader):
     def process(self, data):
         epoch_millis = NumericalBinaryReader(INTS.LONG, as_helper=True).process(data)
         result = datetime.datetime.fromtimestamp(epoch_millis / 1000, datetime.UTC)
-        self.print(result)
         return result
 
 class BitmapBinaryReader(BinaryReader):
@@ -178,5 +174,4 @@ class BitmapBinaryReader(BinaryReader):
     
     def process(self, data):
         self.bm.bits = NumericalBinaryReader(self.format, as_helper=True).process(data)
-        self.print(self.bm)
         return self.bm

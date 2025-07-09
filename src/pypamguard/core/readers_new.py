@@ -102,9 +102,13 @@ class BinaryReader:
         ret_val = tuple(self.__collate(data, dtypes, shape))
         return ret_val[0] if len(ret_val) == 1 else ret_val
 
+    @classmethod
+    def millis_to_timestamp(self, millis):
+        return datetime.datetime.fromtimestamp(millis / 1000, tz=datetime.UTC)
+
     def timestamp_read(self) -> tuple[int, datetime.datetime]:
-        timestamp = self.bin_read(DTYPES.INT64)
-        return timestamp, datetime.datetime.fromtimestamp(timestamp / 1000, tz=datetime.UTC)
+        millis = self.bin_read(DTYPES.INT64)
+        return millis, self.millis_to_timestamp(millis)
 
     def nstring_read(self, length: int) -> str:
         return self.__read(length).decode("utf-8")

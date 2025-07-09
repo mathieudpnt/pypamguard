@@ -9,13 +9,15 @@ class StandardFileFooter(GenericFileFooter):
     def __init__(self, file_header: GenericFileHeader):
         super().__init__(file_header)
         self.n_objects: int = None
-        self.data_date: int = None
-        self.analysis_date: int = None
-        self.end_sample: int = None
-        self.lowest_uid: int = None
-        self.highest_uid: int = None
-        self.file_length: int = None
-        self.end_reason: int = None
+        self.data_date_raw: np.int64 = None
+        self.data_date: datetime.datetime = None
+        self.analysis_date_raw: np.int64 = None
+        self.analysis_date: datetime.datetime = None
+        self.end_sample: np.int64 = None
+        self.lowest_uid: np.int64 = None
+        self.highest_uid: np.int64 = None
+        self.file_length: np.int64 = None
+        self.end_reason: np.int32 = None
 
     def _process(self, br: BinaryReader, chunk_info: StandardChunkInfo):
         self.length = chunk_info.length

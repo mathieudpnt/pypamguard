@@ -20,7 +20,6 @@ class RWEdgeDetector(StandardModule):
     def _process(self, br, chunk_info):
         super()._process(br, chunk_info)
 
-        data_length = br.bin_read(DTYPES.INT32)
         self.type = br.bin_read(DTYPES.INT16)
         self.signal = br.bin_read(DTYPES.FLOAT32)
         self.noise = br.bin_read(DTYPES.FLOAT32)
