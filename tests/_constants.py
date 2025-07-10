@@ -1,58 +1,77 @@
 import os
 
 DATASET_PATH = os.path.join("tests", "dataset")
-CLICK_DETECTOR_DIR = os.path.join(DATASET_PATH, "ClickDetector")
-WHISTLES_MOANS_DIR = os.path.join(DATASET_PATH, "WhistlesMoans")
-LTSA_DIR = os.path.join(DATASET_PATH, "LTSA")
-FILTERED_NOISE_MEASUREMENT_DIR = os.path.join(DATASET_PATH, "FilteredNoiseMeasurement")
+CLICK_DIR = os.path.join(DATASET_PATH, "detectors", "click")
+WHISTLEANDMOAN_DIR = os.path.join(DATASET_PATH, "detectors", "whistleandmoan")
+LONGTERMSPECTRALAVERAGE_DIR = os.path.join(DATASET_PATH, "processing", "longtermspectralaverage")
+NOISEBAND_DIR = os.path.join(DATASET_PATH, "processing", "noiseband")
+SPERMWHALEIPI_DIR = os.path.join(DATASET_PATH, "spermwhaleipi")
 
 TESTS = [
     {
-        "json": "ClickDetector_v4_test1.json",
-        "filename": "ClickDetector_v4_test1",
-        "directory": CLICK_DETECTOR_DIR,
-        "keyword": "ClickDetector"
+        "json": "click_v4_test1.json",
+        "filename": "click_v4_test1",
+        "directory": CLICK_DIR,
+        "keyword": "click"
     },
     {
-        "json": "ClickDetector_v4_test1_daterange.json",
-        "filename": "ClickDetector_v4_test1",
-        "directory": CLICK_DETECTOR_DIR,
-        "keyword": "ClickDetector"
+        "json": "click_v4_test1_daterange.json",
+        "filename": "click_v4_test1",
+        "directory": CLICK_DIR,
+        "keyword": "click"
     },
     {
-        "json": "ClickDetector_v4_test1_uidlist.json",
-        "filename": "ClickDetector_v4_test1",
-        "directory": CLICK_DETECTOR_DIR,
-        "keyword": "ClickDetector"
+        "json": "click_v4_test1_uidlist.json",
+        "filename": "click_v4_test1",
+        "directory": CLICK_DIR,
+        "keyword": "click"
     },
     {
-        "json": "WhistlesMoans_v2_test1.json",
-        "filename": "WhistlesMoans_v2_test1",
-        "directory": WHISTLES_MOANS_DIR,
-        "keyword": "WhistlesMoans"
+        "json": "whistleandmoan_v2_test1.json",
+        "filename": "whistleandmoan_v2_test1",
+        "directory": WHISTLEANDMOAN_DIR,
+        "keyword": "whistleandmoan"
     },
     {
-        "json": "LTSA_v2_test1.json",
-        "filename": "LTSA_v2_test1",
-        "directory": LTSA_DIR,
-        "keyword": "LTSA"
+        "json": "longtermspectralaverage_v2_test1.json",
+        "filename": "longtermspectralaverage_v2_test1",
+        "directory": LONGTERMSPECTRALAVERAGE_DIR,
+        "keyword": "longtermspectralaverage"
     },
     {
-        "json": "FilteredNoiseMeasurement_v3_test1.json",
-        "filename": "FilteredNoiseMeasurement_v3_test1",
-        "directory": FILTERED_NOISE_MEASUREMENT_DIR,
-        "keyword": "FilteredNoiseMeasurement",
+        "json": "noiseband_v3_test1.json",
+        "filename": "noiseband_v3_test1",
+        "directory": NOISEBAND_DIR,
+        "keyword": "noiseband",
     },
     {
-        "json": "FilteredNoiseMeasurement_v3_test1_daterange.json",
-        "filename": "FilteredNoiseMeasurement_v3_test1",
-        "directory": FILTERED_NOISE_MEASUREMENT_DIR,
-        "keyword": "FilteredNoiseMeasurement",
+        "json": "noiseband_v3_test1_daterange.json",
+        "filename": "noiseband_v3_test1",
+        "directory": NOISEBAND_DIR,
+        "keyword": "noiseband",
     },
     {
-        "json": "FilteredNoiseMeasurement_v3_test1_uidlist.json",
-        "filename": "FilteredNoiseMeasurement_v3_test1",
-        "directory": FILTERED_NOISE_MEASUREMENT_DIR,
-        "keyword": "FilteredNoiseMeasurement",
-    }
+        "json": "noiseband_v3_test1_uidlist.json",
+        "filename": "noiseband_v3_test1",
+        "directory": NOISEBAND_DIR,
+        "keyword": "noiseband",
+    },
+    {
+        "json": "spermwhaleipi_v1_test1.json",
+        "filename": "spermwhaleipi_v1_test1",
+        "directory": SPERMWHALEIPI_DIR,
+        "keyword": "spermwhaleipi",
+    },
+    {
+        "json": "spermwhaleipi_v1_test1_daterange.json",
+        "filename": "spermwhaleipi_v1_test1",
+        "directory": SPERMWHALEIPI_DIR,
+        "keyword": "spermwhaleipi",
+    },
+    {
+        "json": "spermwhaleipi_v1_test1_uidlist.json",
+        "filename": "spermwhaleipi_v1_test1",
+        "directory": SPERMWHALEIPI_DIR,
+        "keyword": "spermwhaleipi",
+    },
 ]

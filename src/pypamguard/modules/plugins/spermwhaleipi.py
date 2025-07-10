@@ -2,6 +2,9 @@ from pypamguard.standard import StandardModule
 from pypamguard.core.readers_new import *
 
 class SpermWhaleIPI(StandardModule):
+
+    _minimum_version = 1
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
