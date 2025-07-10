@@ -2,6 +2,7 @@ from pypamguard.standard import StandardModule, StandardChunkInfo
 from pypamguard.core.readers_new import *
 
 class NoiseBandMonitor(StandardModule):
+    
     def _process(self, br: BinaryReader, chunk_info: StandardChunkInfo):
         super()._process(br, chunk_info)
         self.rms = br.bin_read((DTYPES.INT16, lambda x: x / 100))

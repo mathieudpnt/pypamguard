@@ -1,0 +1,81 @@
+{
+"filters": {
+"uidlist": {
+"whitelist": [
+4000161
+],
+"__name__": "WhitelistFilter"
+}
+},
+"file_header": {
+"length": 82,
+"identifier": -1,
+"file_format": 7,
+"pamguard": "PAMGUARDDATA",
+"version": "2.02.17a",
+"branch": "CORE",
+"data_date": 1751974711.486,
+"analysis_date": 1751974711.486,
+"start_sample": 23808,
+"module_type": "DbHt",
+"module_name": "dBHt",
+"stream_name": "dBHt",
+"extra_info_len": 0,
+"data_date_raw": 1751974711486,
+"analysis_date_raw": 1751974711486,
+"__name__": "StandardFileHeader"
+},
+"module_header": {
+"length": 16,
+"identifier": -3,
+"version": 2,
+"binary_length": 0,
+"__name__": "StandardModuleHeader"
+},
+"module_footer": {
+"length": 12,
+"identifier": -4,
+"binary_length": 0,
+"__name__": "StandardModuleFooter"
+},
+"file_footer": {
+"length": 64,
+"identifier": -2,
+"n_objects": 162,
+"data_date_raw": 1751974793049,
+"data_date": 1751974793.049,
+"analysis_date_raw": 1751974793049,
+"analysis_date": 1751974793.049,
+"end_sample": 31317888,
+"lowest_uid": 4000000,
+"highest_uid": 4000162,
+"file_length": 8538,
+"end_reason": 2,
+"__name__": "StandardFileFooter"
+},
+"data": [
+{
+"millis": 1751974792492,
+"date": 1751974792.492,
+"flags": null,
+"time_ns": null,
+"channel_map": 1,
+"uid": 4000161,
+"start_sample": 31104000,
+"sample_duration": 384000,
+"freq_limits": null,
+"millis_duration": null,
+"time_delays": null,
+"sequence_map": null,
+"noise": null,
+"signal": null,
+"signal_excess": null,
+"rms": 20.48,
+"zero_peak": 46.14,
+"peak_peak": 48.42,
+"flag_bitmap": 61,
+"annotations": [],
+"__name__": "DbHtProcessing"
+}
+]
+}

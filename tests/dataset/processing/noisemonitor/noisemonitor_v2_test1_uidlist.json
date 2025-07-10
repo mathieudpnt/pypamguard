@@ -1,0 +1,112 @@
+{
+"filters": {
+"uidlist": {
+"whitelist": [
+1000005
+],
+"__name__": "WhitelistFilter"
+}
+},
+"file_header": {
+"length": 115,
+"identifier": -1,
+"file_format": 7,
+"pamguard": "PAMGUARDDATA",
+"version": "2.02.16",
+"branch": "CORE",
+"data_date": 1499572663.281,
+"analysis_date": 1751820691.29,
+"start_sample": 0,
+"module_type": "Noise Band",
+"module_name": "Noise Band Monitor",
+"stream_name": "Noise Band Monitor",
+"extra_info_len": 0,
+"data_date_raw": 1499572663281,
+"analysis_date_raw": 1751820691290,
+"__name__": "StandardFileHeader"
+},
+"module_header": {
+"length": 52,
+"identifier": -3,
+"version": 2,
+"binary_length": 36,
+"n_bands": 4,
+"stats_types": 65,
+"lo_edges": [
+445.449371,
+561.231018,
+707.106812,
+890.898743
+],
+"hi_edges": [
+561.231018,
+707.106812,
+890.898743,
+1122.462036
+],
+"__name__": "NoiseMonitorHeader"
+},
+"module_footer": {
+"length": 12,
+"identifier": -4,
+"binary_length": 0,
+"__name__": "StandardModuleFooter"
+},
+"file_footer": {
+"length": 64,
+"identifier": -2,
+"n_objects": 5,
+"data_date_raw": 1499572723181,
+"data_date": 1499572723.181,
+"analysis_date_raw": 1751820697738,
+"analysis_date": 1751820697.738,
+"end_sample": 29950000,
+"lowest_uid": 1000000,
+"highest_uid": 1000005,
+"file_length": 523,
+"end_reason": 2,
+"__name__": "StandardFileFooter"
+},
+"data": [
+{
+"millis": 1499572713281,
+"date": 1499572713.281,
+"flags": null,
+"time_ns": null,
+"channel_map": 1,
+"uid": 1000005,
+"start_sample": 25049999,
+"sample_duration": 0,
+"freq_limits": null,
+"millis_duration": null,
+"time_delays": null,
+"sequence_map": null,
+"noise": [
+[
+120.4,
+135.65
+],
+[
+121.98,
+136.98
+],
+[
+126.63,
+139.94
+],
+[
+127.11,
+143.88
+]
+],
+"signal": null,
+"signal_excess": null,
+"i_chan": 0,
+"n_bands": 4,
+"n_measures": 2,
+"flag_bitmap": 61,
+"annotations": [],
+"__name__": "NoiseMonitor"
+}
+]
+}

@@ -6,7 +6,7 @@ class DbHtProcessing(StandardModule):
     _minimum_version = 2 # As at 9 Jul 2025
 
     def __init__(self, *args, **kwargs):
-        super.__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.rms: np.float32 = None
         self.zero_peak: np.float32 = None
         self.peak_peak: np.float32 = None

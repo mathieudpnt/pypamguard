@@ -3,6 +3,7 @@ import datetime
 from pypamguard.generics import GenericModule, GenericModuleFooter
 from .stdmodulefooter import StandardModuleFooter
 from .stdmoduleheader import StandardModuleHeader
+from .stdchunkinfo import StandardChunkInfo
 from pypamguard.core.readers_new import *
 from pypamguard.core.exceptions import WarningException
 
@@ -54,7 +55,7 @@ class StandardModule(GenericModule):
         self.signal: float = None
         self.signal_excess: float = None
 
-    def _process(self, br: BinaryReader, chunk_info):
+    def _process(self, br: BinaryReader, chunk_info: StandardChunkInfo):
 
 
         self.millis, self.date = br.timestamp_read()        

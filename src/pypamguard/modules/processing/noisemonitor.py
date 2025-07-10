@@ -22,6 +22,7 @@ class NoiseMonitorHeader(StandardModuleHeader):
 class NoiseMonitor(StandardModule):
 
     _minimum_version = 2 # As at 9 Jul 2025
+    _header = NoiseMonitorHeader
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

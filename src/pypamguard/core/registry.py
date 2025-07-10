@@ -8,9 +8,10 @@ from pypamguard.modules.processing.ais import AISProcessing
 ais_config = AISProcessing
 
 from pypamguard.modules.detectors.click import ClickDetector
+from pypamguard.modules.detectors.clicktriggerbackground import ClickTriggerBackground
 click_config = {
     "Clicks": ClickDetector,
-    "Trigger Background": None,
+    "Trigger Background": ClickTriggerBackground,
 }
 
 from pypamguard.modules.processing.clipgenerator import ClipGenerator
@@ -64,12 +65,13 @@ MODULES = {
     "AIS Processing": ais_config,
     "Click Detector": click_config,
     "SoundTrap Click Detector": click_config,
-    "Clip generator": clipgenerator_config,
+    "Clip Generator": clipgenerator_config,
     "Deep Learning Classifier": deeplearningclassifier_config,
     "DbHt": dbht_config,
     "DIFAR Processing": difar_config,
     "LTSA": longtermspectralaverage_config,
     "Noise Monitor": noisemonitor_config,
+    "Noise Band": noisemonitor_config,
     "NoiseBand": noiseband_config,
     "GPL Detector": gpl_config,
     "RW Edge Detector": rwedge_config,

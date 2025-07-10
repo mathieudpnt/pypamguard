@@ -1,0 +1,61 @@
+{
+"filters": {
+"daterange": {
+"ignore_timezone": false,
+"start": 1499572713.281,
+"end": 1499572713.291,
+"comparator": "<bound method RangeFilter.default_comparator of <pypamguard.core.filters.DateFilter object at 0x7b0594d69fa0>>",
+"validation_func": null,
+"ordered": true,
+"ignore_none": false,
+"__name__": "DateFilter"
+}
+},
+"file_header": {
+"length": 111,
+"identifier": -1,
+"file_format": 7,
+"pamguard": "PAMGUARDDATA",
+"version": "2.02.17a",
+"branch": "CORE",
+"data_date": 1751974711.486,
+"analysis_date": 1751974711.486,
+"start_sample": 23808,
+"module_type": "NoiseBand",
+"module_name": "Filtered Noise Measurement",
+"stream_name": "Pulses",
+"extra_info_len": 0,
+"data_date_raw": 1751974711486,
+"analysis_date_raw": 1751974711486,
+"__name__": "StandardFileHeader"
+},
+"module_header": {
+"length": 16,
+"identifier": -3,
+"version": 3,
+"binary_length": 0,
+"__name__": "StandardModuleHeader"
+},
+"module_footer": {
+"length": 12,
+"identifier": -4,
+"binary_length": 0,
+"__name__": "StandardModuleFooter"
+},
+"file_footer": {
+"length": 64,
+"identifier": -2,
+"n_objects": 4,
+"data_date_raw": 1751974793049,
+"data_date": 1751974793.049,
+"analysis_date_raw": 1751974793049,
+"analysis_date": 1751974793.049,
+"end_sample": 31317888,
+"lowest_uid": 4000000,
+"highest_uid": 4000004,
+"file_length": 367,
+"end_reason": 2,
+"__name__": "StandardFileFooter"
+},
+"data": []
+}

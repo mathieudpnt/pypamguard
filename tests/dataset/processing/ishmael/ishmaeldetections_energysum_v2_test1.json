@@ -1,0 +1,101 @@
+{
+"filters": {},
+"file_header": {
+"length": 124,
+"identifier": -1,
+"file_format": 7,
+"pamguard": "PAMGUARDDATA",
+"version": "2.02.16",
+"branch": "CORE",
+"data_date": 1504477740.781,
+"analysis_date": 1751821254.833,
+"start_sample": 0,
+"module_type": "Energy Sum Detector",
+"module_name": "Ishmael energy sum",
+"stream_name": "Ishmael Detections",
+"extra_info_len": 0,
+"data_date_raw": 1504477740781,
+"analysis_date_raw": 1751821254833,
+"__name__": "StandardFileHeader"
+},
+"module_header": {
+"length": 16,
+"identifier": -3,
+"version": 1,
+"binary_length": 0,
+"__name__": "StandardModuleHeader"
+},
+"module_footer": {
+"length": 12,
+"identifier": -4,
+"binary_length": 0,
+"__name__": "StandardModuleFooter"
+},
+"file_footer": {
+"length": 64,
+"identifier": -2,
+"n_objects": 2,
+"data_date_raw": 1504477741981,
+"data_date": 1504477741.981,
+"analysis_date_raw": 1751821270952,
+"analysis_date": 1751821270.952,
+"end_sample": 600000,
+"lowest_uid": 4000000,
+"highest_uid": 4000002,
+"file_length": 296,
+"end_reason": 2,
+"__name__": "StandardFileFooter"
+},
+"data": [
+{
+"millis": 1504477740781,
+"date": 1504477740.781,
+"flags": null,
+"time_ns": null,
+"channel_map": 1,
+"uid": 4000001,
+"start_sample": -1,
+"sample_duration": 4609,
+"freq_limits": [
+0.0,
+1000.0
+],
+"millis_duration": null,
+"time_delays": null,
+"sequence_map": null,
+"noise": null,
+"signal": null,
+"signal_excess": null,
+"peak_height": 4.012308933706743,
+"time_sample": -1.0,
+"flag_bitmap": 125,
+"annotations": [],
+"__name__": "IshmaelDetections"
+},
+{
+"millis": 1504477740796,
+"date": 1504477740.796,
+"flags": null,
+"time_ns": null,
+"channel_map": 1,
+"uid": 4000002,
+"start_sample": 7679,
+"sample_duration": 7169,
+"freq_limits": [
+0.0,
+1000.0
+],
+"millis_duration": null,
+"time_delays": null,
+"sequence_map": null,
+"noise": null,
+"signal": null,
+"signal_excess": null,
+"peak_height": 3.154425856383402,
+"time_sample": 11263.0,
+"flag_bitmap": 125,
+"annotations": [],
+"__name__": "IshmaelDetections"
+}
+]
+}

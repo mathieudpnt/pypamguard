@@ -1,0 +1,115 @@
+{
+"filters": {
+"uidlist": {
+"whitelist": [
+2000032,
+2000028
+],
+"__name__": "WhitelistFilter"
+}
+},
+"file_header": {
+"length": 116,
+"identifier": -1,
+"file_format": 7,
+"pamguard": "PAMGUARDDATA",
+"version": "2.02.17a",
+"branch": "CORE",
+"data_date": 1751975563.149,
+"analysis_date": 1751975438.065,
+"start_sample": 0,
+"module_type": "Click Detector",
+"module_name": "Click Detector",
+"stream_name": "Trigger Background",
+"extra_info_len": 0,
+"data_date_raw": 1751975563149,
+"analysis_date_raw": 1751975438065,
+"__name__": "StandardFileHeader"
+},
+"module_header": {
+"length": 28,
+"identifier": -3,
+"version": 0,
+"binary_length": 12,
+"channel_map": 3,
+"n_chan": 2,
+"calibration": [
+177.958801,
+177.958801
+],
+"__name__": "ClickTriggerBackgroundHeader"
+},
+"module_footer": {
+"length": 12,
+"identifier": -4,
+"binary_length": 0,
+"__name__": "StandardModuleFooter"
+},
+"file_footer": {
+"length": 64,
+"identifier": -2,
+"n_objects": 36,
+"data_date_raw": 1751975742049,
+"data_date": 1751975742.049,
+"analysis_date_raw": 1751975443436,
+"analysis_date": 1751975443.436,
+"end_sample": 8587200,
+"lowest_uid": 2000000,
+"highest_uid": 2000036,
+"file_length": 1672,
+"end_reason": 2,
+"__name__": "StandardFileFooter"
+},
+"data": [
+{
+"millis": 1751975698249,
+"date": 1751975698.249,
+"flags": null,
+"time_ns": null,
+"channel_map": 3,
+"uid": 2000028,
+"start_sample": null,
+"sample_duration": null,
+"freq_limits": null,
+"millis_duration": null,
+"time_delays": null,
+"sequence_map": null,
+"noise": null,
+"signal": null,
+"signal_excess": null,
+"scale": 27150778.0,
+"raw_levels": [
+0.001191,
+0.001207
+],
+"flag_bitmap": 13,
+"annotations": [],
+"__name__": "ClickTriggerBackground"
+},
+{
+"millis": 1751975718249,
+"date": 1751975718.249,
+"flags": null,
+"time_ns": null,
+"channel_map": 3,
+"uid": 2000032,
+"start_sample": null,
+"sample_duration": null,
+"freq_limits": null,
+"millis_duration": null,
+"time_delays": null,
+"sequence_map": null,
+"noise": null,
+"signal": null,
+"signal_excess": null,
+"scale": 22755900.0,
+"raw_levels": [
+0.001407,
+0.00144
+],
+"flag_bitmap": 13,
+"annotations": [],
+"__name__": "ClickTriggerBackground"
+}
+]
+}

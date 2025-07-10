@@ -1,0 +1,50 @@
+{
+"filters": {},
+"file_header": {
+"length": 103,
+"identifier": -1,
+"file_format": 7,
+"pamguard": "PAMGUARDDATA",
+"version": "2.02.17a",
+"branch": "CORE",
+"data_date": 1751976002.147,
+"analysis_date": 1751972174.133,
+"start_sample": 168000,
+"module_type": "Clip Generator",
+"module_name": "Clip generator",
+"stream_name": "Clips",
+"extra_info_len": 0,
+"data_date_raw": 1751976002147,
+"analysis_date_raw": 1751972174133,
+"__name__": "StandardFileHeader"
+},
+"module_header": {
+"length": 16,
+"identifier": -3,
+"version": 3,
+"binary_length": 0,
+"__name__": "StandardModuleHeader"
+},
+"module_footer": {
+"length": 12,
+"identifier": -4,
+"binary_length": 0,
+"__name__": "StandardModuleFooter"
+},
+"file_footer": {
+"length": 64,
+"identifier": -2,
+"n_objects": 0,
+"data_date_raw": 1751977592147,
+"data_date": 1751977592.147,
+"analysis_date_raw": 1751972225087,
+"analysis_date": 1751972225.087,
+"end_sample": 327000,
+"lowest_uid": 3000000,
+"highest_uid": 3000000,
+"file_length": 135,
+"end_reason": 2,
+"__name__": "StandardFileFooter"
+},
+"data": []
+}

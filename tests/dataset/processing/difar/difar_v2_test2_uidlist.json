@@ -1,0 +1,64 @@
+{
+"filters": {
+"uidlist": {
+"whitelist": [
+2,
+3,
+4,
+5,
+6,
+7,
+8,
+10
+],
+"__name__": "WhitelistFilter"
+}
+},
+"file_header": {
+"length": 122,
+"identifier": -1,
+"file_format": 7,
+"pamguard": "PAMGUARDDATA",
+"version": "2.02.13c",
+"branch": "BETA",
+"data_date": 1533049200.0,
+"analysis_date": 1728039249.645,
+"start_sample": 57600000,
+"module_type": "DIFAR Processing",
+"module_name": "DIFAR Localisation",
+"stream_name": "DIFAR Localisation",
+"extra_info_len": 0,
+"data_date_raw": 1533049200000,
+"analysis_date_raw": 1728039249645,
+"__name__": "StandardFileHeader"
+},
+"module_header": {
+"length": 16,
+"identifier": -3,
+"version": 2,
+"binary_length": 0,
+"__name__": "StandardModuleHeader"
+},
+"module_footer": {
+"length": 12,
+"identifier": -4,
+"binary_length": 0,
+"__name__": "StandardModuleFooter"
+},
+"file_footer": {
+"length": 64,
+"identifier": -2,
+"n_objects": 135,
+"data_date_raw": 1533052800000,
+"data_date": 1533052800.0,
+"analysis_date_raw": 1728039402377,
+"analysis_date": 1728039402.377,
+"end_sample": 230400000,
+"lowest_uid": 6000000,
+"highest_uid": 6000000,
+"file_length": 8538460,
+"end_reason": 4,
+"__name__": "StandardFileFooter"
+},
+"data": []
+}

@@ -7,7 +7,6 @@ class Serializable(ABC):
     
     def serialize(self, value):
 
-
         if issubclass(type(value), Serializable):
             return value.json()
 
