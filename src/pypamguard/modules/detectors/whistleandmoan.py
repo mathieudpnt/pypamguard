@@ -1,10 +1,6 @@
 from pypamguard.standard import StandardModule, StandardModuleFooter, StandardModuleHeader
-from pypamguard.core.readers_new import BinaryReader, DTYPES, Shape
-from numpy import ndarray
-import numpy as np
-import numpy.typing as npt
-
-
+from pypamguard.modules.detectors.spectralbackground import SpectralBackground
+from pypamguard.core.readers_new import *
 
 class WhistleAndMoanDetectorHeader(StandardModuleHeader):
     def __init__(self, file_header):
@@ -20,6 +16,7 @@ class WhistleAndMoanDetectorHeader(StandardModuleHeader):
 class WhistleAndMoanDetector(StandardModule):
 
     _header = WhistleAndMoanDetectorHeader
+    _background = SpectralBackground
 
     def __init__(self, file_header, module_header, filters):
         super().__init__(file_header, module_header, filters)
@@ -33,8 +30,6 @@ class WhistleAndMoanDetector(StandardModule):
         self.n_peaks: ndarray
         self.peak_data: ndarray
 
-        
-    
     def _process(self, br, chunk_info):
         super()._process(br, chunk_info)
 

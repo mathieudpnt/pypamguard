@@ -51,7 +51,7 @@ longtermspectralaverage_config = LongTermSpectralAverage
 
 from pypamguard.modules.processing.ishmael import IshmaelData, IshmaelDetections
 ishmael_config = {
-    "Ishmael Peak Data": IshmaelData,
+    "Ishmael Peak Data": IshmaelData, # Not currently output from the detector
     "Ishmael Detections": IshmaelDetections,
 }
 

@@ -200,6 +200,16 @@ class PGBFile(Serializable):
                         if not self.__file_header: raise StructuralException(self.__fp, "File header not found before file footer")
                         self.__file_footer = process_chunk(self.__file_footer, chunk_info, mm=mm, pos=chunk_pos)
 
+                    elif chunk_info.identifier == IdentifierType.FILE_BACKGROUND.value:
+                        if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
+                        if self.__module_class._background is None: raise StructuralException(self.__fp, "Module class does not have a background specified")
+                        args = (self.__module_class._background(self.__file_header, self.__module_header, self.__filters), chunk_info, self.__fp.fileno(), chunk_pos, False)
+                        futures.append(pool.apply_async(create_mmap_and_process_chunk, args))
+                        mm.seek(chunk_pos + chunk_info.length - chunk_info._measured_length, io.SEEK_SET)
+
+                    else:
+                        raise StructuralException(self.__fp, f"Unknown chunk identifier: {chunk_info.identifier}")
+
                 for future in futures:
                     chunk = future.get()
                     if chunk and not chunk._filters.position in (FILTER_POSITION.SKIP, FILTER_POSITION.STOP): self.__data.append(chunk)

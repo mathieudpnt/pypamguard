@@ -3,8 +3,6 @@ import enum, datetime, mmap
 from typing import Callable
 from pypamguard.utils.bitmap import Bitmap
 
-ENDIANESS = ">"
-
 class DTYPES(enum.Enum):
     INT8 = np.dtype(np.int8)
     UINT8 = np.dtype(np.uint8)
@@ -39,8 +37,14 @@ class Shape:
 
 
 class BinaryReader:
-    def __init__(self, fp: mmap.mmap):
+
+    def __init__(self, fp: mmap.mmap, endianess='>'):
         self.fp = fp
+        self._endianess = endianess
+    
+    def set_endianess(self, endianess):
+        if not endianess in ('>', '<'): raise ValueError("Endianess must be one of '>' (big) or '<' (small)")
+        self._endianess = endianess
 
     def __collate(self, data, dtypes, shape):
         for i, dtype_i in enumerate(dtypes):            
@@ -98,7 +102,7 @@ class BinaryReader:
         """
         if type(shape) != tuple: shape = (shape,)
         dtypes = [(dtype_i, None) if isinstance(dtype_i, DTYPES) else dtype_i for dtype_i in ([dtype] if not isinstance(dtype, list) else dtype)]
-        data = np.frombuffer(self.__read(sum(dtype_i[0].value.itemsize for dtype_i in dtypes) * np.prod(shape)   ), dtype=[(f'f{i}', dtype_i[0].value.newbyteorder(ENDIANESS)) for i, dtype_i in enumerate(dtypes)])
+        data = np.frombuffer(self.__read(sum(dtype_i[0].value.itemsize for dtype_i in dtypes) * np.prod(shape)   ), dtype=[(f'f{i}', dtype_i[0].value.newbyteorder(self._endianess)) for i, dtype_i in enumerate(dtypes)])
         ret_val = tuple(self.__collate(data, dtypes, shape))
         return ret_val[0] if len(ret_val) == 1 else ret_val
 

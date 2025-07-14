@@ -1,9 +1,13 @@
-from pypamguard.standard import StandardModule
+from pypamguard.standard import StandardModule, StandardBackground
+from pypamguard.modules.detectors.spectralbackground import SpectralBackground
 from pypamguard.core.readers_new import *
+
+
 
 class GPLDetector(StandardModule):
 
     _minimum_version = 0 # As at 9 Jul 2025
+    _background = SpectralBackground
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -20,3 +20,4 @@ class IdentifierType(Enum):
     MODULE_HEADER = -3
     MODULE_FOOTER = -4
     IGNORE = -5
+    FILE_BACKGROUND = -6

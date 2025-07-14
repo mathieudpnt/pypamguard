@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 import io
+
+import numpy as np
 from pypamguard.core.serializable import Serializable
 from pypamguard.core.readers_new import BinaryReader
 
@@ -8,7 +10,7 @@ class BaseChunk(Serializable, ABC):
     def __init__(self, *args, **kwargs):
         self._measured_length = None
 
-    def _process(self, br: BinaryReader):
+    def _process(self, br: BinaryReader, *args, **kwargs):
         pass
 
     def process(self, br: BinaryReader, *args, **kwargs):
@@ -32,9 +34,9 @@ class BaseChunk(Serializable, ABC):
             if not attr.startswith('_') and not value is None:
                 lines.append(f"{attr} ({type(value)}): ")
                 # Custom code to print the signature of a list
-                if isinstance(value, list) and len(value) > 0:
+                if isinstance(value, (list, np.ndarray)) and len(value) > 0:
                     shape = []
-                    while isinstance(value, list) and len(value) > 0:
+                    while isinstance(value, (list, np.ndarray)) and len(value) > 0:
                         shape.append(str(len(value)))
                         value = value[0]
                     lines[-1] += f"[{'x'.join(shape)} {value.__class__.__name__}]"

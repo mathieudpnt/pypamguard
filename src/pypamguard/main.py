@@ -73,8 +73,12 @@ if __name__ == "__main__":
     # ishmaeldetections_energysum_v2_test2 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_energysum_v2_test2.pgdf", json_path="ishmaeldetections_energysum_v2_test2.json")
     # ishmaeldetections_energysum_v2_test3 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_energysum_v2_test3.pgdf", json_path="ishmaeldetections_energysum_v2_test3.json")
 
-    ishmaeldetections_matchedfilter_v2_test1 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_matchedfilter_v2_test1.pgdf", json_path="ishmaeldetections_matchedfilter_v2_test1.json")
-    ishmaeldetections_matchedfilter_v2_test2 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_matchedfilter_v2_test2.pgdf", json_path="ishmaeldetections_matchedfilter_v2_test2.json")
+    # ishmaeldetections_matchedfilter_v2_test1 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_matchedfilter_v2_test1.pgdf", json_path="ishmaeldetections_matchedfilter_v2_test1.json")
+    # ishmaeldetections_matchedfilter_v2_test2 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_matchedfilter_v2_test2.pgdf", json_path="ishmaeldetections_matchedfilter_v2_test2.json")
 
-    ishmaeldetections_spectrogramcorrelation_v2_test1 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_spectrogramcorrelation_v2_test1.pgdf", json_path="ishmaeldetections_spectrogramcorrelation_v2_test1.json")
-    ishmaeldetections_spectrogramcorrelation_v2_test2 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_spectrogramcorrelation_v2_test2.pgdf", json_path="ishmaeldetections_spectrogramcorrelation_v2_test2.json")
+    # ishmaeldetections_spectrogramcorrelation_v2_test1 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_spectrogramcorrelation_v2_test1.pgdf", json_path="ishmaeldetections_spectrogramcorrelation_v2_test1.json")
+    # ishmaeldetections_spectrogramcorrelation_v2_test2 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_spectrogramcorrelation_v2_test2.pgdf", json_path="ishmaeldetections_spectrogramcorrelation_v2_test2.json")
+
+    # pgdf = load_pamguard_binary_file("../tests/dataset/detectors/gpl/GPL_Detector_GPL_GPL_Detections_20000101_000000.pgnf")
+    # pgdf = load_pamguard_binary_file("../tests/dataset/plugins/geminithreshold/Gemini_Threshold_Detector_Filtered_Threshold_Detector_Sonar_Tracks_20241015_050000.pgnf", verbosity=Verbosity.DEBUG)
+    # print(pgdf.data[0])

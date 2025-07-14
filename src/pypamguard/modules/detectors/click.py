@@ -1,4 +1,4 @@
-from pypamguard.standard import StandardModule, StandardModuleFooter
+from pypamguard.standard import StandardModule, StandardModuleFooter, StandardBackground
 from pypamguard.core.readers_new import *
 from pypamguard.logger import logger
 
@@ -18,10 +18,27 @@ class ClickDetectorFooter(StandardModuleFooter):
             if self.types_count_length > 0: self.types_count = br.bin_read(DTYPES.INT32, shape=(self.types_count_length,))
             else: self.types_count = []
 
+class ClickDetectorBackgound(StandardBackground):
+
+    _minimum_version = 2
+
+    def __init__(self, file_header, module_header, filters):
+        super().__init__(file_header, module_header, filters)
+
+        self.noise_len: np.int16 = None
+        self.background: np.ndarray[np.float32] = None
+    
+    def _process(self, br, chunk_info):
+        super()._process(br, chunk_info)
+        
+        self.noise_len = br.bin_read(DTYPES.INT16)
+        self.background = br.bin_read(DTYPES.FLOAT32, shape=(self.noise_len,))
+
 class ClickDetector(StandardModule):
 
     _minimum_version = 2 # As at 9 Jul 2025
     _footer = ClickDetectorFooter
+    _background = ClickDetectorBackgound
 
     def __init__(self, file_header, module_header, filters):
         super().__init__(file_header, module_header, filters)
