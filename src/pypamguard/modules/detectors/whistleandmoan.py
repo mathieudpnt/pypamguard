@@ -24,11 +24,11 @@ class WhistleAndMoanDetector(StandardModule):
         self.n_slices: int = None
         self.amplitude: float = None
 
-        self.contour: ndarray
-        self.contour_width: ndarray
-        self.slice_numbers: ndarray
-        self.n_peaks: ndarray
-        self.peak_data: ndarray
+        self.contour: np.ndarray
+        self.contour_width: np.ndarray
+        self.slice_numbers: np.ndarray
+        self.n_peaks: np.ndarray
+        self.peak_data: np.ndarray
 
     def _process(self, br, chunk_info):
         super()._process(br, chunk_info)
