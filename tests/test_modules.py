@@ -27,7 +27,7 @@ def _get_paths(test_metadata):
     pgnf_path = f"{directory}.pgnf"
     assert os.path.exists(json_path)
     assert os.path.exists(pgdf_path)
-    # assert os.path.exists(pgdx_path)
+    assert os.path.exists(pgdx_path)
     # assert os.path.exists(pgnf_path)
     return directory, json_path, pgdf_path, pgdx_path, pgnf_path
 
@@ -60,6 +60,11 @@ def _run_pgdf_tests(file: PGBFile, json_data, test_name):
     _run_footer_tests(file, json_data, test_name)
     _run_data_tests(file, json_data, test_name)
 
+def _run_pgdx_tests(file: PGBFile, json_data, test_name):
+    _run_header_tests(file, json_data, test_name)
+    _run_footer_tests(file, json_data, test_name)
+    assert file.data == [], f"Test {test_name}: data should be empty"
+
 def _run_pgnf_tests(file: PGBFile, json_data, test_name):
     _run_header_tests(file, json_data, test_name)
     _run_footer_tests(file, json_data, test_name)
@@ -78,3 +83,6 @@ def test_module(test_data, filters):
     file_pgdf = load_pamguard_binary_file(pgdf_path, verbosity=Verbosity.WARNING, filters=filters)   
     assert isinstance(file_pgdf, PGBFile)
     _run_pgdf_tests(file_pgdf, json_data, json_path)
+
+    # pgdx_file = load_pamguard_binary_file(pgdx_file, verbosity=Verbosity.WARNING, filters=filters)
+    # _run_pgdx_tests(pgdx_file, json_data, json_path)
