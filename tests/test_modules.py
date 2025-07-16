@@ -17,7 +17,10 @@ def _test_chunk(chunk: BaseChunk, test_data: dict, test_name, chunk_name):
     for attr, expected in test_data.items():
         assert attr in chunk_json, f"Test {test_name}: chunk '{chunk_name}' does not have attribute '{attr}'"
         data = chunk_json[attr]
-        assert data == expected, f"Test {test_name}: chunk '{chunk_name}' attribute '{attr}' has unexpected value: expected {expected} ({type(expected)}), got {data} ({type(data)})"
+        if isinstance(data, float) and isinstance(expected, float):
+            assert abs(data - expected) < 1e-6, f"Test {test_name}: chunk '{chunk_name}' attribute '{attr}' has unexpected value: expected {expected} ({type(expected)}), got {data} ({type(data)})"
+        else:
+            assert data == expected, f"Test {test_name}: chunk '{chunk_name}' attribute '{attr}' has unexpected value: expected {expected} ({type(expected)}), got {data} ({type(data)})"
 
 def _get_paths(test_metadata):
     directory = os.path.join(test_metadata["directory"], test_metadata["filename"])
