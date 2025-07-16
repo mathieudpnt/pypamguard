@@ -40,4 +40,4 @@ class DLCDetections(StandardModule):
         self.n_chan = br.bin_read(DTYPES.INT16)
         self.n_samps = br.bin_read(DTYPES.INT32)
         self.scale = br.bin_read((DTYPES.FLOAT32, lambda x: 1/x))
-        self.wave = br.bin_read((DTYPES.INT8, lambda x: x/self.scale), shape=(self.n_chan, self.n_samps))
+        self.wave = br.bin_read((DTYPES.INT8, lambda x: x / self.scale), shape=(self.n_chan, self.n_samps))

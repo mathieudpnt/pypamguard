@@ -224,12 +224,12 @@ class PGBFile(Serializable):
 
     def to_json(self):
         return {
-            "filters": self.filters.to_json(),
-            "file_header": self.__file_header.to_json(),
-            "module_header": self.__module_header.to_json(),
-            "module_footer": self.__module_footer.to_json(),
-            "file_footer": self.__file_footer.to_json(),
-            "data": [chunk.to_json() for chunk in self.__data],
+            "filters": self.filters.to_json() if self.filters else None,
+            "file_header": self.__file_header.to_json() if self.__file_header else None,
+            "module_header": self.__module_header.to_json() if self.__module_header else None,
+            "module_footer": self.__module_footer.to_json() if self.__module_footer else None,
+            "file_footer": self.__file_footer.to_json() if self.__file_footer else None,
+            "data": [chunk.to_json() for chunk in self.__data] if self.__data else None,
         }
 
     def __str__(self):

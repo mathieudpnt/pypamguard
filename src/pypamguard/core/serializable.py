@@ -8,23 +8,16 @@ class Serializable(ABC):
     def serialize(self, value):
 
         if issubclass(type(value), Serializable):
-            return value.json()
+            return value.to_json()
 
-        def serialize_list(l):
-            if isinstance(l, (list, set, np.ndarray)):
-                return [serialize_list(i) for i in l]
-            elif isinstance(l, np.floating): # remove floating point precision errors#
-               return round(float(l), np.finfo(l.dtype).precision)
-            elif isinstance(l, np.generic):
-                return l.item()
-            return l
-
-
-        if type(value) == np.ndarray or type(value) == list or type(value) == set: return serialize_list(value)
+        if isinstance(value, (list, set, np.ndarray)):
+            return [self.serialize(i) for i in value]
+        if isinstance(value, np.floating): # remove floating point precision errors#
+            return round(float(value), np.finfo(value.dtype).precision)
         if type(value) == datetime.datetime: return value.timestamp()
         if type(value) == Bitmap: return value.bits
-        if isinstance(value, np.generic): return value.item()
         if isinstance(value, (int, float, str, bool, type(None))): return value
+        elif isinstance(value, np.generic): return value.item()
         return str(value)
     
 

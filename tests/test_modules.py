@@ -13,6 +13,9 @@ def filters():
     return Filters()
 
 def _test_chunk(chunk: BaseChunk, test_data: dict, test_name, chunk_name):
+    if not chunk:
+        assert test_data is None
+        return
     chunk_json: dict = chunk.to_json()
     for attr, expected in test_data.items():
         assert attr in chunk_json, f"Test {test_name}: chunk '{chunk_name}' does not have attribute '{attr}'"
@@ -74,8 +77,9 @@ def _run_pgnf_tests(file: PGBFile, json_data, test_name):
 
 def get_filters(test_data, filters):
     filters_json = test_data["filters"]
-    for filter in filters_json:
-        filters.add(filter, BaseFilter.from_json(filters_json[filter]))
+    if filters_json:
+        for filter in filters_json:
+            filters.add(filter, BaseFilter.from_json(filters_json[filter]))
     return filters
 
 @pytest.mark.parametrize("test_data", TESTS, ids=[os.path.join(x["directory"], x["json"]) for x in TESTS])
@@ -83,9 +87,16 @@ def test_module(test_data, filters):
     directory, json_path, pgdf_path, pgdx_path, pgnf_path = _get_paths(test_data)
     json_data = _get_json_data(json_path)
     get_filters(json_data, filters)
-    file_pgdf = load_pamguard_binary_file(pgdf_path, verbosity=Verbosity.WARNING, filters=filters)   
-    assert isinstance(file_pgdf, PGBFile)
-    _run_pgdf_tests(file_pgdf, json_data, json_path)
+    
+    if "background" in test_data and test_data["background"] == True:
+        file_pgnf = load_pamguard_binary_file(pgnf_path, verbosity=Verbosity.WARNING, filters=filters)   
+        assert isinstance(file_pgnf, PGBFile)
+        _run_pgnf_tests(file_pgnf, json_data, json_path)
+    else:
+        file_pgdf = load_pamguard_binary_file(pgdf_path, verbosity=Verbosity.WARNING, filters=filters)   
+        assert isinstance(file_pgdf, PGBFile)
+        _run_pgdf_tests(file_pgdf, json_data, json_path)
+
 
     # pgdx_file = load_pamguard_binary_file(pgdx_file, verbosity=Verbosity.WARNING, filters=filters)
     # _run_pgdx_tests(pgdx_file, json_data, json_path)

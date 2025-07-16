@@ -79,6 +79,27 @@ if __name__ == "__main__":
     # ishmaeldetections_spectrogramcorrelation_v2_test1 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_spectrogramcorrelation_v2_test1.pgdf", json_path="ishmaeldetections_spectrogramcorrelation_v2_test1.json")
     # ishmaeldetections_spectrogramcorrelation_v2_test2 = load_pamguard_binary_file("../tests/dataset/processing/ishmael/ishmaeldetections_spectrogramcorrelation_v2_test2.pgdf", json_path="ishmaeldetections_spectrogramcorrelation_v2_test2.json")
 
-    # pgdf = load_pamguard_binary_file("../tests/dataset/detectors/gpl/GPL_Detector_GPL_GPL_Detections_20000101_000000.pgnf")
-    # pgdf = load_pamguard_binary_file("../tests/dataset/plugins/geminithreshold/Gemini_Threshold_Detector_Filtered_Threshold_Detector_Sonar_Tracks_20241015_050000.pgnf", verbosity=Verbosity.DEBUG)
-    # print(pgdf.data[0])
+    # ais_test1 = load_pamguard_binary_file("../tests/dataset/ais/AIS_Processing_AIS_Processing_AIS_Processing_20250714_154433.pgdf", json_path="ais_test1.json")
+
+    # gpl_v2_test1 = load_pamguard_binary_file("../tests/dataset/detectors/gpl/gpl_v2_test1.pgdf", json_path="gpl_v2_test1.json")
+    # gpl_v2_test1_background = load_pamguard_binary_file("../tests/dataset/detectors/gpl/gpl_v2_test1.pgnf", json_path="gpl_v2_test1_background.json")
+
+    # gpl_v2_test2 = load_pamguard_binary_file("../tests/dataset/detectors/gpl/gpl_v2_test2.pgdf", json_path="gpl_v2_test2.json")
+    # gpl_v2_test2_background = load_pamguard_binary_file("../tests/dataset/detectors/gpl/gpl_v2_test2.pgnf", json_path="gpl_v2_test2_background.json")
+
+    # geminithreshold_test1 = load_pamguard_binary_file("../tests/dataset/plugins/geminithreshold/Gemini_Threshold_Detector_Filtered_Threshold_Detector_Sonar_Tracks_20241015_050000.pgdf", json_path="geminithreshold_test1.json")
+    # geminithreshold_test1_background = load_pamguard_binary_file("../tests/dataset/plugins/geminithreshold/Gemini_Threshold_Detector_Filtered_Threshold_Detector_Sonar_Tracks_20241015_050000.pgnf", json_path="geminithreshold_test1_background.json")
+
+    # whistleandmoan_v2_test1_background = load_pamguard_binary_file("../tests/dataset/detectors/whistleandmoan/whistleandmoan_v2_test1.pgnf", json_path="whistleandmoan_v2_test1_background.json")
+
+    # click_v4_test1 = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test1.pgdf", json_path="click_v4_test1.json")
+    # click_v4_test1_background = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test1.pgnf", json_path="click_v4_test1_background.json")
+    
+    # click_v4_test2 = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test2.pgdf", json_path="click_v4_test2.json")
+    # click_v4_test2_background = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test2.pgnf", json_path="click_v4_test2_background.json")
+    
+    # click_v4_test3 = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test3.pgdf", json_path="click_v4_test3.json")
+    # click_v4_test3_background = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test3.pgnf", json_path="click_v4_test3_background.json")
+
+    # deeplearningclassifier_v2_test1_detections = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_detections.pgdf", json_path="deeplearningclassifier_v2_test1_detections.json")
+    # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf", json_path="deeplearningclassifier_v2_test1_models.json")
