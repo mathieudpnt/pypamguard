@@ -69,7 +69,7 @@
 "peak_height": 34.28656917755424,
 "time_sample": 165631.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -94,7 +94,7 @@
 "peak_height": 38.26993035693339,
 "time_sample": 172799.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -119,7 +119,7 @@
 "peak_height": 29.992912957111276,
 "time_sample": 179455.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -144,7 +144,7 @@
 "peak_height": 23.176736921814634,
 "time_sample": 186623.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -169,7 +169,7 @@
 "peak_height": 32.69226317657436,
 "time_sample": 193535.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -194,7 +194,7 @@
 "peak_height": 31.429152238787086,
 "time_sample": 200447.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -219,7 +219,7 @@
 "peak_height": 28.07467454231482,
 "time_sample": 208895.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -244,7 +244,7 @@
 "peak_height": 32.26389873407521,
 "time_sample": 216063.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -269,7 +269,7 @@
 "peak_height": 30.416601912696485,
 "time_sample": 223231.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -294,7 +294,7 @@
 "peak_height": 26.28853184733246,
 "time_sample": 230143.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -319,7 +319,7 @@
 "peak_height": 22.090834832603186,
 "time_sample": 237055.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -344,7 +344,7 @@
 "peak_height": 32.70121079711105,
 "time_sample": 243967.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -369,7 +369,7 @@
 "peak_height": 36.8606584417665,
 "time_sample": 271615.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -394,7 +394,7 @@
 "peak_height": 38.59149926189954,
 "time_sample": 278527.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -419,7 +419,7 @@
 "peak_height": 36.22914154701248,
 "time_sample": 285439.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -444,7 +444,7 @@
 "peak_height": 35.55931536710761,
 "time_sample": 292351.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -469,7 +469,7 @@
 "peak_height": 39.93832959225912,
 "time_sample": 299519.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -494,7 +494,7 @@
 "peak_height": 31.963245850832728,
 "time_sample": 306431.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -519,7 +519,7 @@
 "peak_height": 20.553809921951565,
 "time_sample": 320767.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -544,7 +544,7 @@
 "peak_height": 34.19226383135074,
 "time_sample": 322303.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 }
 ]

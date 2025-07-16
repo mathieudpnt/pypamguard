@@ -83,7 +83,7 @@
 0.001207
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -108,7 +108,7 @@
 0.00144
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 }
 ]

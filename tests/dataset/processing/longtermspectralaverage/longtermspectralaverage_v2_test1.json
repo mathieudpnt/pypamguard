@@ -586,7 +586,7 @@
 0.029449778491431
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "LongTermSpectralAverage"
 },
 {
@@ -1125,7 +1125,7 @@
 0.028698838023073
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "LongTermSpectralAverage"
 }
 ]

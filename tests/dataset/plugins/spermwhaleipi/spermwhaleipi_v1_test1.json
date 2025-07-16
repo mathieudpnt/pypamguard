@@ -328,7 +328,7 @@
 12.54025
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -612,7 +612,7 @@
 15.47345
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -896,7 +896,7 @@
 15.736966
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -1180,7 +1180,7 @@
 13.995507
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -1464,7 +1464,7 @@
 18.965231
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -1748,7 +1748,7 @@
 24.724546
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -2032,7 +2032,7 @@
 8.433972
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -2316,7 +2316,7 @@
 4.514503
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -2600,7 +2600,7 @@
 5.587984
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -2884,7 +2884,7 @@
 20.283117
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -3168,7 +3168,7 @@
 30.268198
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 },
 {
@@ -3452,7 +3452,7 @@
 42.017601
 ],
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "SpermWhaleIPI"
 }
 ]

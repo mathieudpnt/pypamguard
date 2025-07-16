@@ -13,9 +13,13 @@ class BaseChunk(Serializable, ABC):
     def _process(self, br: BinaryReader, *args, **kwargs):
         pass
 
+    def _post(self, br: BinaryReader, *args, **kwargs):
+        pass
+
     def process(self, br: BinaryReader, *args, **kwargs):
         start = br.tell()
         self._process(br, *args, **kwargs)
+        self._post(br, *args, **kwargs)
         self._measured_length = br.tell() - start 
 
     def get_attrs(self):

@@ -1079,7 +1079,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -2114,7 +2114,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -3149,7 +3149,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -4184,7 +4184,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -5219,7 +5219,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -6254,7 +6254,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -7289,7 +7289,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -8324,7 +8324,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -9359,7 +9359,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -10394,7 +10394,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -11429,7 +11429,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -12464,7 +12464,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -13499,7 +13499,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -14534,7 +14534,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 },
 {
@@ -15569,7 +15569,7 @@
 ]
 ],
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "ClipGenerator"
 }
 ]

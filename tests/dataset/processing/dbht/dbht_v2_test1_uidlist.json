@@ -74,7 +74,7 @@
 "zero_peak": 46.14,
 "peak_peak": 48.42,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 }
 ]

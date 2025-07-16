@@ -119,7 +119,7 @@
 4.4e-05
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -199,7 +199,7 @@
 1.3e-05
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -279,7 +279,7 @@
 2.4e-05
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -359,7 +359,7 @@
 1e-05
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -439,7 +439,7 @@
 4e-05
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -519,7 +519,7 @@
 1.4e-05
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -599,7 +599,7 @@
 0.00016
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -679,7 +679,7 @@
 2e-05
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -759,7 +759,7 @@
 0.000118
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -839,7 +839,7 @@
 1.7e-05
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -919,7 +919,7 @@
 0.000124
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -999,7 +999,7 @@
 1.9e-05
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -1079,7 +1079,7 @@
 0.000123
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -1159,7 +1159,7 @@
 1.6e-05
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 }
 ]

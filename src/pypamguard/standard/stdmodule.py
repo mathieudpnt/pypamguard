@@ -7,6 +7,7 @@ from .stdchunkinfo import StandardChunkInfo
 from pypamguard.core.readers_new import *
 from pypamguard.core.exceptions import WarningException
 from pypamguard.standard.stddata import StandardDataMixin
+from pypamguard.standard.stdannotations import StdAnnotations
 
 
 import pickle
@@ -19,7 +20,14 @@ class StandardModule(GenericModule, StandardDataMixin):
     def __init__(self, file_header, module_header, filters, *args, **kwargs):
         super().__init__(file_header, module_header, filters, *args, **kwargs)
         self._initialize_stddata()
+        self.annotations: StdAnnotations = None
 
     def _process(self, br: BinaryReader, chunk_info: StandardChunkInfo):
         super()._process(br)
         self._process_stddata(br, chunk_info)
+    
+    def _post(self, br: BinaryReader, chunk_info: StandardChunkInfo):
+        super()._post(br)
+        if self.flag_bitmap.is_set("HASBINARYANNOTATIONS"):
+            self.annotations = StdAnnotations()
+            self.annotations.process(br)

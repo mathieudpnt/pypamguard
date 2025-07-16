@@ -69,7 +69,7 @@
 "peak_height": 4.012308933706743,
 "time_sample": -1.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 },
 {
@@ -94,7 +94,7 @@
 "peak_height": 3.154425856383402,
 "time_sample": 11263.0,
 "flag_bitmap": 125,
-"annotations": [],
+"annotations": null,
 "__name__": "IshmaelDetections"
 }
 ]

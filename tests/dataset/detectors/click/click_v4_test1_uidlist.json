@@ -140,7 +140,7 @@
                 ]
             ],
             "flag_bitmap": 8317,
-            "annotations": [],
+            "annotations": null,
             "n_chan": 1,
             "__name__": "ClickDetector"
         },
@@ -405,7 +405,7 @@
                 ]
             ],
             "flag_bitmap": 8317,
-            "annotations": [],
+            "annotations": null,
             "n_chan": 1,
             "__name__": "ClickDetector"
         },
@@ -515,7 +515,7 @@
                 ]
             ],
             "flag_bitmap": 8317,
-            "annotations": [],
+            "annotations": null,
             "n_chan": 1,
             "__name__": "ClickDetector"
         },
@@ -640,7 +640,7 @@
                 ]
             ],
             "flag_bitmap": 8317,
-            "annotations": [],
+            "annotations": null,
             "n_chan": 1,
             "__name__": "ClickDetector"
         }

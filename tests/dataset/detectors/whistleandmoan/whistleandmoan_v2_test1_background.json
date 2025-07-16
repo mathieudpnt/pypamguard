@@ -320,7 +320,7 @@
 0.001722
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -600,7 +600,7 @@
 0.001709
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -880,7 +880,7 @@
 0.001718
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -1160,7 +1160,7 @@
 0.001735
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -1440,7 +1440,7 @@
 0.001724
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -1720,7 +1720,7 @@
 0.001706
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -2000,7 +2000,7 @@
 0.001678
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -2280,7 +2280,7 @@
 0.001699
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -2560,7 +2560,7 @@
 0.001673
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -2840,7 +2840,7 @@
 0.001708
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -3120,7 +3120,7 @@
 0.001723
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -3400,7 +3400,7 @@
 0.001723
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -3680,7 +3680,7 @@
 0.001703
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -3960,7 +3960,7 @@
 0.001693
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -4240,7 +4240,7 @@
 0.001715
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -4520,7 +4520,7 @@
 0.001698
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -4800,7 +4800,7 @@
 0.001698
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -5080,7 +5080,7 @@
 0.001699
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -5360,7 +5360,7 @@
 0.001704
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -5640,7 +5640,7 @@
 0.001697
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -5920,7 +5920,7 @@
 0.001693
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -6200,7 +6200,7 @@
 0.001676
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -6480,7 +6480,7 @@
 0.001698
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -6760,7 +6760,7 @@
 0.001687
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -7040,7 +7040,7 @@
 0.001721
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -7320,7 +7320,7 @@
 0.001701
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -7600,7 +7600,7 @@
 0.001692
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -7880,7 +7880,7 @@
 0.001695
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -8160,7 +8160,7 @@
 0.001696
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -8440,7 +8440,7 @@
 0.001721
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -8720,7 +8720,7 @@
 0.001714
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -9000,7 +9000,7 @@
 0.001678
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -9280,7 +9280,7 @@
 0.001691
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -9560,7 +9560,7 @@
 0.001679
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -9840,7 +9840,7 @@
 0.001694
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -10120,7 +10120,7 @@
 0.001674
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -10400,7 +10400,7 @@
 0.001701
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -10680,7 +10680,7 @@
 0.001714
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -10960,7 +10960,7 @@
 0.001701
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -11240,7 +11240,7 @@
 0.0017
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -11520,7 +11520,7 @@
 0.001689
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -11800,7 +11800,7 @@
 0.001689
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -12080,7 +12080,7 @@
 0.001685
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -12360,7 +12360,7 @@
 0.001676
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -12640,7 +12640,7 @@
 0.001686
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -12920,7 +12920,7 @@
 0.001691
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -13200,7 +13200,7 @@
 0.001706
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -13480,7 +13480,7 @@
 0.001731
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -13760,7 +13760,7 @@
 0.00169
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -14040,7 +14040,7 @@
 0.001698
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -14320,7 +14320,7 @@
 0.001708
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -14600,7 +14600,7 @@
 0.001721
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -14880,7 +14880,7 @@
 0.001732
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -15160,7 +15160,7 @@
 0.001718
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -15440,7 +15440,7 @@
 0.001696
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -15720,7 +15720,7 @@
 0.001692
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -16000,7 +16000,7 @@
 0.001689
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -16280,7 +16280,7 @@
 0.001728
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -16560,7 +16560,7 @@
 0.001734
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -16840,7 +16840,7 @@
 0.001706
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -17120,7 +17120,7 @@
 0.001705
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -17400,7 +17400,7 @@
 0.00169
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -17680,7 +17680,7 @@
 0.001725
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -17960,7 +17960,7 @@
 0.001757
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -18240,7 +18240,7 @@
 0.00172
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -18520,7 +18520,7 @@
 0.00174
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -18800,7 +18800,7 @@
 0.001723
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -19080,7 +19080,7 @@
 0.001709
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -19360,7 +19360,7 @@
 0.001713
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -19640,7 +19640,7 @@
 0.001714
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -19920,7 +19920,7 @@
 0.001688
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -20200,7 +20200,7 @@
 0.001754
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -20480,7 +20480,7 @@
 0.001726
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -20760,7 +20760,7 @@
 0.001726
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -21040,7 +21040,7 @@
 0.00173
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -21320,7 +21320,7 @@
 0.001698
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -21600,7 +21600,7 @@
 0.001693
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -21880,7 +21880,7 @@
 0.001685
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -22160,7 +22160,7 @@
 0.001722
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -22440,7 +22440,7 @@
 0.001695
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -22720,7 +22720,7 @@
 0.001698
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -23000,7 +23000,7 @@
 0.001721
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -23280,7 +23280,7 @@
 0.001704
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -23560,7 +23560,7 @@
 0.001716
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -23840,7 +23840,7 @@
 0.001713
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -24120,7 +24120,7 @@
 0.001717
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -24400,7 +24400,7 @@
 0.001688
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -24680,7 +24680,7 @@
 0.0017
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -24960,7 +24960,7 @@
 0.001721
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -25240,7 +25240,7 @@
 0.001706
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -25520,7 +25520,7 @@
 0.001681
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -25800,7 +25800,7 @@
 0.001718
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -26080,7 +26080,7 @@
 0.001701
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -26360,7 +26360,7 @@
 0.001703
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -26640,7 +26640,7 @@
 0.001747
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -26920,7 +26920,7 @@
 0.001707
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -27200,7 +27200,7 @@
 0.001692
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -27480,7 +27480,7 @@
 0.001673
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -27760,7 +27760,7 @@
 0.00172
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -28040,7 +28040,7 @@
 0.001698
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 },
 {
@@ -28320,7 +28320,7 @@
 0.001713
 ],
 "flag_bitmap": 157,
-"annotations": [],
+"annotations": null,
 "__name__": "SpectralBackground"
 }
 ]

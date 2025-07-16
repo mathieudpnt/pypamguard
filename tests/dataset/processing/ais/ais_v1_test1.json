@@ -68,7 +68,7 @@
 "char_data": "15?Wrn002PP7MEdM<FkQhQN<0<0f",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -92,7 +92,7 @@
 "char_data": "13AuWl002G07LUpM@I=8jW4:0D1B",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -116,7 +116,7 @@
 "char_data": "138H:6002SP68ohM;t38jWH>0D16",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -140,7 +140,7 @@
 "char_data": "13c4<8002D05uu`LwS51cQHB0@4w",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -164,7 +164,7 @@
 "char_data": "13e;d0002906nOLM?7ha47@B05sd",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -188,7 +188,7 @@
 "char_data": "33M@@cPOk:082q8M:QK;La:B0P00",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -212,7 +212,7 @@
 "char_data": "53bRH402<Ujm08<H001H4p<uEHE88u8L0000001??H:884c=0<E3lSRCh00000000000000",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -236,7 +236,7 @@
 "char_data": "33ML;R003BP7ghhM=92ca9F@0000",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -260,7 +260,7 @@
 "char_data": "18IJ6b803=P6G4fM2gN0hPVF0D1B",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -284,7 +284,7 @@
 "char_data": "402=aJAuD`gs;069TLM@9R10086H",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -308,7 +308,7 @@
 "char_data": "13HOVV000008P72M:O0P034F0<0w",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -332,7 +332,7 @@
 "char_data": "55BOA>01uETDQ0lH000M84<DIDj1`PD`T4pL0016J@c>B4n00CcDSlhDRCp30D30E0@0000",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -356,7 +356,7 @@
 "char_data": "33N=gJ0Oi307RWPM:Vq8NVlD0161",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -380,7 +380,7 @@
 "char_data": "13TiVP0PA<07wc0M=FhR8QfH0<18",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -404,7 +404,7 @@
 "char_data": "13a1dT001V06Ab@M57f0a0VJ0D0q",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -428,7 +428,7 @@
 "char_data": "13M@@QP000P8Mj6M:Mgnf3rJ087`",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -452,7 +452,7 @@
 "char_data": "402=a@AuD`gs=069EfM@RL@00D1H",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -476,7 +476,7 @@
 "char_data": "13P7QqkPOw06:plM?MV>47hJ00SI",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -500,7 +500,7 @@
 "char_data": "13HPGl0v3GP6k=RM=rhDoSpP0899",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -524,7 +524,7 @@
 "char_data": "19NS2`002>06N<hM6MdPShNP05sd",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -548,7 +548,7 @@
 "char_data": "15?3n@002aP5j=hM:M0`oW:L0@9F",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -572,7 +572,7 @@
 "char_data": "13M@I6@01D07fEPM:>c30RVL0Usd",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -596,7 +596,7 @@
 "char_data": "17cAQl001D05QBtM9bn`uG<N05sd",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -620,7 +620,7 @@
 "char_data": "142Lb80uiL04UDLM2gtqDGFJ05sd",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -644,7 +644,7 @@
 "char_data": "14RSIN0P00062fbM?l8@0?vJ0H:6",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -668,7 +668,7 @@
 "char_data": "13tgmr1PAh08JA@M<rQ5GDFR08:9",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -692,7 +692,7 @@
 "char_data": "14i72N0P1G06Bl<M4OthP?vQ@5sd",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -716,7 +716,7 @@
 "char_data": "13bRWd501t07RTHMAKW<A9lT0@:=",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -740,7 +740,7 @@
 "char_data": "13M@Wi0P3F06wKLM@Gib:wvP08:G",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -764,7 +764,7 @@
 "char_data": "13HNw9002oP7H58M;QT4JSVT0H:P",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -788,7 +788,7 @@
 "char_data": "14n5hr001T058uLM80E91W:P0`;0",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -812,7 +812,7 @@
 "char_data": "13HTV8002S08F?@M:cA:A`>V0<13",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -836,7 +836,7 @@
 "char_data": "15Agj:0P1WP6tDpM?Qn`tG<R0@;:",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -860,7 +860,7 @@
 "char_data": "14hTnv002:P4w3<M7=hptVtW00Sn",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -884,7 +884,7 @@
 "char_data": "19Mj5:000108SRdM:V`3UGlb05sd",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -908,7 +908,7 @@
 "char_data": "18152`P02806C?PM<b;`w7:b0D17",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -932,7 +932,7 @@
 "char_data": "14WN2<0001061VNM?mK6Safb05sd",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -956,7 +956,7 @@
 "char_data": "13HOcc0000067`rM@@4J1Dvf08==",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -980,7 +980,7 @@
 "char_data": "13P7hD0Oj906==fM36S@M@Hf20S;",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -1004,7 +1004,7 @@
 "char_data": "137FK4001a07b2tM=fg1VADb0<0k",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -1028,7 +1028,7 @@
 "char_data": "13oS52001l07rM>MAEmQWi@f0@=u",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -1052,7 +1052,7 @@
 "char_data": "13:>gt000208>W8M=o=R250f08>H",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -1076,7 +1076,7 @@
 "char_data": "14QsDKPP1H0736LM?vSa0?vf08>W",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -1100,7 +1100,7 @@
 "char_data": "14Vh0p001M073SHM>OuHiVvl2@?4",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -1124,7 +1124,7 @@
 "char_data": "13e7j0002gP5>tpLtS5R4Qdl0<0e",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -1148,7 +1148,7 @@
 "char_data": "15DT@t002D7B1I01BvS4uStv0D0>",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -1172,7 +1172,7 @@
 "char_data": "15?Lh08P2e7BRaT1@7Qlvgvt0D0E",
 "ais_channel": "B",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 },
 {
@@ -1196,7 +1196,7 @@
 "char_data": "37tPGn1P027CESD1@kaCa5Vt0000",
 "ais_channel": "A",
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "AISProcessing"
 }
 ]

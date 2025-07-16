@@ -86,7 +86,7 @@
 0.001069
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -111,7 +111,7 @@
 0.001086
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -136,7 +136,7 @@
 0.001076
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -161,7 +161,7 @@
 0.001075
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -186,7 +186,7 @@
 0.001045
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -211,7 +211,7 @@
 0.001052
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -236,7 +236,7 @@
 0.001069
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -261,7 +261,7 @@
 0.001086
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -286,7 +286,7 @@
 0.001091
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -311,7 +311,7 @@
 0.001149
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -336,7 +336,7 @@
 0.00113
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -361,7 +361,7 @@
 0.001134
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -386,7 +386,7 @@
 0.001106
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -411,7 +411,7 @@
 0.00111
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -436,7 +436,7 @@
 0.001106
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -461,7 +461,7 @@
 0.001099
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -486,7 +486,7 @@
 0.00115
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -511,7 +511,7 @@
 0.001163
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -536,7 +536,7 @@
 0.001106
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -561,7 +561,7 @@
 0.001131
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -586,7 +586,7 @@
 0.00115
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -611,7 +611,7 @@
 0.001161
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -636,7 +636,7 @@
 0.001171
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 },
 {
@@ -661,7 +661,7 @@
 0.001212
 ],
 "flag_bitmap": 13,
-"annotations": [],
+"annotations": null,
 "__name__": "ClickTriggerBackground"
 }
 ]

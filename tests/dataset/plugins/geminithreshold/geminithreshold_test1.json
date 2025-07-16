@@ -266,7 +266,7 @@
 1728968404.618
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -502,7 +502,7 @@
 1728968432.292
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -710,7 +710,7 @@
 1728968451.345
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -904,7 +904,7 @@
 1728968523.349
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -1112,7 +1112,7 @@
 1728968540.593
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -1474,7 +1474,7 @@
 1728968546.21
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -2438,7 +2438,7 @@
 1728968571.076
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -2744,7 +2744,7 @@
 1728968577.492
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -2966,7 +2966,7 @@
 1728968601.763
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -3258,7 +3258,7 @@
 1728968605.771
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -3452,7 +3452,7 @@
 1728968618.804
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -3660,7 +3660,7 @@
 1728968682.564
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -3854,7 +3854,7 @@
 1728968700.017
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -4062,7 +4062,7 @@
 1728968780.817
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -4256,7 +4256,7 @@
 1728968848.228
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -4450,7 +4450,7 @@
 1728968895.953
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -4658,7 +4658,7 @@
 1728968908.984
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -4950,7 +4950,7 @@
 1728968910.791
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -5242,7 +5242,7 @@
 1728968920.217
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -5450,7 +5450,7 @@
 1728968921.017
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -5644,7 +5644,7 @@
 1728968928.234
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -5852,7 +5852,7 @@
 1728968961.522
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -6046,7 +6046,7 @@
 1728968983.583
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -7080,7 +7080,7 @@
 1728968998.42
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -7330,7 +7330,7 @@
 1728969008.848
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -7636,7 +7636,7 @@
 1728969029.901
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -7830,7 +7830,7 @@
 1728969034.112
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -8024,7 +8024,7 @@
 1728969048.35
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -8470,7 +8470,7 @@
 1728969048.551
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -8734,7 +8734,7 @@
 1728969048.952
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -8984,7 +8984,7 @@
 1728969063.583
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -9290,7 +9290,7 @@
 1728969067.797
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -9484,7 +9484,7 @@
 1728969091.655
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -12478,7 +12478,7 @@
 1728969119.93
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -14100,7 +14100,7 @@
 1728969147.201
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -14434,7 +14434,7 @@
 1728969187.715
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -14656,7 +14656,7 @@
 1728969225.416
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -14920,7 +14920,7 @@
 1728969312.04
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -15170,7 +15170,7 @@
 1728969327.481
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -15364,7 +15364,7 @@
 1728969399.482
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -15600,7 +15600,7 @@
 1728969413.117
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -15948,7 +15948,7 @@
 1728969451.625
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -16268,7 +16268,7 @@
 1728969477.3
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -16490,7 +16490,7 @@
 1728969518.005
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -16698,7 +16698,7 @@
 1728969519.811
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -16892,7 +16892,7 @@
 1728969544.462
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -17212,7 +17212,7 @@
 1728969550.076
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -17532,7 +17532,7 @@
 1728969581.954
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -17824,7 +17824,7 @@
 1728969640.9
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -18242,7 +18242,7 @@
 1728969727.719
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -18436,7 +18436,7 @@
 1728969733.533
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -18630,7 +18630,7 @@
 1728969747.772
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -18880,7 +18880,7 @@
 1728969764.009
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -19074,7 +19074,7 @@
 1728969804.708
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -19282,7 +19282,7 @@
 1728969978.59
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -19560,7 +19560,7 @@
 1728969995.241
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -19754,7 +19754,7 @@
 1728970013.896
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -19948,7 +19948,7 @@
 1728970024.325
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -20268,7 +20268,7 @@
 1728970025.527
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -20504,7 +20504,7 @@
 1728970089.301
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -20852,7 +20852,7 @@
 1728970120.193
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -21312,7 +21312,7 @@
 1728970123.801
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -21618,7 +21618,7 @@
 1728970127.813
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -21826,7 +21826,7 @@
 1728970128.213
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -22202,7 +22202,7 @@
 1728970143.661
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -22760,7 +22760,7 @@
 1728970155.889
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -22968,7 +22968,7 @@
 1728970155.889
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -23162,7 +23162,7 @@
 1728970156.692
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -23384,7 +23384,7 @@
 1728970215.225
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -23578,7 +23578,7 @@
 1728970225.655
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -23772,7 +23772,7 @@
 1728970271.581
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -24078,7 +24078,7 @@
 1728970316.494
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -24286,7 +24286,7 @@
 1728970342.561
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -24494,7 +24494,7 @@
 1728970408.535
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -24968,7 +24968,7 @@
 1728970467.291
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -25176,7 +25176,7 @@
 1728970468.295
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -25608,7 +25608,7 @@
 1728970473.507
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -26194,7 +26194,7 @@
 1728970484.535
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -26654,7 +26654,7 @@
 1728970484.535
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -27212,7 +27212,7 @@
 1728970494.765
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -27406,7 +27406,7 @@
 1728970495.166
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -27698,7 +27698,7 @@
 1728970501.984
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -27920,7 +27920,7 @@
 1728970587.999
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -28114,7 +28114,7 @@
 1728970604.632
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -28336,7 +28336,7 @@
 1728970630.104
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -28628,7 +28628,7 @@
 1728970661.396
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -28864,7 +28864,7 @@
 1728970770.683
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -29128,7 +29128,7 @@
 1728970798.563
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -29392,7 +29392,7 @@
 1728970812.006
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -29740,7 +29740,7 @@
 1728970817.021
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -29934,7 +29934,7 @@
 1728970886.42
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -30198,7 +30198,7 @@
 1728970893.633
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -30630,7 +30630,7 @@
 1728970896.642
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -30824,7 +30824,7 @@
 1728970924.101
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -31032,7 +31032,7 @@
 1728971059.268
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -31338,7 +31338,7 @@
 1728971078.514
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -31574,7 +31574,7 @@
 1728971095.354
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -31782,7 +31782,7 @@
 1728971141.882
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -32046,7 +32046,7 @@
 1728971146.496
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -32268,7 +32268,7 @@
 1728971174.782
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -32574,7 +32574,7 @@
 1728971183.607
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -32782,7 +32782,7 @@
 1728971193.436
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -33116,7 +33116,7 @@
 1728971199.046
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -33310,7 +33310,7 @@
 1728971207.466
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -33504,7 +33504,7 @@
 1728971212.478
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -33754,7 +33754,7 @@
 1728971256.799
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -33962,7 +33962,7 @@
 1728971263.016
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -34156,7 +34156,7 @@
 1728971270.033
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -34350,7 +34350,7 @@
 1728971365.658
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -34558,7 +34558,7 @@
 1728971388.512
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -34780,7 +34780,7 @@
 1728971405.155
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -35002,7 +35002,7 @@
 1728971408.165
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -35252,7 +35252,7 @@
 1728971416.79
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -35446,7 +35446,7 @@
 1728971416.79
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -35640,7 +35640,7 @@
 1728971426.411
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -36072,7 +36072,7 @@
 1728971470.927
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -36392,7 +36392,7 @@
 1728971471.528
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -36614,7 +36614,7 @@
 1728971476.747
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -36808,7 +36808,7 @@
 1728971478.549
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -37030,7 +37030,7 @@
 1728971489.376
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -37266,7 +37266,7 @@
 1728971495.798
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -37516,7 +37516,7 @@
 1728971524.677
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -37752,7 +37752,7 @@
 1728971594.27
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -37988,7 +37988,7 @@
 1728971600.08
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -38420,7 +38420,7 @@
 1728971608.104
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -38670,7 +38670,7 @@
 1728971668.666
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -38962,7 +38962,7 @@
 1728971670.67
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -39296,7 +39296,7 @@
 1728971693.127
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -39574,7 +39574,7 @@
 1728971716.794
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -39796,7 +39796,7 @@
 1728971724.413
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -40032,7 +40032,7 @@
 1728971789.589
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -40240,7 +40240,7 @@
 1728971823.871
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -40434,7 +40434,7 @@
 1728971825.678
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -40698,7 +40698,7 @@
 1728971836.112
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -40934,7 +40934,7 @@
 1728971850.549
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -41128,7 +41128,7 @@
 1728971859.579
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -41322,7 +41322,7 @@
 1728971870.612
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -41894,7 +41894,7 @@
 1728971874.825
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -42088,7 +42088,7 @@
 1728971881.644
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -42492,7 +42492,7 @@
 1728971904.907
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -42686,7 +42686,7 @@
 1728971907.917
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -42880,7 +42880,7 @@
 1728971915.135
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -43074,7 +43074,7 @@
 1728971918.746
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -43688,7 +43688,7 @@
 1728971921.554
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -44036,7 +44036,7 @@
 1728971922.558
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -44426,7 +44426,7 @@
 1728971927.171
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -44648,7 +44648,7 @@
 1728971933.789
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 },
 {
@@ -45738,7 +45738,7 @@
 1728971940.815
 ],
 "flag_bitmap": 141,
-"annotations": [],
+"annotations": null,
 "__name__": "GeminiThresholdDetector"
 }
 ]

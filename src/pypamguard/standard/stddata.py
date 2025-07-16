@@ -4,6 +4,9 @@ from pypamguard.utils.bitmap import Bitmap
 from pypamguard.core.exceptions import *
 from pypamguard.core.readers_new import *
 from pypamguard.standard import StandardChunkInfo
+from pypamguard.standard.stdannotations import StdAnnotations
+from pypamguard import annotations
+from .stdannotations import StdAnnotations
 
 DATA_FLAG_FIELDS = [
     "TIMEMILLISECONDS",
@@ -86,25 +89,6 @@ class StandardDataMixin:
 
         if "HASSIGNALEXCESS" in set_flags:
             self.signal_excess = br.bin_read(DTYPES.FLOAT32)
-
-        # NOT COMPLETED YET
-        # if "HASBINARYANNOTATIONS" in set_flags:
-        #     annotations_length = NumericalBinaryReader(INTS.SHORT).process(data)
-        #     n_annotations = NumericalBinaryReader(INTS.SHORT).process(data)
-        #     for i in range(n_annotations):
-        #         annotation_length = NumericalBinaryReader(INTS.SHORT).process(data) - INTS.SHORT.value.size
-        #         annotation_id = StringType().process(data)
-        #         annotation_version = NumericalBinaryReader(INTS.SHORT).process(data)
-
-        #         if annotation_id == "Beer":
-        #             annotations.read_beam_former_annotation(self, data)
-                
-        #         elif annotation_id == "Bearing":
-        #             annotations.read_bearing_annotation(self, data, annotation_version)
-        # else:
-        #     self.annotations = []
-
-        self.annotations = []
-
+            
         data_length = br.bin_read(DTYPES.INT32)
         if data_length <= 0: raise WarningException(br, chunk_info, self)

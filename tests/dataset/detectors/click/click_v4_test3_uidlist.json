@@ -768,7 +768,7 @@
 ]
 ],
 "flag_bitmap": 8573,
-"annotations": [],
+"annotations": null,
 "n_chan": 2,
 "__name__": "ClickDetector"
 }

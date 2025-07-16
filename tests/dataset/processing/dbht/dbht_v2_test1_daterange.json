@@ -78,7 +78,7 @@
 "zero_peak": 44.34,
 "peak_peak": 48.36,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -101,7 +101,7 @@
 "zero_peak": 48.54,
 "peak_peak": 52.13,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -124,7 +124,7 @@
 "zero_peak": 45.44,
 "peak_peak": 47.46,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -147,7 +147,7 @@
 "zero_peak": 47.34,
 "peak_peak": 48.16,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -170,7 +170,7 @@
 "zero_peak": 42.5,
 "peak_peak": 46.24,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -193,7 +193,7 @@
 "zero_peak": 47.66,
 "peak_peak": 49.79,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -216,7 +216,7 @@
 "zero_peak": 43.39,
 "peak_peak": 46.33,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -239,7 +239,7 @@
 "zero_peak": 48.0,
 "peak_peak": 49.22,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -262,7 +262,7 @@
 "zero_peak": 46.96,
 "peak_peak": 48.62,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -285,7 +285,7 @@
 "zero_peak": 48.08,
 "peak_peak": 50.7,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -308,7 +308,7 @@
 "zero_peak": 43.7,
 "peak_peak": 46.27,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -331,7 +331,7 @@
 "zero_peak": 48.2,
 "peak_peak": 49.93,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -354,7 +354,7 @@
 "zero_peak": 45.23,
 "peak_peak": 45.96,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -377,7 +377,7 @@
 "zero_peak": 47.6,
 "peak_peak": 50.47,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -400,7 +400,7 @@
 "zero_peak": 45.15,
 "peak_peak": 46.61,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -423,7 +423,7 @@
 "zero_peak": 49.13,
 "peak_peak": 50.94,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -446,7 +446,7 @@
 "zero_peak": 44.26,
 "peak_peak": 46.98,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -469,7 +469,7 @@
 "zero_peak": 48.63,
 "peak_peak": 49.44,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -492,7 +492,7 @@
 "zero_peak": 42.37,
 "peak_peak": 45.41,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -515,7 +515,7 @@
 "zero_peak": 48.37,
 "peak_peak": 52.88,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -538,7 +538,7 @@
 "zero_peak": 45.5,
 "peak_peak": 47.57,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -561,7 +561,7 @@
 "zero_peak": 47.64,
 "peak_peak": 49.74,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -584,7 +584,7 @@
 "zero_peak": 44.63,
 "peak_peak": 47.18,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -607,7 +607,7 @@
 "zero_peak": 47.39,
 "peak_peak": 49.33,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -630,7 +630,7 @@
 "zero_peak": 43.68,
 "peak_peak": 47.25,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -653,7 +653,7 @@
 "zero_peak": 47.39,
 "peak_peak": 51.05,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -676,7 +676,7 @@
 "zero_peak": 44.98,
 "peak_peak": 48.28,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -699,7 +699,7 @@
 "zero_peak": 47.0,
 "peak_peak": 51.28,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -722,7 +722,7 @@
 "zero_peak": 43.5,
 "peak_peak": 46.05,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -745,7 +745,7 @@
 "zero_peak": 48.42,
 "peak_peak": 50.28,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -768,7 +768,7 @@
 "zero_peak": 45.83,
 "peak_peak": 49.72,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -791,7 +791,7 @@
 "zero_peak": 46.97,
 "peak_peak": 50.01,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -814,7 +814,7 @@
 "zero_peak": 44.48,
 "peak_peak": 46.66,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -837,7 +837,7 @@
 "zero_peak": 48.88,
 "peak_peak": 51.25,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -860,7 +860,7 @@
 "zero_peak": 43.48,
 "peak_peak": 44.72,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -883,7 +883,7 @@
 "zero_peak": 47.49,
 "peak_peak": 50.88,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -906,7 +906,7 @@
 "zero_peak": 44.29,
 "peak_peak": 47.9,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -929,7 +929,7 @@
 "zero_peak": 47.18,
 "peak_peak": 51.31,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -952,7 +952,7 @@
 "zero_peak": 44.68,
 "peak_peak": 48.05,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -975,7 +975,7 @@
 "zero_peak": 48.4,
 "peak_peak": 50.25,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -998,7 +998,7 @@
 "zero_peak": 44.34,
 "peak_peak": 48.08,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1021,7 +1021,7 @@
 "zero_peak": 46.18,
 "peak_peak": 48.73,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1044,7 +1044,7 @@
 "zero_peak": 46.8,
 "peak_peak": 46.81,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1067,7 +1067,7 @@
 "zero_peak": 47.18,
 "peak_peak": 48.34,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1090,7 +1090,7 @@
 "zero_peak": 45.6,
 "peak_peak": 48.69,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1113,7 +1113,7 @@
 "zero_peak": 46.97,
 "peak_peak": 48.9,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1136,7 +1136,7 @@
 "zero_peak": 47.28,
 "peak_peak": 51.14,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1159,7 +1159,7 @@
 "zero_peak": 47.04,
 "peak_peak": 50.06,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1182,7 +1182,7 @@
 "zero_peak": 48.14,
 "peak_peak": 48.98,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1205,7 +1205,7 @@
 "zero_peak": 48.82,
 "peak_peak": 48.95,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1228,7 +1228,7 @@
 "zero_peak": 44.71,
 "peak_peak": 46.88,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1251,7 +1251,7 @@
 "zero_peak": 46.96,
 "peak_peak": 50.11,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1274,7 +1274,7 @@
 "zero_peak": 46.19,
 "peak_peak": 48.52,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1297,7 +1297,7 @@
 "zero_peak": 48.23,
 "peak_peak": 50.95,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1320,7 +1320,7 @@
 "zero_peak": 44.91,
 "peak_peak": 49.1,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1343,7 +1343,7 @@
 "zero_peak": 48.27,
 "peak_peak": 50.53,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1366,7 +1366,7 @@
 "zero_peak": 44.75,
 "peak_peak": 47.63,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1389,7 +1389,7 @@
 "zero_peak": 46.55,
 "peak_peak": 49.55,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1412,7 +1412,7 @@
 "zero_peak": 45.09,
 "peak_peak": 49.48,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1435,7 +1435,7 @@
 "zero_peak": 68.29,
 "peak_peak": 72.32,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1458,7 +1458,7 @@
 "zero_peak": 44.52,
 "peak_peak": 47.37,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1481,7 +1481,7 @@
 "zero_peak": 49.8,
 "peak_peak": 50.66,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1504,7 +1504,7 @@
 "zero_peak": 44.27,
 "peak_peak": 47.66,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1527,7 +1527,7 @@
 "zero_peak": 46.94,
 "peak_peak": 49.44,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1550,7 +1550,7 @@
 "zero_peak": 44.76,
 "peak_peak": 47.57,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1573,7 +1573,7 @@
 "zero_peak": 46.67,
 "peak_peak": 49.26,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1596,7 +1596,7 @@
 "zero_peak": 44.56,
 "peak_peak": 46.61,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1619,7 +1619,7 @@
 "zero_peak": 49.01,
 "peak_peak": 50.16,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1642,7 +1642,7 @@
 "zero_peak": 45.63,
 "peak_peak": 47.97,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1665,7 +1665,7 @@
 "zero_peak": 48.07,
 "peak_peak": 50.51,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1688,7 +1688,7 @@
 "zero_peak": 44.9,
 "peak_peak": 47.28,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 },
 {
@@ -1711,7 +1711,7 @@
 "zero_peak": 47.57,
 "peak_peak": 49.49,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "DbHtProcessing"
 }
 ]

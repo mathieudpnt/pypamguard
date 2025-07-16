@@ -66,6 +66,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.055733,
+0.94426
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.000448,
@@ -4074,7 +4098,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -4096,6 +4119,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.003831,
+0.996164
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.000609,
@@ -8104,7 +8151,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -8126,6 +8172,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.01325,
+0.986699
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.000331,
@@ -12134,7 +12204,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -12156,6 +12225,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.137391,
+0.862573
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.000313,
@@ -16164,7 +16257,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -16186,6 +16278,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.003982,
+0.995997
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.000282,
@@ -20194,7 +20310,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -20216,6 +20331,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.137029,
+0.86294
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.000195,
@@ -24224,7 +24363,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -24246,6 +24384,43 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 48,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.0465,
+0.953458
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+},
+{
+"predictions": [
+0.053441,
+0.946533
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 6000,
 "scale": 0.000262,
@@ -30254,7 +30429,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -30276,6 +30450,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.004375,
+0.995595
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.000245,
@@ -34284,7 +34482,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -34306,6 +34503,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.038216,
+0.961775
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.00022,
@@ -38314,7 +38535,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -38336,6 +38556,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.00058,
+0.999397
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.00018,
@@ -42344,7 +42588,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -42366,6 +42609,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.056194,
+0.943784
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.000248,
@@ -46374,7 +46641,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 },
 {
@@ -46396,6 +46662,30 @@
 "noise": null,
 "signal": null,
 "signal_excess": null,
+"annotations": {
+"dl_classification": {
+"annotation_id": "Delt",
+"annotation_length": 30,
+"annotation_version": 1,
+"models": [
+{
+"predictions": [
+0.17877,
+0.821193
+],
+"class_id": [
+2,
+3
+],
+"is_binary": true,
+"type": 0,
+"__name__": "ModelData"
+}
+],
+"__name__": "DLAnnotation"
+},
+"__name__": "StdAnnotations"
+},
 "n_chan": 1,
 "n_samps": 4000,
 "scale": 0.000237,
@@ -50404,7 +50694,6 @@
 ]
 ],
 "flag_bitmap": 765,
-"annotations": [],
 "__name__": "DLCDetections"
 }
 ]

@@ -98,7 +98,7 @@
 "n_bands": 4,
 "n_measures": 2,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "NoiseMonitor"
 },
 {
@@ -138,7 +138,7 @@
 "n_bands": 4,
 "n_measures": 2,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "NoiseMonitor"
 },
 {
@@ -178,7 +178,7 @@
 "n_bands": 4,
 "n_measures": 2,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "NoiseMonitor"
 },
 {
@@ -218,7 +218,7 @@
 "n_bands": 4,
 "n_measures": 2,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "NoiseMonitor"
 },
 {
@@ -258,7 +258,7 @@
 "n_bands": 4,
 "n_measures": 2,
 "flag_bitmap": 61,
-"annotations": [],
+"annotations": null,
 "__name__": "NoiseMonitor"
 }
 ]
