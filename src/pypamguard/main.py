@@ -103,4 +103,6 @@ if __name__ == "__main__":
 
     # deeplearningclassifier_v2_test1_detections = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_detections.pgdf", json_path="deeplearningclassifier_v2_test1_detections.json")
     # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf", json_path="deeplearningclassifier_v2_test1_models.json")
-    deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf")
+    # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf")
+
+    difar_v2_test3_daterange = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test3.pgdf", json_path="difar_v2_test3_daterange.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1533052916351 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1533053591103 / 1000, tz = datetime.UTC), ordered=True)}))

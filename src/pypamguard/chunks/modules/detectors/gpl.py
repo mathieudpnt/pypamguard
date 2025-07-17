@@ -22,5 +22,5 @@ class GPLDetector(StandardModule):
         if bit_depth == 8: p_type = DTYPES.UINT8
         else: p_type = DTYPES.UINT16
         points_x, points_y, self.excess, self.energy = br.bin_read([p_type,p_type, DTYPES.FLOAT32, DTYPES.FLOAT32], shape=(self.area,))
-        self.points = np.row_stack((points_x, points_y))
+        self.points = np.vstack((points_x, points_y))
         
