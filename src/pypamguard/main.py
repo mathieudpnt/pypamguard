@@ -105,4 +105,7 @@ if __name__ == "__main__":
     # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf", json_path="deeplearningclassifier_v2_test1_models.json")
     # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf")
 
-    difar_v2_test3_daterange = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test2.pgdf",verbosity=Verbosity.DEBUG)
+    # difar_v2_test3_daterange = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test2.pgdf",verbosity=Verbosity.DEBUG)
+    from .load_pamguard_binary_folder import load_pamguard_binary_folder
+    ods = load_pamguard_binary_folder("../tests/dataset/detectors/gpl", "gpl*.pgdf")
+    print(ods)
