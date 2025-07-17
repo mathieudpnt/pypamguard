@@ -44,17 +44,17 @@ class Report(Serializable):
 # Global report variable to be used for warning handling
 report = Report()
 
-@contextmanager
-def mmap_file(file: int, access=mmap.ACCESS_READ, flags=mmap.MAP_SHARED):
-    mm = mmap.mmap(file, 0, access=access, flags=flags)
-    try:
-        yield mm
-    finally:
-        mm.close()
+# @contextmanager
+# def mmap_file(file: int, access=mmap.ACCESS_READ, flags=mmap.MAP_SHARED):
+#     mm = mmap.mmap(file, 0, access=access, flags=flags)
+#     try:
+#         yield mm
+#     finally:
+#         mm.close()
 
-def process_chunk1(file: int, pos: int, chunk: GenericFileHeader | GenericModuleHeader | GenericModule | GenericModuleFooter | GenericFileFooter, chunk_info: StandardChunkInfo, absorb_errors: bool = False):
-    with mmap_file(file) as mm:
-        return process_chunk(mm, pos, chunk, chunk_info, absorb_errors)
+# def process_chunk1(file: int, pos: int, chunk: GenericFileHeader | GenericModuleHeader | GenericModule | GenericModuleFooter | GenericFileFooter, chunk_info: StandardChunkInfo, absorb_errors: bool = False):
+#     with mmap_file(file) as mm:
+#         return process_chunk(mm, pos, chunk, chunk_info, absorb_errors)
 
 
 def create_mmap_and_process_chunk(chunk: GenericFileHeader | GenericModuleHeader | GenericModule | GenericModuleFooter | GenericFileFooter, chunk_info: StandardChunkInfo, filename: str, pos: int, absorb_errors: bool = False):
