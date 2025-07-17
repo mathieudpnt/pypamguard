@@ -1,34 +1,27 @@
-from pypamguard.core.serializable import Serializable
-import pypamguard.chunks.annotations as annotations
 from pypamguard.chunks.base import BaseChunk
 from pypamguard.core.readers import *
-from pypamguard.core.exceptions import StructuralException
 
-annotation_types = {
-    'Beer': annotations.BeamFormerAnnotation,
-    'Bearing': annotations.BearingAnnotation,
-    'TMAN': annotations.TMAnnotation,
-    'TBDL': annotations.TBDLAnnotation,
-    'ClickClassifier_1': annotations.ClickClsfrAnnotation,
-    'Matched_Clk_Clsfr': annotations.MatchClsfrAnnotation,
-    'BCLS': annotations.RWUDPAnnotation,
-    'DLRE': annotations.DLAnnotation,
-    'Delt': annotations.DLAnnotation,
-    'Uson': annotations.UserFormAnnotation,
-    'USON': annotations.UserFormAnnotation,
-}
+from .beamformer import BeamFormerAnnotation
+from .bearing import BearingAnnotation
+from .tm import TMAnnotation
+from .tbdl import TBDLAnnotation
+from .clickclsfr import ClickClsfrAnnotation
+from .matchcls import MatchClsfrAnnotation
+from .rwudp import RWUDPAnnotation
+from .dl import DLAnnotation
+from .userform import UserFormAnnotation
 
-class StdAnnotations(BaseChunk):
+class AnnotationManager(BaseChunk):
 
-    beam_angles: annotations.BeamFormerAnnotation
-    bearing: annotations.BearingAnnotation
-    target_motion: annotations.TMAnnotation
-    toad_angles: annotations.TBDLAnnotation
-    classification: annotations.ClickClsfrAnnotation
-    m_classification: annotations.MatchClsfrAnnotation
-    basic_classification: annotations.RWUDPAnnotation
-    dl_classification: annotations.DLAnnotation
-    user_form_data: annotations.UserFormAnnotation
+    beam_angles: BeamFormerAnnotation
+    bearing: BearingAnnotation
+    target_motion: TMAnnotation
+    toad_angles: TBDLAnnotation
+    classification: ClickClsfrAnnotation
+    m_classification: MatchClsfrAnnotation
+    basic_classification: RWUDPAnnotation
+    dl_classification: DLAnnotation
+    user_form_data: UserFormAnnotation
 
     def _process(self, br, *args, **kwargs):
         annotations_length = br.bin_read(DTYPES.INT16)
@@ -44,34 +37,34 @@ class StdAnnotations(BaseChunk):
             }
             
             if annotation_id == 'Beer':
-                self.beam_angles = annotations.BeamFormerAnnotation()
+                self.beam_angles = BeamFormerAnnotation()
                 self.beam_angles.process(br, *args, **kwarg_data)
             elif annotation_id == 'Bearing':
-                self.bearing = annotations.BearingAnnotation()
+                self.bearing = BearingAnnotation()
                 self.bearing.process(br, *args, **kwarg_data)
             elif annotation_id == 'TMAN':
-                self.target_motion = annotations.TMAnnotation()
+                self.target_motion = TMAnnotation()
                 self.target_motion.process(br, *args, **kwarg_data)
             elif annotation_id == 'TBDL':
-                self.toad_angles = annotations.TBDLAnnotation()
+                self.toad_angles = TBDLAnnotation()
                 self.toad_angles.process(br, *args, **kwarg_data)
             elif annotation_id == 'ClickClassifier_1':
-                self.classification = annotations.ClickClsfrAnnotation()
+                self.classification = ClickClsfrAnnotation()
                 self.classification.process(br, *args, **kwarg_data)
             elif annotation_id == 'Matched_Clk_Clsfr':
-                self.m_classification = annotations.MatchClsfrAnnotation()
+                self.m_classification = MatchClsfrAnnotation()
                 self.m_classification.process(br, *args, **kwarg_data)
             elif annotation_id == 'BCLS':
-                self.basic_classification = annotations.RWUDPAnnotation()
+                self.basic_classification = RWUDPAnnotation()
                 self.basic_classification.process(br, *args, **kwarg_data)
             elif annotation_id == 'DLRE' or annotation_id == 'Delt':
-                self.dl_classification = annotations.DLAnnotation()
+                self.dl_classification = DLAnnotation()
                 self.dl_classification.process(br, *args, **kwarg_data)
             elif annotation_id == 'Uson' or annotation_id == 'USON':
-                self.user_form_data = annotations.UserFormAnnotation()
+                self.user_form_data = UserFormAnnotation()
                 self.user_form_data.process(br, *args, **kwarg_data)
             elif annotation_id == 'USON':
-                self.user_form_data = annotations.UserFormAnnotation()
+                self.user_form_data = UserFormAnnotation()
                 self.user_form_data.process(br, *args, **kwarg_data)
             else:
                 raise Exception(f"Unknown annotation type: {annotation_id}")

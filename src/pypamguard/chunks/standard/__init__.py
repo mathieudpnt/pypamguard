@@ -1,6 +1,4 @@
 
-# from .fileheader import FileHeader
-# from .filefooter import FileFooter
 from .stdchunkinfo import StandardChunkInfo
 from .stdmodule import StandardModule
 from .stdfileheader import StandardFileHeader

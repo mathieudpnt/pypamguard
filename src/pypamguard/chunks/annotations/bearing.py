@@ -1,7 +1,20 @@
-from pypamguard.chunks.generics import GenericAnnotation, GenericModule
+from .baseannotation import BaseAnnotation
 from pypamguard.core.readers import *
 
-class BearingAnnotation(GenericAnnotation):
+class BearingAnnotation(BaseAnnotation):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.algorithm_name: str = None
+        self.hydrophones: np.uint32 = None
+        self.array_type: np.int16 = None
+        self.localisation_content: np.uint32 = None
+        self.n_angles: np.int16 = None
+        self.angles: np.ndarray[np.float32] = None
+        self.n_errors: np.int16 = None
+        self.errors: np.ndarray[np.float32] = None
+        self.n_ang: np.int16 = None
+        self.ang: np.ndarray[np.float32] = None
 
     def _process(self, br: BinaryReader, *args, **kwargs):
         super()._process(br, *args, **kwargs)

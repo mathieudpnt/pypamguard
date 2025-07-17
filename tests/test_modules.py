@@ -12,19 +12,25 @@ from ._constants import TESTS
 def filters():
     return Filters()
 
+def _compare_json(got_dict, expected_dict, test_name, chunk_name, path=""):
+    for attr, expected in expected_dict.items():
+        if str(attr).startswith("_"): continue
+        assert attr in got_dict, f"Test {test_name}: chunk '{chunk_name}' does not have attribute '{path}{attr}'"
+        got = got_dict[attr]
+        if type(expected) == dict:
+            _compare_json(got, expected, test_name, chunk_name, path + f"{attr}.")
+        else:
+            if isinstance(got, float) and isinstance(expected, float):
+                assert abs(got - expected) < 1e-6, f"Test {test_name}: chunk '{chunk_name}' attribute '{path}{attr}' has unexpected value: expected {expected} ({type(expected)}), got {got} ({type(got)})"
+            else:
+                assert got == expected, f"Test {test_name}: chunk '{chunk_name}' attribute '{path}{attr}' has unexpected value: expected {expected} ({type(expected)}), got {got} ({type(got)})"
+
 def _test_chunk(chunk: BaseChunk, test_data: dict, test_name, chunk_name):
     if not chunk:
         assert test_data is None
         return
-    chunk_json: dict = chunk.to_json()
-    for attr, expected in test_data.items():
-        assert attr in chunk_json, f"Test {test_name}: chunk '{chunk_name}' does not have attribute '{attr}'"
-        data = chunk_json[attr]
-        if isinstance(data, float) and isinstance(expected, float):
-            assert abs(data - expected) < 1e-6, f"Test {test_name}: chunk '{chunk_name}' attribute '{attr}' has unexpected value: expected {expected} ({type(expected)}), got {data} ({type(data)})"
-        else:
-            assert data == expected, f"Test {test_name}: chunk '{chunk_name}' attribute '{attr}' has unexpected value: expected {expected} ({type(expected)}), got {data} ({type(data)})"
-
+    _compare_json(chunk.to_json(), test_data, test_name, chunk_name)
+  
 def _get_paths(test_metadata):
     directory = os.path.join(test_metadata["directory"], test_metadata["filename"])
     json_path = os.path.join(test_metadata["directory"], test_metadata["json"])

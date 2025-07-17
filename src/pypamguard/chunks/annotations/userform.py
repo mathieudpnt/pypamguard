@@ -1,8 +1,11 @@
-from pypamguard.core.serializable import Serializable
-from pypamguard.chunks.generics import GenericAnnotation, GenericModule
+from .baseannotation import BaseAnnotation
 from pypamguard.core.readers import *
 
-class UserFormAnnotation(GenericAnnotation):
+class UserFormAnnotation(BaseAnnotation):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.form_data: str = None
 
     def _process(self, br: BinaryReader, *args, **kwargs):
         super()._process(br, *args, **kwargs)

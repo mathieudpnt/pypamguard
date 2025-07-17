@@ -1,7 +1,15 @@
-from pypamguard.chunks.generics import GenericAnnotation
+from .baseannotation import BaseAnnotation
 from pypamguard.core.readers import *
 
-class BeamFormerAnnotation(GenericAnnotation):
+class BeamFormerAnnotation(BaseAnnotation):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.hydrophones: np.uint32 = None
+        self.array_type: np.int16 = None
+        self.localisation_content: np.uint32 = None
+        self.n_angles: np.int16 = None
+        self.angles: np.ndarray[np.float32] = None
 
     def _process(self, br: BinaryReader, *args, **kwargs):
         super()._process(br, *args, **kwargs)

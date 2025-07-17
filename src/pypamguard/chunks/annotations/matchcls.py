@@ -1,8 +1,11 @@
-from pypamguard.core.serializable import Serializable
-from pypamguard.chunks.generics import GenericAnnotation, GenericModule
+from .baseannotation import BaseAnnotation
 from pypamguard.core.readers import *
 
-class MatchClsfrAnnotation(GenericAnnotation):
+class MatchClsfrAnnotation(BaseAnnotation):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(self, *args, **kwargs)
+        self.data: np.ndarray[np.ndarray[np.float64], np.ndarray[np.float64], np.ndarray[np.float64]] = None
 
     def _process(self, br: BinaryReader, *args, **kwargs):
         super()._process(br, *args, **kwargs)

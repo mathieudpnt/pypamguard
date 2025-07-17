@@ -1,15 +1,15 @@
-from pypamguard.core.serializable import Serializable
-from pypamguard.chunks.generics import GenericAnnotation, GenericModule
+from .baseannotation import BaseAnnotation
+from pypamguard.chunks.annotations.submodules import Location
 from pypamguard.core.readers import *
 
-class TMAnnotation(GenericAnnotation):
+class TMAnnotation(BaseAnnotation):
 
-    class Location(Serializable):
-        def __init__(self):
-            self.latitude = None
-            self.longitude = None
-            self.height = None
-            self.error = None
+    def __init__(self, *args, **kwargs):
+        super().__init__(self, *args, **kwargs)
+        self.model: str = None
+        self.n_locations: np.int16 = None
+        self.hydrophones: np.uint32 = None
+        self.loc: np.ndarray[Location] = None
 
     def _process(self, br: BinaryReader, *args, **kwargs):
         super()._process(br, *args, **kwargs)
@@ -18,9 +18,6 @@ class TMAnnotation(GenericAnnotation):
         self.hydrophones = br.bin_read(DTYPES.UINT32)
         self.loc = np.ndarray(self.n_locations, type=self.Location)
         for i in range(self.n_locations):
-            loc = self.Location()
-            loc.latitude = br.bin_read(DTYPES.FLOAT64)
-            loc.longitude = br.bin_read(DTYPES.FLOAT64)
-            loc.height = br.bin_read(DTYPES.FLOAT32)
-            loc.error = br.string_read()
+            loc = Location()
+            loc.process(br)
             self.loc[i] = loc

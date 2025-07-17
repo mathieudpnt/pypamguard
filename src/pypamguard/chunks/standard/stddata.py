@@ -4,9 +4,6 @@ from pypamguard.utils.bitmap import Bitmap
 from pypamguard.core.exceptions import *
 from pypamguard.core.readers import *
 from pypamguard.chunks.standard import StandardChunkInfo
-from pypamguard.chunks.standard.stdannotations import StdAnnotations
-from pypamguard import annotations
-from .stdannotations import StdAnnotations
 
 DATA_FLAG_FIELDS = [
     "TIMEMILLISECONDS",
