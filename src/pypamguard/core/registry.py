@@ -1,23 +1,23 @@
 # registry.py
 # A module for registering the available modules (subclasses of PAMChunk)
 
-from pypamguard.generics import GenericModule
+from pypamguard.chunks.generics import GenericModule
 from pypamguard.core.exceptions import ModuleNotFoundException
 
-from pypamguard.modules.processing.ais import AISProcessing
+from pypamguard.chunks.modules.processing.ais import AISProcessing
 ais_config = AISProcessing
 
-from pypamguard.modules.detectors.click import ClickDetector
-from pypamguard.modules.detectors.clicktriggerbackground import ClickTriggerBackground
+from pypamguard.chunks.modules.detectors.click import ClickDetector
+from pypamguard.chunks.modules.detectors.clicktriggerbackground import ClickTriggerBackground
 click_config = {
     "Clicks": ClickDetector,
     "Trigger Background": ClickTriggerBackground,
 }
 
-from pypamguard.modules.processing.clipgenerator import ClipGenerator
+from pypamguard.chunks.modules.processing.clipgenerator import ClipGenerator
 clipgenerator_config = ClipGenerator
 
-from pypamguard.modules.classifiers.deeplearningclassifier import DLCDetections, DLCModels
+from pypamguard.chunks.modules.classifiers.deeplearningclassifier import DLCDetections, DLCModels
 deeplearningclassifier_config = {
     "DL_detection": DLCDetections,
     "DL detection": DLCDetections,
@@ -25,40 +25,40 @@ deeplearningclassifier_config = {
     "DL Model Data": DLCModels,
 }
 
-from pypamguard.modules.processing.dbht import DbHtProcessing
+from pypamguard.chunks.modules.processing.dbht import DbHtProcessing
 dbht_config = DbHtProcessing
 
-from pypamguard.modules.processing.difar import DIFARProcessing
+from pypamguard.chunks.modules.processing.difar import DIFARProcessing
 difar_config = DIFARProcessing
 
-from pypamguard.modules.processing.noisemonitor import NoiseMonitor
+from pypamguard.chunks.modules.processing.noisemonitor import NoiseMonitor
 noisemonitor_config = NoiseMonitor
 
-from pypamguard.modules.processing.noiseband import NoiseBandMonitor
+from pypamguard.chunks.modules.processing.noiseband import NoiseBandMonitor
 noiseband_config = NoiseBandMonitor
 
-from pypamguard.modules.detectors.gpl import GPLDetector
+from pypamguard.chunks.modules.detectors.gpl import GPLDetector
 gpl_config = GPLDetector
 
-from pypamguard.modules.detectors.rwedge import RWEdgeDetector
+from pypamguard.chunks.modules.detectors.rwedge import RWEdgeDetector
 rwedge_config = RWEdgeDetector
 
-from pypamguard.modules.detectors.whistleandmoan import WhistleAndMoanDetector
+from pypamguard.chunks.modules.detectors.whistleandmoan import WhistleAndMoanDetector
 whistleandmoan_config = WhistleAndMoanDetector
 
-from pypamguard.modules.processing.longtermspectralaverage import LongTermSpectralAverage
+from pypamguard.chunks.modules.processing.longtermspectralaverage import LongTermSpectralAverage
 longtermspectralaverage_config = LongTermSpectralAverage
 
-from pypamguard.modules.processing.ishmael import IshmaelData, IshmaelDetections
+from pypamguard.chunks.modules.processing.ishmael import IshmaelData, IshmaelDetections
 ishmael_config = {
     "Ishmael Peak Data": IshmaelData, # Not currently output from the detector
     "Ishmael Detections": IshmaelDetections,
 }
 
-from pypamguard.modules.plugins.spermwhaleipi import SpermWhaleIPI
+from pypamguard.chunks.modules.plugins.spermwhaleipi import SpermWhaleIPI
 spermwhaleipi_config = SpermWhaleIPI
 
-from pypamguard.modules.plugins.geminithreshold import GeminiThresholdDetector
+from pypamguard.chunks.modules.plugins.geminithreshold import GeminiThresholdDetector
 geminithreshold_config = GeminiThresholdDetector
 
 MODULES = {

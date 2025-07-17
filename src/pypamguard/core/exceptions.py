@@ -1,6 +1,6 @@
 import io
-from pypamguard.generics import GenericChunkInfo
-from pypamguard.base import BaseChunk
+from pypamguard.chunks.generics import GenericChunkInfo
+from pypamguard.chunks.base import BaseChunk
 
 
 class BinaryFileException(Exception):

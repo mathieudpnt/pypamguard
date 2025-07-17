@@ -3,9 +3,9 @@ import io
 import time
 
 from pypamguard.core.exceptions import BinaryFileException, WarningException, CriticalException, ChunkLengthMismatch, StructuralException
-from pypamguard.base import BaseChunk
-from pypamguard.standard import StandardChunkInfo, StandardFileHeader, StandardFileFooter, StandardModuleHeader, StandardModuleFooter
-from pypamguard.generics import GenericChunkInfo, GenericFileHeader, GenericFileFooter, GenericModuleHeader, GenericModuleFooter, GenericModule
+from pypamguard.chunks.base import BaseChunk
+from pypamguard.chunks.standard import StandardChunkInfo, StandardFileHeader, StandardFileFooter, StandardModuleHeader, StandardModuleFooter
+from pypamguard.chunks.generics import GenericChunkInfo, GenericFileHeader, GenericFileFooter, GenericModuleHeader, GenericModuleFooter, GenericModule
 from pypamguard.core.registry import ModuleRegistry
 from pypamguard.utils.constants import IdentifierType
 from pypamguard.utils.constants import BYTE_ORDERS

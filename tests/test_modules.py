@@ -1,6 +1,6 @@
 from pypamguard import load_pamguard_binary_file
 from pypamguard.core.pgbfile import PGBFile
-from pypamguard.base import BaseChunk
+from pypamguard.chunks.base import BaseChunk
 from pypamguard.utils.serializer import serialize
 from pypamguard.core.filters import Filters, DateFilter, RangeFilter, WhitelistFilter, BaseFilter
 from pypamguard.logger import Verbosity
