@@ -9,6 +9,7 @@ class BaseChunk(Serializable, ABC):
 
     def __init__(self, *args, **kwargs):
         self._measured_length = None
+        self._start_pos = None
 
     def _process(self, br: BinaryReader, *args, **kwargs):
         pass
@@ -17,10 +18,10 @@ class BaseChunk(Serializable, ABC):
         pass
 
     def process(self, br: BinaryReader, *args, **kwargs):
-        start = br.tell()
+        self._start_pos = br.tell()
         self._process(br, *args, **kwargs)
         self._post(br, *args, **kwargs)
-        self._measured_length = br.tell() - start 
+        self._measured_length = br.tell() - self._start_pos 
 
     def get_attrs(self):
         return [attr for attr in self.__dict__ if not attr.startswith('_')]

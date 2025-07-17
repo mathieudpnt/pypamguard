@@ -1,3 +1,4 @@
+import io
 import numpy as np
 import enum, datetime, mmap
 from typing import Callable
@@ -56,6 +57,19 @@ class BinaryReader:
 
     def tell(self):
         return self.fp.tell()
+
+    def seek(self, offset, whence: int = io.SEEK_SET):
+        return self.fp.seek(offset, whence)
+
+    def set_checkpoint(self, offset: int):
+        self.next_checkpoint = self.tell() + offset
+
+    def goto_checkpoint(self):
+        self.seek(self.next_checkpoint)
+    
+    def at_checkpoint(self):
+        if self.tell() == self.next_checkpoint: return True
+        else: return False
 
     def bin_read(self, dtype: list[tuple[DTYPES, Callable[[np.ndarray], np.ndarray]]], shape: tuple = (1,)) -> int | float | np.ndarray | tuple[np.ndarray]:
         """
