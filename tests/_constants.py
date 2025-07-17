@@ -14,6 +14,7 @@ ISHMAEL_DIR = os.path.join(DATASET_PATH, "processing", "ishmael")
 AIS_DIR = os.path.join(DATASET_PATH, "processing", "ais")
 GPL_DIR = os.path.join(DATASET_PATH, "detectors", "gpl")
 GEMINITHRESHOLD_DIR = os.path.join(DATASET_PATH, "plugins", "geminithreshold")
+DEEPLEARNINGCLASSIFIER_DIR = os.path.join(DATASET_PATH, "classifiers", "deeplearningclassifier")
 
 TESTS = [
     {
@@ -394,5 +395,17 @@ TESTS = [
         "directory": GEMINITHRESHOLD_DIR,
         "keyword": "geminithreshold",
         "background": True,
-    }
+    },
+    {
+        "json": "deeplearningclassifier_v2_test1_detections.json",
+        "filename": "deeplearningclassifier_v2_test1_detections",
+        "directory": DEEPLEARNINGCLASSIFIER_DIR,
+        "keyword": "deeplearningclassifier",
+    },
+    {
+        "json": "deeplearningclassifier_v2_test1_models.json",
+        "filename": "deeplearningclassifier_v2_test1_models",
+        "directory": DEEPLEARNINGCLASSIFIER_DIR,
+        "keyword": "deeplearningclassifier",
+    },
 ]

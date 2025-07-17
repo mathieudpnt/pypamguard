@@ -102,4 +102,4 @@ if __name__ == "__main__":
     # click_v4_test3_background = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test3.pgnf", json_path="click_v4_test3_background.json")
 
     deeplearningclassifier_v2_test1_detections = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_detections.pgdf", json_path="deeplearningclassifier_v2_test1_detections.json")
-    # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf", json_path="deeplearningclassifier_v2_test1_models.json")
+    deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf", json_path="deeplearningclassifier_v2_test1_models.json")
