@@ -1,5 +1,6 @@
 from contextlib import contextmanager
 import io
+import multiprocessing.reduction
 import time
 
 from pypamguard.core.exceptions import BinaryFileException, WarningException, CriticalException, ChunkLengthMismatch, StructuralException
@@ -16,6 +17,13 @@ from pypamguard.core.readers import *
 import multiprocessing
 import os
 import mmap
+
+# Use multiprocessing.Pool with initializer to open the file once
+global_file = None
+
+def init_worker(path):
+    global global_file
+    global_file = open(path, 'rb')
 
 class Report(Serializable):
     warnings = []
@@ -49,12 +57,22 @@ def process_chunk1(file: int, pos: int, chunk: GenericFileHeader | GenericModule
         return process_chunk(mm, pos, chunk, chunk_info, absorb_errors)
 
 
-def create_mmap_and_process_chunk(chunk: GenericFileHeader | GenericModuleHeader | GenericModule | GenericModuleFooter | GenericFileFooter, chunk_info: StandardChunkInfo, fileno: int, pos: int, aborb_errors: bool = False):
-    with mmap_file(fileno) as mm:
-        return process_chunk(chunk, chunk_info, mm=mm, pos=pos, absorb_errors=aborb_errors)
+def create_mmap_and_process_chunk(chunk: GenericFileHeader | GenericModuleHeader | GenericModule | GenericModuleFooter | GenericFileFooter, chunk_info: StandardChunkInfo, filename: str, pos: int, absorb_errors: bool = False):
+    pagesize = mmap.ALLOCATIONGRANULARITY # 4096 on most systems, but not guaranteed
+    aligned_offset = pos - (pos % pagesize) # Round the position down to the nearest page size
+    offset_delta = pos - aligned_offset 
+    map_size = offset_delta + chunk_info.length  # just enough for the chunk
+    
+    global global_file
+
+    # with open(filename, 'rb') as f:
+    with mmap.mmap(global_file.fileno(), length=0, offset=aligned_offset, access=mmap.ACCESS_READ) as mm:
+        mm.seek(offset_delta)
+        processed_chunk = process_chunk(chunk, chunk_info, mm=mm, pos=pos, absorb_errors=absorb_errors)
+        return processed_chunk
+    
 
 def process_chunk(chunk, chunk_info, mm: mmap.mmap = None, pos: int = 0, absorb_errors: bool = False):
-    mm.seek(pos)
     try:
         chunk.process(BinaryReader(mm), chunk_info)
         # Compare the actual chunk length to the expected chunk length
@@ -90,7 +108,6 @@ class PGBFile(Serializable):
         :param module_registry: Override the module registry (optional)
         :param filters: The filters (optional)
         """
-
         global report
         report = Report()
         self.__path: str = path
@@ -163,62 +180,64 @@ class PGBFile(Serializable):
     def load(self):
         start_time = time.time()
         self.__fp.seek(0, io.SEEK_SET)
-        with mmap_file(self.__fp.fileno()) as mm:
-            # We use a pool to process chunks in parallel (asynchronously)
-            # Note that headers and footers are still processed synchronously
-            with multiprocessing.Pool(processes=1 if logger.verbosity == Verbosity.DEBUG else multiprocessing.cpu_count()) as pool:
-                futures = []
-                i = 0
-                while True:
-                    if mm.tell() == self.__size: break
-                    chunk_info = StandardChunkInfo()
-                    chunk_info.process(BinaryReader(mm))
-                    chunk_pos = mm.tell()
+        fd = os.dup(self.__fp.fileno())
+        # with mmap_file(self.__fp.fileno()) as mm:
+        # We use a pool to process chunks in parallel (asynchronously)
+        # Note that headers and footers are still processed synchronously
+        #  if logger.verbosity == Verbosity.DEBUG else multiprocessing.cpu_count()
+        with multiprocessing.Pool(initializer=init_worker, initargs=(self.__path,), processes=1 if logger.verbosity == Verbosity.DEBUG else multiprocessing.cpu_count()) as pool:
+            futures = []
+            i = 0
+            while True:
+                if self.__fp.tell() == self.__size: break
+                chunk_info = StandardChunkInfo()
+                chunk_info.process(BinaryReader(self.__fp))
+                chunk_pos = self.__fp.tell()
 
-                    if chunk_info.identifier == IdentifierType.FILE_HEADER.value:
-                        self.__file_header = process_chunk(self.__file_header, chunk_info, mm=mm, pos=chunk_pos, absorb_errors=False)
-                        self.__module_class = self.__module_registry.get_module(self.__file_header.module_type, self.__file_header.stream_name)
+                if chunk_info.identifier == IdentifierType.FILE_HEADER.value:
+                    self.__file_header = process_chunk(self.__file_header, chunk_info, self.__fp, pos=chunk_pos, absorb_errors=False)
+                    self.__module_class = self.__module_registry.get_module(self.__file_header.module_type, self.__file_header.stream_name)
 
-                    elif chunk_info.identifier == IdentifierType.MODULE_HEADER.value:
-                        if not self.__file_header: raise StructuralException(self.__fp, "File header not found before module header")
-                        self.__module_header = process_chunk(self.__module_class._header(self.__file_header), chunk_info, mm=mm, pos=chunk_pos, absorb_errors=False)
+                elif chunk_info.identifier == IdentifierType.MODULE_HEADER.value:
+                    if not self.__file_header: raise StructuralException(self.__fp, "File header not found before module header")
+                    self.__module_header = process_chunk(self.__module_class._header(self.__file_header), chunk_info, self.__fp, pos=chunk_pos, absorb_errors=False)
 
-                    elif chunk_info.identifier >= 0:
-                        logger.debug(f"Processing data chunk {i}")
-                        i += 1
-                        if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
-                        args = (self.__module_class(self.__file_header, self.__module_header, self.__filters), chunk_info, self.__fp.fileno(), chunk_pos, False)
-                        futures.append(pool.apply_async(create_mmap_and_process_chunk, args))
-                        # Because we are asynchronously processing chunks, we need to seek to the end of the chunk manually
-                        mm.seek(chunk_pos + chunk_info.length - chunk_info._measured_length, io.SEEK_SET)
+                elif chunk_info.identifier >= 0:
+                    logger.debug(f"Processing data chunk {i}")
+                    i += 1
+                    if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
+                    args = (self.__module_class(self.__file_header, self.__module_header, self.__filters), chunk_info, self.__path, chunk_pos, False)
+                    futures.append(pool.apply_async(create_mmap_and_process_chunk, args))
+                    # Because we are asynchronously processing chunks, we need to seek to the end of the chunk manually
+                    self.__fp.seek(chunk_pos + chunk_info.length - chunk_info._measured_length, io.SEEK_SET)
 
-                    elif chunk_info.identifier == IdentifierType.MODULE_FOOTER.value:
-                        if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before module footer")
-                        self.__module_footer = process_chunk(self.__module_class._footer(self.__file_header, self.__module_header), chunk_info, mm=mm, pos=chunk_pos)
+                elif chunk_info.identifier == IdentifierType.MODULE_FOOTER.value:
+                    if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before module footer")
+                    self.__module_footer = process_chunk(self.__module_class._footer(self.__file_header, self.__module_header), chunk_info, self.__fp, pos=chunk_pos)
 
-                    elif chunk_info.identifier == IdentifierType.FILE_FOOTER.value:
-                        if not self.__file_header: raise StructuralException(self.__fp, "File header not found before file footer")
-                        self.__file_footer = process_chunk(self.__file_footer, chunk_info, mm=mm, pos=chunk_pos)
+                elif chunk_info.identifier == IdentifierType.FILE_FOOTER.value:
+                    if not self.__file_header: raise StructuralException(self.__fp, "File header not found before file footer")
+                    self.__file_footer = process_chunk(self.__file_footer, chunk_info, self.__fp, pos=chunk_pos)
 
-                    elif chunk_info.identifier == IdentifierType.FILE_BACKGROUND.value:
-                        if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
-                        if self.__module_class._background is None: raise StructuralException(self.__fp, "Module class does not have a background specified")
-                        args = (self.__module_class._background(self.__file_header, self.__module_header, self.__filters), chunk_info, self.__fp.fileno(), chunk_pos, False)
-                        futures.append(pool.apply_async(create_mmap_and_process_chunk, args))
-                        mm.seek(chunk_pos + chunk_info.length - chunk_info._measured_length, io.SEEK_SET)
+                elif chunk_info.identifier == IdentifierType.FILE_BACKGROUND.value:
+                    if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
+                    if self.__module_class._background is None: raise StructuralException(self.__fp, "Module class does not have a background specified")
+                    args = (self.__module_class._background(self.__file_header, self.__module_header, self.__filters), chunk_info, self.__path, chunk_pos, False)
+                    futures.append(pool.apply_async(create_mmap_and_process_chunk, args))
+                    self.__fp.seek(chunk_pos + chunk_info.length - chunk_info._measured_length, io.SEEK_SET)
 
-                    else:
-                        raise StructuralException(self.__fp, f"Unknown chunk identifier: {chunk_info.identifier}")
+                else:
+                    raise StructuralException(self.__fp, f"Unknown chunk identifier: {chunk_info.identifier}")
 
-                for future in futures:
-                    chunk = future.get()
-                    if chunk and not chunk._filters.position in (FILTER_POSITION.SKIP, FILTER_POSITION.STOP): self.__data.append(chunk)
-                    elif chunk and chunk._filters.position == FILTER_POSITION.STOP:
-                        pool.terminate()
-                        break
+            for future in futures:
+                chunk = future.get()
+                if chunk and not chunk._filters.position in (FILTER_POSITION.SKIP, FILTER_POSITION.STOP): self.__data.append(chunk)
+                elif chunk and chunk._filters.position == FILTER_POSITION.STOP:
+                    pool.terminate()
+                    break
 
-                pool.terminate()
-                mm.close()
+            pool.terminate()
+            # mm.close()
             
         self.total_time = time.time() - start_time
 
