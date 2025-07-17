@@ -1,5 +1,5 @@
 from pypamguard.generics import GenericAnnotation, GenericModule
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class BearingAnnotation(GenericAnnotation):
 

@@ -1,7 +1,7 @@
 from pypamguard.base.chunk import BaseChunk
 from pypamguard.core.serializable import Serializable
 from pypamguard.generics import GenericAnnotation, GenericModule
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class DLAnnotation(GenericAnnotation):
 

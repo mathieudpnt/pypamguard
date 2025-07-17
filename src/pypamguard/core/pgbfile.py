@@ -8,11 +8,11 @@ from pypamguard.standard import StandardChunkInfo, StandardFileHeader, StandardF
 from pypamguard.generics import GenericChunkInfo, GenericFileHeader, GenericFileFooter, GenericModuleHeader, GenericModuleFooter, GenericModule
 from pypamguard.core.registry import ModuleRegistry
 from pypamguard.utils.constants import IdentifierType
-from pypamguard.core.readers import BYTE_ORDERS
+from pypamguard.utils.constants import BYTE_ORDERS
 from pypamguard.core.filters import Filters, FILTER_POSITION, FilterMismatchException
 from pypamguard.logger import logger, Verbosity
 from pypamguard.core.serializable import Serializable
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 import multiprocessing
 import os
 import mmap

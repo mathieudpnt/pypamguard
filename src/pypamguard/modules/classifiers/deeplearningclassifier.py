@@ -1,5 +1,5 @@
 from pypamguard.standard import StandardModule, StandardChunkInfo
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class DLCModels(StandardModule):
     def __init__(self, *args, **kwargs):

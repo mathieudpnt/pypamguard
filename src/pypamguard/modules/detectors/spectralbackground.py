@@ -1,5 +1,5 @@
 from pypamguard.standard import StandardBackground
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class SpectralBackground(StandardBackground):
     def __init__(self, *args, **kwargs):

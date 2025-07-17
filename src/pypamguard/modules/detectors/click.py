@@ -1,5 +1,5 @@
 from pypamguard.standard import StandardModule, StandardModuleFooter, StandardBackground
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 from pypamguard.logger import logger
 
 class ClickDetectorFooter(StandardModuleFooter):

@@ -1,5 +1,5 @@
 from pypamguard.generics import GenericAnnotation
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class BeamFormerAnnotation(GenericAnnotation):
 

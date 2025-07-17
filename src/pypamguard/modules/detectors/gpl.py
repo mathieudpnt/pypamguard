@@ -1,6 +1,6 @@
 from pypamguard.standard import StandardModule, StandardBackground
 from pypamguard.modules.detectors.spectralbackground import SpectralBackground
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 
 

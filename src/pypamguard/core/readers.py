@@ -1,177 +1,124 @@
-# field_types.py
-# Classes that represent different types of fields in a PAMGuard file
-
-import struct
-from enum import Enum
-from abc import ABC, abstractmethod
 import numpy as np
-import io
-import datetime
-
+import enum, datetime, mmap
+from typing import Callable
 from pypamguard.utils.bitmap import Bitmap
-from pypamguard.utils.constants import BYTE_ORDERS
-from pypamguard.logger import logger
 
-class TypeFormat():
-    def __init__(self, formatter: str, size: int):
-        self.formatter = formatter
-        self.size = size
+class DTYPES(enum.Enum):
+    INT8 = np.dtype(np.int8)
+    UINT8 = np.dtype(np.uint8)
+    INT16 = np.dtype(np.int16)
+    UINT16 = np.dtype(np.uint16)
+    INT32 = np.dtype(np.int32)
+    UINT32 = np.dtype(np.uint32)
+    INT64 = np.dtype(np.int64)
+    UINT64 = np.dtype(np.uint64)
+    FLOAT32 = np.dtype(np.float32)
+    FLOAT64 = np.dtype(np.float64)
 
-
-class DTYPES(Enum):
-    CHAR = TypeFormat(np.int8,1)
-    UCHAR = TypeFormat(np.uint8,1)
-    SHORT = TypeFormat(np.int16,2)
-    USHORT = TypeFormat(np.uint16,2)
-    INT = TypeFormat(np.int32,4)
-    UINT = TypeFormat(np.uint32,4)
-    LONG = TypeFormat(np.int64,8)
-    ULONG = TypeFormat(np.uint64,8)
-    FLOAT = TypeFormat(np.float32,4)
-    DOUBLE = TypeFormat(np.float64,8)
-
-
-class INTS(Enum):
-    CHAR = TypeFormat("b",1)
-    UCHAR = TypeFormat("B",1)
-    SHORT = TypeFormat("h",2)
-    USHORT = TypeFormat("H",2)
-    INT = TypeFormat("i",4)
-    UINT = TypeFormat("I",4)
-    LONG = TypeFormat("q",8)
-    ULONG = TypeFormat("Q",8)
-
-class FLOATS(Enum):
-    FLOAT = TypeFormat("f",4)
-    DOUBLE = TypeFormat("d",8)
-
-
-from abc import ABC, abstractmethod
-import io
-
-class BinaryReader(ABC):
-
-    def __init__(self, as_helper = False, var_name = None):
-        """
-        A class that represents a field in a PAMGuard Binary File. This class is used
-        to define a data type (during construction) and then read the data from a binary
-        file (using the `process()` method).
-        """
-        self.as_helper = as_helper
-        self.var_name=var_name
-    
-    @abstractmethod
-    def process(self, data: io.BufferedReader, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
-        """
-        Reads data from a binary file (as configured in the constructor).
-        """
-        if not isinstance(data, io.BufferedReader): raise ValueError(f"data must be of type io.BufferedReader (got {type(data)}).")
-        if order not in list(BYTE_ORDERS): raise ValueError(f"order must be one of: {list(BYTE_ORDERS)} (got {str(order)}).")
-
-    def __str__(self):
-        return f"{self.__class__.__name__}({self.__dict__})"
-
-    def print(self, result = None):
-        logger.debug(f"{self.var_name} = {result}")
-
-class NumericalBinaryReader(BinaryReader):
-
-    def __init__(self, format: INTS | FLOATS, shape: tuple[int] = None, post_processor: callable = None, as_helper = False, var_name = None):
-        """
-        A reader class for numerical data types in a PAMGuard Binary File. The constructure will configure the reader
-        to read data of a specific format and optionally apply a post processor.
-
-        @param format: The format of the data to read (see constants.INTS and constants.FLOATS).
-        @param post_processor: A function that will be applied to the data read from the file (must be callable).
-        @param shape: The shape of the data to be read. For example `shape=(5)` means that 5 values will be read and returned
-                    as a 1D numpy array. `shape=(2,40)` means that 2 rows, with 40 elements  each will be read and returned as
-                    a 2D numpy array (an entire row is read from the binary file before starting on the next one). If shape is
-                    left as `None` then a single primitive (`int` or `float`) will be returned.
-        """
-        if post_processor and not callable(post_processor): raise ValueError("post_processor must be callable (try a lambda function).")
-        if format not in INTS and format not in FLOATS: raise ValueError(f"format must be one of: {list(INTS) + list(FLOATS)} (got {str(format)}).")
-        if shape and not isinstance(shape, (int, tuple)): raise ValueError(f"shape must be of type tuple (got {type(shape)}).")
-
+class Shape:
+    def __init__(self, shape, length: int):
         self.shape = shape
-        self.format = format
-        self.post_processor = post_processor
-        super().__init__(as_helper, var_name=var_name)
-
-    def process(self, data, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN) -> int | float | np.ndarray:
-        super().process(data, order) # type checking inputs
-        byte_size = self.format.value.size * np.prod(self.shape) if self.shape else self.format.value.size
-        result = np.frombuffer(data.read(byte_size), dtype= np.dtype(order.value + self.format.value.formatter))
-        if self.shape: result = result.reshape(self.shape)
-        if self.post_processor is not None: result = self.post_processor(result)
-        result = result.item() if not self.shape else result
-        return result
+        self.length = length
+        
+        if type(self.shape) == self.__class__:
+            self.size = self.length * self.shape.size
+        elif type(self.shape) == DTYPES:
+            self.size = self.length * self.shape.value.itemsize
+            self.shape = self.shape.value
+        else:
+            raise ValueError(f"shape must be of type Shape or np.dtype (got {type(self.shape)}).")
 
     def __str__(self):
-        return f"{self.__class__.__name__}('shape'={self.shape}, 'format'={self.format}, 'post_processor'={self.post_processor})"
+        if type(self.shape) == self.__class__:
+            return f"{self.length} * ({self.shape})"
+        else:
+            return f"{self.length} * {self.shape}"
 
-class StringNBinaryReader(BinaryReader):
-    def __init__(self, length: int, post_processor: callable = None, as_helper = False, var_name = None):
+
+
+class BinaryReader:
+
+    def __init__(self, fp: mmap.mmap, endianess='>'):
+        self.fp = fp
+        self._endianess = endianess
+    
+    def set_endianess(self, endianess):
+        if not endianess in ('>', '<'): raise ValueError("Endianess must be one of '>' (big) or '<' (small)")
+        self._endianess = endianess
+
+    def __collate(self, data, dtypes, shape):
+        for i, dtype_i in enumerate(dtypes):            
+            d = data[f'f{i}'][0] if (len(shape) == 1 and shape[0] == 1) else data[f'f{i}'].reshape(shape)
+            yield dtype_i[1](d) if dtype_i[1] is not None else d
+
+    def __read(self, length: int) -> bytes:
+        return self.fp.read(length)
+
+    def tell(self):
+        return self.fp.tell()
+
+    def bin_read(self, dtype: list[tuple[DTYPES, Callable[[np.ndarray], np.ndarray]]], shape: tuple = (1,)) -> int | float | np.ndarray | tuple[np.ndarray]:
         """
-        A class that represents a string field in a PAM file.
+        Read data from the file. This function is polymorphic in the sense that it
+        can be used for any of the following purposes:
+
+        1. Read in a single value of a given datatype (for example `read_numeric(DTYPES.INT32)`).
+        2. Read in an array of values of a given datatype (for example `read_numeric(DTYPES.INT32, (5,))`).
+        3. Read in an n-dimensional array of values of a given datatype (for example `read_numeric(DTYPES.INT32, (5, 5))`).
+        4. Read in an interleaved array of values of a given datatype (for example `read_numeric([DTYPES.INT32, DTYPES.INT32], (5,))`).
+
+        Read in an array of 5 integers (32-bit).
+        Return a single `np.ndarray` of type `np.int32`.
+        ```python
+        bin_read(DTYPES.INT32, (5,))
+        ```
+
+        Read in two 5-length arrays (interleaved int32, int32).
+        Return a tuple of two `np.ndarray`s of type `np.int16`
+        and `np.int64`.
+        ```python
+        bin_read([DTYPES.INT16, DTYPES.INT64], (5,))
+        ```
+
+        Read in a single float (32-bit) and divide by 100.
+        Return a single `np.float32`.
+        ```python
+        bin_read((DTYPES.FLOAT32, lambda x: x / 100))
+        ```
+
+        Read in two 5-length arrays (interleaved float32, int8).
+        Divide the int8 array by 100.
+        Return a tuple of two `np.ndarray`s of type `np.float32` and `np.float32`.
+        (NOTE: the int8 array is returned as a float32 array due to the division by 100.)
+        ```python
+        bin_read([(DTYPES.FLOAT32), (DTYPES.INT8, lambda x: x/100)], (5,))
+        ```
+
+        Read in a single 5x2 array of floats (32-bit).
+        Return a 2d `np.ndarray` of type `np.float32`.
+        ```python
+        bin_read(DTYPES.FLOAT32, (5, 2))
+        ```
         """
-        if post_processor and not callable(post_processor): raise ValueError("post_processor must be callable (try a lambda function).")
-        if not isinstance(length, int): raise ValueError(f"length must be of type int (got {type(length)}).")
+        if type(shape) != tuple: shape = (shape,)
+        dtypes = [(dtype_i, None) if isinstance(dtype_i, DTYPES) else dtype_i for dtype_i in ([dtype] if not isinstance(dtype, list) else dtype)]
+        data = np.frombuffer(self.__read(sum(dtype_i[0].value.itemsize for dtype_i in dtypes) * np.prod(shape)   ), dtype=[(f'f{i}', dtype_i[0].value.newbyteorder(self._endianess)) for i, dtype_i in enumerate(dtypes)])
+        ret_val = tuple(self.__collate(data, dtypes, shape))
+        return ret_val[0] if len(ret_val) == 1 else ret_val
 
-        self.length = length
-        self.post_processor = post_processor
+    @classmethod
+    def millis_to_timestamp(self, millis):
+        return datetime.datetime.fromtimestamp(millis / 1000, tz=datetime.UTC)
 
-        super().__init__(as_helper, var_name=var_name)
+    def timestamp_read(self) -> tuple[int, datetime.datetime]:
+        millis = self.bin_read(DTYPES.INT64)
+        return millis, self.millis_to_timestamp(millis)
+
+    def nstring_read(self, length: int) -> str:
+        return self.__read(length).decode("utf-8")
+
+    def string_read(self) -> str:
+        return self.nstring_read(self.bin_read(DTYPES.INT16))
     
-    def process(self, data, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
-        super().process(data, order) # type checking inputs
-        result = struct.unpack(order.value + f"{self.length}s", data.read(self.length))[0]
-        if self.post_processor is not None: result = self.post_processor(result)
-        return result.decode() if type(result) == bytes else result
-
-class StringBinaryReader(BinaryReader):
-    # TODO: change to inherit from StringNType
-    def __init__(self, as_helper = False, var_name=None):
-        """
-        A class that represents a string field in a PAM file,
-        where the length of the string is preceeded by a 16 bit integer.
-        """
-        self.length_type = NumericalBinaryReader(INTS.USHORT)
-        super().__init__(as_helper, var_name=var_name)
-    
-    def process(self, data, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
-        super().process(data, order)
-        length = self.length_type.process(data)
-        result = StringNBinaryReader(length, as_helper=True).process(data)
-        return result.decode() if type(result) == bytes else result
-
-class CustomBinaryReader(BinaryReader):
-    def __init__(self, function, count, var_name=None):
-        self.function = function
-        self.count = count
-        super().__init__(var_name=var_name)
-    
-    def process(self, data, order):
-        super().process(data, order)
-        return self.function(data, self.count)
-    
-class DateBinaryReader(BinaryReader):
-    """Date in millis"""
-
-    def __init__(self, as_helper = False, var_name=None):
-        super().__init__(as_helper, var_name=var_name)
-
-    def process(self, data):
-        epoch_millis = NumericalBinaryReader(INTS.LONG, as_helper=True).process(data)
-        result = datetime.datetime.fromtimestamp(epoch_millis / 1000, datetime.UTC)
-        return result
-
-class BitmapBinaryReader(BinaryReader):
-    def __init__(self, format: INTS, labels = None, as_helper = False, var_name=None):
-        super().__init__(as_helper, var_name=var_name)
-        self.format = format
-        self.labels = labels
-        self.bm = Bitmap(format.value.size * 8, labels)
-    
-    def process(self, data):
-        self.bm.bits = NumericalBinaryReader(self.format, as_helper=True).process(data)
-        return self.bm
+    def bitmap_read(self, dtype: DTYPES, labels: list[str] = None) -> Bitmap:
+        return Bitmap(dtype.value.itemsize, labels, int(self.bin_read(dtype)))

@@ -4,7 +4,7 @@ from pypamguard.generics import GenericModule, GenericModuleFooter
 from .stdmodulefooter import StandardModuleFooter
 from .stdmoduleheader import StandardModuleHeader
 from .stdchunkinfo import StandardChunkInfo
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 from pypamguard.core.exceptions import WarningException
 from pypamguard.standard.stddata import StandardDataMixin
 from pypamguard.standard.stdannotations import StdAnnotations

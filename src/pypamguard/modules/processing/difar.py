@@ -1,5 +1,5 @@
 from pypamguard.standard import StandardModule
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class DIFARProcessing(StandardModule):
 

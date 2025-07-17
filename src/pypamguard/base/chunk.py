@@ -3,7 +3,7 @@ import io
 
 import numpy as np
 from pypamguard.core.serializable import Serializable
-from pypamguard.core.readers_new import BinaryReader
+from pypamguard.core.readers import BinaryReader
 
 class BaseChunk(Serializable, ABC):
 

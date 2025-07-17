@@ -1,7 +1,7 @@
 from pypamguard.core.serializable import Serializable
 import pypamguard.annotations as annotations
 from pypamguard.base import BaseChunk
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 from pypamguard.core.exceptions import StructuralException
 
 annotation_types = {

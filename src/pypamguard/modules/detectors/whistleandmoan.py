@@ -1,6 +1,6 @@
 from pypamguard.standard import StandardModule, StandardModuleFooter, StandardModuleHeader
 from pypamguard.modules.detectors.spectralbackground import SpectralBackground
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class WhistleAndMoanDetectorHeader(StandardModuleHeader):
     def __init__(self, file_header):

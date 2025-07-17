@@ -2,7 +2,7 @@ import io
 
 from . import StandardChunkInfo
 from pypamguard.generics import GenericFileHeader, GenericFileFooter
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class StandardFileFooter(GenericFileFooter):
     

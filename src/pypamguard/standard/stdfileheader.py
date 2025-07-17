@@ -1,7 +1,7 @@
 import io
 
 from ..generics import GenericFileHeader
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class StandardFileHeader(GenericFileHeader):
 

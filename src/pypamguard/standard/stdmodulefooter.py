@@ -1,7 +1,7 @@
 import io
 
 from pypamguard.generics import GenericChunkInfo, GenericFileHeader, GenericModuleFooter, GenericModuleHeader
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class StandardModuleFooter(GenericModuleFooter):
     

@@ -2,7 +2,7 @@ from pypamguard.base.chunk import BaseChunk
 import datetime
 from pypamguard.utils.bitmap import Bitmap
 from pypamguard.core.exceptions import *
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 from pypamguard.standard import StandardChunkInfo
 from pypamguard.standard.stdannotations import StdAnnotations
 from pypamguard import annotations

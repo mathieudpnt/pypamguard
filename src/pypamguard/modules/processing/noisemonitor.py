@@ -1,5 +1,5 @@
 from pypamguard.standard import StandardModule, StandardModuleHeader
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class NoiseMonitorHeader(StandardModuleHeader):
 

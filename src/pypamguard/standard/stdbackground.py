@@ -1,6 +1,6 @@
 from pypamguard.generics.genbackground import GenericBackground
 from pypamguard.standard import StandardModuleHeader, StandardFileHeader, StandardModule, StandardChunkInfo
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 from pypamguard.core.filters import Filters
 from pypamguard.standard.stddata import StandardDataMixin
 

@@ -1,4 +1,4 @@
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 from pypamguard.standard import StandardModule, StandardModuleHeader
 from pypamguard.generics import GenericChunkInfo
 

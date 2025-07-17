@@ -1,5 +1,5 @@
 from pypamguard.base import BaseChunk
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 from pypamguard.generics import GenericChunkInfo
 from pypamguard.utils.constants import IdentifierType
 from pypamguard.core.exceptions import CriticalException, FileCorruptedException

@@ -1,5 +1,5 @@
 from pypamguard.standard import StandardModule, StandardChunkInfo, StandardModuleHeader
-from pypamguard.core.readers_new import *
+from pypamguard.core.readers import *
 
 class ClickTriggerBackgroundHeader(StandardModuleHeader):
     def __init__(self, *args, **kwargs):
