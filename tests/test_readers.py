@@ -1,4 +1,189 @@
+import pytest, io
 from pypamguard.core.readers import *
-from pypamguard.utils.bitmap import Bitmap
-from numpy import ndarray
-import io
+import struct
+import numpy as np
+import sys
+
+import ctypes
+
+
+
+ENDIANESS = ['<', '>']
+
+INT8_MIN = np.iinfo(np.int8).min
+INT8_MAX = np.iinfo(np.int8).max
+
+INT16_MIN = np.iinfo(np.int16).min
+INT16_MAX = np.iinfo(np.int16).max
+
+INT32_MIN = np.iinfo(np.int32).min
+INT32_MAX = np.iinfo(np.int32).max
+
+INT64_MIN = np.iinfo(np.int64).min
+INT64_MAX = np.iinfo(np.int64).max
+
+UINT8_MAX = np.iinfo(np.uint8).max
+
+UINT16_MAX = np.iinfo(np.uint16).max
+
+UINT32_MAX = np.iinfo(np.uint32).max
+
+UINT64_MAX = np.iinfo(np.uint64).max
+
+FLOAT32_MIN = np.finfo(np.float32).min
+FLOAT32_MAX = np.finfo(np.float32).max
+
+FLOAT64_MIN = np.finfo(np.float64).min
+FLOAT64_MAX = np.finfo(np.float64).max
+
+def _factory_reader(buf: io.BytesIO, end: str = '>') -> BinaryReader:
+    """Create a factory BinaryReader object"""
+    buf.seek(0)
+    return BinaryReader(buf, end)
+
+@pytest.fixture
+def buffer() -> io.BufferedIOBase:
+    return io.BytesIO()
+
+def _int8 (bf: io.BytesIO, v: int, end: str): 
+    bf.write(struct.pack(f'{end}b', v))
+
+def _int16 (bf: io.BytesIO, v: int, end: str): 
+    bf.write(struct.pack(f'{end}h', v))
+
+def _int32 (bf: io.BytesIO, v: int, end: str): 
+    print(v)
+    bf.write(struct.pack(f'{end}i', v))
+
+def _int64 (bf: io.BytesIO, v: int, end: str): 
+    bf.write(struct.pack(f'{end}q', v))
+
+def _uint8 (bf: io.BytesIO, v: int, end: str): 
+    bf.write(struct.pack(f'{end}B', v))
+
+def _uint16 (bf: io.BytesIO, v: int, end: str): 
+    bf.write(struct.pack(f'{end}H', v))
+
+def _uint32 (bf: io.BytesIO, v: int, end: str): 
+    bf.write(struct.pack(f'{end}I', v))
+
+def _uint64 (bf: io.BytesIO, v: int, end: str): 
+    bf.write(struct.pack(f'{end}Q', v))
+
+def _float32(bf: io.BytesIO, v: float, end: str):
+    bf.write(struct.pack(f'{end}f', v))
+
+def _float64(bf: io.BytesIO, v: float, end: str):
+    bf.write(struct.pack(f'{end}d', v))
+
+def _nstring(bf: io.BytesIO, v: str, end):
+    for c in list(v):
+        _uint8(bf, ord(c), end)
+
+def _string(bf: io.BytesIO, v: str, end: str):
+    _uint16(bf, len(v), end)
+    _nstring(bf, v, end)
+
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [FLOAT32_MIN, 1/FLOAT32_MIN, 0, 1/FLOAT32_MAX, FLOAT32_MAX])
+def test_float32(v, buffer, endian):
+    _float32(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.bin_read(DTYPES.FLOAT32) == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [FLOAT64_MIN, 1/FLOAT64_MIN, 0, 1/FLOAT64_MAX, FLOAT64_MAX])
+def test_float64(v, buffer, endian):
+    _float64(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.bin_read(DTYPES.FLOAT64) == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [INT8_MIN, 0, INT8_MAX])
+def test_int8(v, buffer, endian):
+    _int8(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.bin_read(DTYPES.INT8) == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [INT16_MIN, 0, INT16_MAX])
+def test_int16(v, buffer, endian):
+    _int16(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.bin_read(DTYPES.INT16) == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [INT32_MIN, 0, INT32_MAX])
+def test_int32(v, buffer, endian):
+    _int32(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.bin_read(DTYPES.INT32) == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [INT64_MIN, 0, INT64_MAX])
+def test_int64(v, buffer, endian):
+    _int64(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.bin_read(DTYPES.INT64) == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [0, UINT8_MAX])
+def test_uint8(v, buffer, endian):
+    _uint8(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.bin_read(DTYPES.UINT8) == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [0, UINT16_MAX])
+def test_uint16(v, buffer, endian):
+    _uint16(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.bin_read(DTYPES.UINT16) == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [0, UINT32_MAX])
+def test_uint32(v, buffer, endian):
+    _uint32(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.bin_read(DTYPES.UINT32) == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [0, UINT64_MAX])
+def test_uint64(v, buffer, endian):
+    _uint64(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.bin_read(DTYPES.UINT64) == v
+
+
+STRING_TEST_VALS = [
+    "TestString",
+    "Test string with spaces",
+    "3",
+    "",
+    "h"]
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", STRING_TEST_VALS)
+def test_string(v, buffer, endian):
+    _string(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.string_read() == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", STRING_TEST_VALS)
+def test_nstring(v, buffer, endian):
+    _nstring(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    assert br.nstring_read(len(v)) == v
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+def test_checkpoint(buffer, endian):
+    _nstring(buffer, "a" * 100, endian)
+    br = _factory_reader(buffer, endian)
+    br.set_checkpoint(50)
+    assert br.at_checkpoint() == False
+    br.seek(50)
+    assert br.at_checkpoint() == True
+    br.seek(1)
+    assert br.at_checkpoint() == False

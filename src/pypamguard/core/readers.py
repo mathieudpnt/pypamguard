@@ -53,7 +53,8 @@ class BinaryReader:
             yield dtype_i[1](d) if dtype_i[1] is not None else d
 
     def __read(self, length: int) -> bytes:
-        return self.fp.read(length)
+        data = self.fp.read(length)
+        return data
 
     def tell(self):
         return self.fp.tell()

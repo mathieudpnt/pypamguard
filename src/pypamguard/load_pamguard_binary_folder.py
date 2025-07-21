@@ -4,7 +4,7 @@ from pypamguard.core.pgbfile import PGBFile
 from pypamguard.core.filters import FILTER_POSITION
 import os
 
-def load_pamguard_binary_folder(directory: str, mask: str, files_ordered = True, clear_fields: list = []]):
+def load_pamguard_binary_folder(directory: str, mask: str, files_ordered = True, clear_fields: list = []):
     result = {}
     for file in glob.glob(pathname=mask, root_dir=directory, recursive=True):
         res = load_pamguard_binary_file(os.path.join(directory,file))
