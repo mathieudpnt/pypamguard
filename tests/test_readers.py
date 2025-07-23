@@ -36,10 +36,13 @@ FLOAT32_MAX = np.finfo(np.float32).max
 FLOAT64_MIN = np.finfo(np.float64).min
 FLOAT64_MAX = np.finfo(np.float64).max
 
+def _factory_report():
+    return Report()
+
 def _factory_reader(buf: io.BytesIO, end: str = '>') -> BinaryReader:
     """Create a factory BinaryReader object"""
     buf.seek(0)
-    return BinaryReader(buf, end)
+    return BinaryReader(buf, _factory_report(), end)
 
 @pytest.fixture
 def buffer() -> io.BufferedIOBase:
@@ -52,7 +55,6 @@ def _int16 (bf: io.BytesIO, v: int, end: str):
     bf.write(struct.pack(f'{end}h', v))
 
 def _int32 (bf: io.BytesIO, v: int, end: str): 
-    print(v)
     bf.write(struct.pack(f'{end}i', v))
 
 def _int64 (bf: io.BytesIO, v: int, end: str): 
@@ -187,3 +189,83 @@ def test_checkpoint(buffer, endian):
     assert br.at_checkpoint() == True
     br.seek(1)
     assert br.at_checkpoint() == False
+
+
+def _create_dt(time_millis):
+    return datetime.datetime.fromtimestamp(time_millis / 1000, tz=datetime.UTC)
+
+@pytest.mark.parametrize("v", [0, 10, 1000, 10000, 1753265319000, UINT32_MAX])
+def test_millis_to_timestamp(v):
+    assert BinaryReader.millis_to_timestamp(v) == _create_dt(v)
+
+@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("v", [
+    0, 100, 1000, 10000, 1753265319000
+])
+def test_timestamp(v, buffer, endian):
+    v_dt = _create_dt(v)
+    # PyPAMGuard uses millisecond timestamps - remove microsecond accuracy
+    _uint64(buffer, v, endian)
+    br = _factory_reader(buffer, endian)
+    res = br.timestamp_read()
+    assert res[0] == v
+    assert res[1] == v_dt
+
+
+def _check_set_bits(bm: Bitmap, tot_bytes: int, exp_val: int):
+    """
+    Maps the result of get_set_bits() of the Bitmap class on the 
+    expected value of set bits.
+    """
+    assert bm.bits == exp_val
+    for i in range(tot_bytes * 4):
+        assert ((exp_val >> i) & 1 == 1) if i in bm.get_set_bits() else 1
+        assert (i in bm.get_set_bits()) == bm.is_set(i)
+
+def _check_set_bits_with_label(bm: Bitmap, tot_bytes: int, exp_val: int, labels: list[str]):
+    assert bm.bits == exp_val
+    for i, label in enumerate(labels):
+        assert ((exp_val >> i) & 1 == 1) if label in bm.get_set_bits() else 1
+        assert (label in bm.get_set_bits()) == bm.is_set(label)
+
+
+@pytest.mark.parametrize("with_labels", [True, False])
+@pytest.mark.parametrize("v", [
+    (1, UINT8_MAX),
+    (1, 0),
+    (1, 1),
+    (2, UINT16_MAX),
+    (2, 0),
+    (2, 1),
+    (4, UINT32_MAX),
+    (4, 0),
+    (4, 1),
+    (8, UINT64_MAX),
+    (8, 0),
+    (8, 1),
+    ])
+def test_bitmap(v, with_labels):
+    if with_labels:
+        labels = [str(i) for i in range(v[0] * 8)]
+        bm = Bitmap(v[0], labels, v[1])
+        _check_set_bits_with_label(bm, v[0], v[1], labels)
+    else:
+        bm = Bitmap(v[0], None, v[1])
+        _check_set_bits(bm, v[0], v[1])
+
+@pytest.mark.parametrize("bytes", range(1, 17))
+def test_bitmap_invalid_labels(bytes):
+    labels = [str(i) for i in range(bytes * 8)]
+    labels.append("Extra")
+    with pytest.raises(ValueError):
+        Bitmap(bytes, labels, 0)
+
+@pytest.mark.parametrize("s", range(1, 17))
+@pytest.mark.parametrize("v", [1.1, 0.3, -10.3, "3"])
+def test_bitmap_invalid(s, v):
+    with pytest.raises(ValueError):
+        Bitmap(s, None, v)
+
+def test_bitmap_invalid_length():
+    with pytest.raises(ValueError):
+        Bitmap(0, None, 0)

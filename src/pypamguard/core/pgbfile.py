@@ -15,27 +15,6 @@ from pypamguard.core.serializable import Serializable
 from pypamguard.core.readers import *
 import os
 
-class Report(Serializable):
-    warnings = []
-    errors = []
-    
-    def __init__(self):
-        self.warnings = []
-    
-    def add_warning(self, warning: WarningException):
-        self.warnings.append(warning)
-        logger.warning(warning)
-    
-    def add_error(self, error: Exception):
-        self.errors.append(error)
-        logger.error(error)
-    
-    
-    def __str__(self):
-        if len(self.warnings) == 0:
-            return "No warnings"
-        return f"{len(self.warnings)} warnings.\n"
-
 class PGBFile(Serializable):
     """
     This class represents a PAMGuard Binary File
@@ -93,9 +72,11 @@ class PGBFile(Serializable):
     def load(self):
         start_time = time.time()
         self.__fp.seek(0, io.SEEK_SET)
+        data_count = 0
+        bg_count = 0
 
         while True:
-            br = BinaryReader(self.__fp)
+            br = BinaryReader(self.__fp, report = self.report)
             if br.tell() == self.__size: break
             
             # each chunk has the same 8-byte 'chunk info' at the start
@@ -106,31 +87,39 @@ class PGBFile(Serializable):
             logger.debug(f"Reading chunk of type {chunk_info.identifier} and length {chunk_info.length} at offset {br.tell()}", br)
 
             if chunk_info.identifier == IdentifierType.FILE_HEADER.value:
+                self.report.set_context(self.__file_header)
                 self.__file_header = self.__process_chunk(br, self.__file_header, chunk_info, correct_chunk_length=False)
                 self.__module_class = self.__module_registry.get_module(self.__file_header.module_type, self.__file_header.stream_name)
 
             elif chunk_info.identifier == IdentifierType.MODULE_HEADER.value:
+                self.report.set_context(self.__module_header)
                 if not self.__file_header: raise StructuralException(self.__fp, "File header not found before module header")
                 self.__module_header = self.__process_chunk(br, self.__module_class._header(self.__file_header), chunk_info)
 
             elif chunk_info.identifier >= 0:
+                self.report.set_context(f"{self.__module_class} [iter {data_count}]")
                 if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
                 data = self.__process_chunk(br, self.__module_class(self.__file_header, self.__module_header, self.__filters), chunk_info)
                 if data: self.__data.append(data)
+                data_count += 1
                 
             elif chunk_info.identifier == IdentifierType.MODULE_FOOTER.value:
+                self.report.set_context(self.__module_footer)
                 if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before module footer")
                 self.__module_footer = self.__process_chunk(br, self.__module_class._footer(self.__file_header, self.__module_header), chunk_info)
 
             elif chunk_info.identifier == IdentifierType.FILE_FOOTER.value:
+                self.report.set_context(self.__file_footer)
                 if not self.__file_header: raise StructuralException(self.__fp, "File header not found before file footer")
                 self.__file_footer = self.__process_chunk(br, self.__file_footer, chunk_info)
 
             elif chunk_info.identifier == IdentifierType.FILE_BACKGROUND.value:
+                self.report.set_context(f"{self.__module_class._background} [iter {bg_count}]")
                 if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
                 if self.__module_class._background is None: raise StructuralException(self.__fp, "Module class does not have a background specified")
                 data = self.__process_chunk(br, self.__module_class._background(self.__file_header, self.__module_header, self.__filters), chunk_info)
                 if data: self.__data.append(data)
+                bg_count += 1
 
             else:
                 raise StructuralException(self.__fp, f"Unknown chunk identifier: {chunk_info.identifier}")

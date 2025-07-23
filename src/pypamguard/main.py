@@ -61,6 +61,14 @@ if __name__ == "__main__":
     # difar_v2_test1_daterange = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test1.pgdf", json_path="difar_v2_test1_daterange.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1533049096511 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1533049175551 / 1000, tz = datetime.UTC), ordered=True)}))
     # difar_v2_test1_uidlist = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test1.pgdf", json_path="difar_v2_test1_uidlist.json", filters=Filters({'uidlist': WhitelistFilter([2])}))
 
+    difar_v2_test2 = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test2.pgdf", verbosity=Verbosity.ERROR)
+    print(difar_v2_test2.data[19])
+    #print(difar_v2_test2.file_header)
+    #print(difar_v2_test2.module_header)
+    
+    # for i, d in enumerate(difar_v2_test2.data):
+    #     if d.channel_map == None:
+    #         print(i, d)
     # difar_v2_test2 = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test2.pgdf", json_path="difar_v2_test2.json")
     # difar_v2_test2_daterange = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test2.pgdf", json_path="difar_v2_test2_daterange.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1533049238271 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1533049697599 / 1000, tz = datetime.UTC), ordered=True)}))
     # difar_v2_test2_uidlist = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test2.pgdf", json_path="difar_v2_test2_uidlist.json", filters=Filters({'uidlist': WhitelistFilter([2,3,4,5,6,7,8,10])}))
@@ -106,6 +114,6 @@ if __name__ == "__main__":
     # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf")
 
     # difar_v2_test3_daterange = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test2.pgdf",verbosity=Verbosity.DEBUG)
-    from .load_pamguard_binary_folder import load_pamguard_binary_folder
-    ods = load_pamguard_binary_folder("../tests/dataset/detectors/gpl", "gpl*.pgdf")
-    print(ods)
+    # from .load_pamguard_binary_folder import load_pamguard_binary_folder
+    # ods = load_pamguard_binary_folder("../tests/dataset/detectors/gpl", "gpl*.pgdf")
+    # print(ods)

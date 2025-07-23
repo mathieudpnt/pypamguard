@@ -1,6 +1,5 @@
 import enum
 from contextlib import contextmanager
-from pypamguard.core.readers import BinaryReader
 
 class Verbosity(enum.IntEnum):
     CRITICAL = 0
@@ -35,7 +34,7 @@ class Logger:
         if self.verbosity >= Verbosity.INFO:
             self._log("INFO", message)
 
-    def debug(self, message, br: BinaryReader = None):
+    def debug(self, message, br = None):
         if self.verbosity >= Verbosity.DEBUG:
             if br: message = "{0} bytes: {1}".format(br.tell(), message)
             self._log("DEBUG", message)

@@ -3,6 +3,11 @@ import numpy as np
 import enum, datetime, mmap
 from typing import Callable
 from pypamguard.utils.bitmap import Bitmap
+from pypamguard.core.exceptions import WarningException, ErrorException, CriticalException
+from pypamguard.logger import logger
+from pypamguard.core.serializable import Serializable
+from contextlib import contextmanager
+import traceback
 
 class DTYPES(enum.Enum):
     INT8 = np.dtype(np.int8)
@@ -37,11 +42,50 @@ class Shape:
 
 
 
+
+
+class Report(Serializable):
+    warnings = []
+    errors: list[ErrorException] = []
+    errors_tb: list = []
+
+    def __init__(self):
+        self.current_context = ""
+        self.warnings = []
+    
+    def set_context(self, context):
+        self.current_context = context
+
+    def add_warning(self, warning: WarningException):
+        warning.add_context(self.current_context)
+        self.warnings.append(warning)
+        logger.warning(warning)
+    
+    def add_error(self, error: Exception):
+        error.add_context(self.current_context)
+        self.errors.append(error)
+        logger.error(error)
+        tb = traceback.format_stack()
+        self.errors_tb.append(tb)
+    
+    
+    def __str__(self):
+        string = "### REPORT SUMMARY ###\n"
+        if len(self.warnings) != 0:
+            string += f" - {len(self.warnings)} warnings (access warnings via .warnings list).\n"
+        if len(self.errors) != 0:
+            string += f" - {len(self.errors)} errors (access errors via .errors list and tracebacks via .errors_tb parallel list).\n"
+        string += "### END OF REPORT ###"
+        return string
+
+
 class BinaryReader:
 
-    def __init__(self, fp: mmap.mmap, endianess='>'):
+    def __init__(self, fp: mmap.mmap, report: Report, endianess='>'):
         self.fp = fp
         self._endianess = endianess
+        self.report = report
+    
     
     def set_endianess(self, endianess):
         if not endianess in ('>', '<'): raise ValueError("Endianess must be one of '>' (big) or '<' (small)")
@@ -123,6 +167,7 @@ class BinaryReader:
 
     @classmethod
     def millis_to_timestamp(self, millis):
+        # datetime.datetime.fromtimestamp() requires millis to be in seconds
         return datetime.datetime.fromtimestamp(millis / 1000, tz=datetime.UTC)
 
     def timestamp_read(self) -> tuple[int, datetime.datetime]:
@@ -136,4 +181,18 @@ class BinaryReader:
         return self.nstring_read(self.bin_read(DTYPES.INT16))
     
     def bitmap_read(self, dtype: DTYPES, labels: list[str] = None) -> Bitmap:
-        return Bitmap(dtype.value.itemsize, labels, int(self.bin_read(dtype)))
+        with br_report(self):
+            return Bitmap(dtype.value.itemsize, labels, int(self.bin_read(dtype)))
+    
+@contextmanager
+def br_report(br: BinaryReader):
+    try:
+        yield
+    except WarningException as e:
+        br.report.add_warning(e)
+    except ErrorException as e:
+        br.report.add_error(e)
+    except CriticalException as e:
+        raise e
+    except Exception as e:
+        br.report.add_error(ErrorException(br=br, message=str(e)))

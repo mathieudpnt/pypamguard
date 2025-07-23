@@ -15,15 +15,24 @@ class Bitmap:
 
         self.fields2index = {}
         self.index2fields = {}
-        
-        if fields is not None:
-            for index, field in enumerate(fields):
-                self.fields2index[field] = index
-                self.index2fields[index] = field
-        
+
         self.size = size
         self.bits = value
     
+        if fields is not None and fields is not []:
+            if type(fields) != list:
+                raise ValueError(f"Labels must be of type list (got {type(fields)})")
+            if len(fields) > size * 8:
+                raise ValueError(f"Labels must be of length at least {size * 8} (got {len(fields)})")
+            for index, field in enumerate(fields):
+                self.fields2index[field] = index
+                self.index2fields[index] = field
+
+        if type(value) != int:
+            raise ValueError(f"Value must be of type int (got {type(value)})")
+        if size <= 0:
+            raise ValueError(f"Size must be greater than 0 (got {size})")
+
     def __get_index(self, field_or_index):
         if isinstance(field_or_index, str):
             return self.fields2index[field_or_index]
