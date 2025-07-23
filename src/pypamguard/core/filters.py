@@ -82,7 +82,7 @@ class RangeFilter(BaseFilter):
         self.ignore_none = ignore_none
 
     def default_comparator(self, a, b):
-        return a <= b
+        return a < b
 
     def _validate(self, value):
         if self.validation_func:
@@ -90,6 +90,7 @@ class RangeFilter(BaseFilter):
         return True
 
     def check(self, value):
+        # if end is 3 and value is 2 then self.comparator(end, value) -> 3 < 2
         if value is None:
             return FILTER_POSITION.KEEP if self.ignore_none else FILTER_POSITION.SKIP
         if not self._validate(value):
@@ -99,7 +100,7 @@ class RangeFilter(BaseFilter):
         if self.comparator(self.end, value):
             return FILTER_POSITION.STOP if self.ordered else FILTER_POSITION.SKIP
         return FILTER_POSITION.KEEP
-
+    
     def __str__(self):
         return f"RangeFilter(start={self.start}, end={self.end}, ordered={self.ordered}, ignore_none={self.ignore_none})"
 

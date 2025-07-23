@@ -13,16 +13,17 @@ if __name__ == "__main__":
         # 'uidlist': WhitelistFilter([2000006, 2000003])
     })
 
-    # pgdf = load_pamguard_binary_file("/home/sulli/code/pypamguard/tests/dataset/FilteredNoiseMeasurement/FilteredNoiseMeasurement_v3_test1.pgdf", json_path="FilteredNoiseMeasurement_v3_test1.json", filters=pg_filters)
+    click_v4_test1_daterange = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test1.pgdf", json_path="click_v4_test1.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1504477746918 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1504477758412 / 1000, tz = datetime.UTC), ordered=True)}))
+
 
     # filterednoisemeasurement_v3_test1 = load_pamguard_binary_file("../tests/dataset/processing/filterednoisemeasurement/filterednoisemeasurement_v3_test1.pgdf", json_path="filterednoisemeasurement_v3_test1.json")
 
     # clicktriggerbackground = load_pamguard_binary_file("../tests/dataset/detectors/clicktriggerbackground/clicktriggerbackground_v0_test1.pgdf", json_path="clicktriggerbackground_v0_test1.json")
-    # clicktriggerbackground = load_pamguard_binary_file("../tests/dataset/detectors/clicktriggerbackground/clicktriggerbackground_v0_test1.pgdf", json_path="clicktriggerbackground_v0_test1_datetime.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1751975573249 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1751975698249 / 1000, tz = datetime.UTC), ordered=True)}))
-    # clicktriggerbackground = load_pamguard_binary_file("../tests/dataset/detectors/clicktriggerbackground/clicktriggerbackground_v0_test1.pgdf", json_path="clicktriggerbackground_v0_test1_uidlist.json", filters=Filters({'uidlist': WhitelistFilter([2000028, 2000032])}))
+    # clicktriggerbackground_daterange = load_pamguard_binary_file("../tests/dataset/detectors/clicktriggerbackground/clicktriggerbackground_v0_test1.pgdf", json_path="clicktriggerbackground_v0_test1_datetime.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1751975573249 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1751975698249 / 1000, tz = datetime.UTC), ordered=True)}))
+    # clicktriggerbackground_uidlist = load_pamguard_binary_file("../tests/dataset/detectors/clicktriggerbackground/clicktriggerbackground_v0_test1.pgdf", json_path="clicktriggerbackground_v0_test1_uidlist.json", filters=Filters({'uidlist': WhitelistFilter([2000028, 2000032])}))
 
     # spermwhaleipi_v1_test1 = load_pamguard_binary_file("../tests/dataset/spermwhaleipi/spermwhaleipi_v1_test1.pgdf", json_path="spermwhaleipi_v1_test1.json", filters=pg_filters)
-    # spermwhaleipi_v1_test1_daterange = load_pamguard_binary_file("../tests/dataset/spermwhaleipi/spermwhaleipi_v1_test1_daterange.pgdf", json_path="spermwhaleipi_v1_test1_daterange.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1751975639054 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1751975732265 / 1000, tz = datetime.UTC), ordered=True)}))
+    # spermwhaleipi_v1_test1_daterange = load_pamguard_binary_file("../tests/dataset/plugins/spermwhaleipi/spermwhaleipi_v1_test1.pgdf", json_path="spermwhaleipi_v1_test1_daterange.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1751975639054 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1751975732265 / 1000, tz = datetime.UTC), ordered=True)}))
     # spermwhaleipi_v1_test1_uidlist = load_pamguard_binary_file("../tests/dataset/spermwhaleipi/spermwhaleipi_v1_tes1_uidlist.pgdf", json_path="spermwhaleipi_v1_test1_uidlist.json", filters=Filters({'uidlist': WhitelistFilter([2000002])}))
 
     # click_v4_test2 = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test2.pgdf", json_path="click_v4_test2.json")
@@ -36,6 +37,8 @@ if __name__ == "__main__":
     # noisemonitor_v2_test1 = load_pamguard_binary_file("../tests/dataset/processing/noisemonitor/noisemonitor_v2_test1.pgdf", json_path="noisemonitor_v2_test1.json")
     # noisemonitor_v2_test1_daterange = load_pamguard_binary_file("../tests/dataset/processing/noisemonitor/noisemonitor_v2_test1.pgdf", json_path="noisemonitor_v2_test1_daterange.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1499572713281 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1499572713291 / 1000, tz = datetime.UTC), ordered=True)}))
     # noisemonitor_v2_test1_uidlist = load_pamguard_binary_file("../tests/dataset/processing/noisemonitor/noisemonitor_v2_test1.pgdf", json_path="noisemonitor_v2_test1_uidlist.json", filters=Filters({'uidlist': WhitelistFilter([1000005])}))
+
+    noiseband_v3_test1_daterange = load_pamguard_binary_file("../tests/dataset/processing/noiseband/noiseband_v3_test1.pgdf", json_path="noiseband_v3_test1_daterange.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1499572333281 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1533053591103 / 1000, tz = datetime.UTC), ordered=True)}))
 
     # noisebandnoise_v3_test1 = load_pamguard_binary_file("../tests/dataset/processing/noiseband/noisebandnoise_v3_test1.pgdf", json_path="noisebandnoise_v3_test1.json")
     # noisebandnoise_v3_test1_daterange = load_pamguard_binary_file("../tests/dataset/processing/noiseband/noisebandnoise_v3_test1.pgdf", json_path="noisebandnoise_v3_test1_daterange.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1499572713281 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1499572713291 / 1000, tz = datetime.UTC), ordered=True)}))
@@ -61,8 +64,8 @@ if __name__ == "__main__":
     # difar_v2_test1_daterange = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test1.pgdf", json_path="difar_v2_test1_daterange.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1533049096511 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1533049175551 / 1000, tz = datetime.UTC), ordered=True)}))
     # difar_v2_test1_uidlist = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test1.pgdf", json_path="difar_v2_test1_uidlist.json", filters=Filters({'uidlist': WhitelistFilter([2])}))
 
-    difar_v2_test2 = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test2.pgdf", verbosity=Verbosity.ERROR)
-    print(difar_v2_test2.data[19])
+    # difar_v2_test2 = load_pamguard_binary_file("../tests/dataset/processing/difar/difar_v2_test2.pgdf", verbosity=Verbosity.ERROR)
+    # print(difar_v2_test2.data[19])
     #print(difar_v2_test2.file_header)
     #print(difar_v2_test2.module_header)
     

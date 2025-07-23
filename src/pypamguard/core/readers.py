@@ -171,14 +171,18 @@ class BinaryReader:
         return datetime.datetime.fromtimestamp(millis / 1000, tz=datetime.UTC)
 
     def timestamp_read(self) -> tuple[int, datetime.datetime]:
-        millis = self.bin_read(DTYPES.INT64)
-        return millis, self.millis_to_timestamp(millis)
+        with br_report(self):
+            millis = self.bin_read(DTYPES.INT64)
+            return millis, self.millis_to_timestamp(millis)
+        return millis, None # in case timestamp conversion does not work
 
     def nstring_read(self, length: int) -> str:
-        return self.__read(length).decode("utf-8")
+        with br_report(self):
+            return self.__read(length).decode("utf-8")
 
     def string_read(self) -> str:
-        return self.nstring_read(self.bin_read(DTYPES.INT16))
+        with br_report(self):
+            return self.nstring_read(self.bin_read(DTYPES.INT16))
     
     def bitmap_read(self, dtype: DTYPES, labels: list[str] = None) -> Bitmap:
         with br_report(self):
