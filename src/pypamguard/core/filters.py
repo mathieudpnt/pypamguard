@@ -117,12 +117,17 @@ class DateFilter(RangeFilter):
         is after the end date.
         """
         self.ignore_timezone = ignore_timezone
-        def default_comparator(self, value):
-            if not ignore_timezone and value.tzinfo is not datetime.timezone.utc:
-                raise ValueError("Ensure your dates are explicitly given in UTC.")
-            return True
+        if not ignore_timezone and start_date.tzinfo is None:
+            raise ValueError("Start date must be timezone aware")
+        if not ignore_timezone and end_date.tzinfo is None:
+            raise ValueError("End date must be timezone aware") 
 
         super().__init__(start_date, end_date, ordered=ordered, ignore_none=ignore_none)
+
+    def check(self, value: datetime.datetime):
+        if value and not self.ignore_timezone and value.tzinfo is None:
+            raise ValueError("Value must be timezone aware")
+        return super().check(value)
 
     def __str__(self):
         return f"DateFilter(start={self.start}, end={self.end}, ordered={self.ordered}, ignore_timezone={self.ignore_timezone}, ignore_none={self.ignore_none})"
