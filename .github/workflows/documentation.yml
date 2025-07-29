@@ -1,0 +1,75 @@
+name: Build Documentation
+
+on:
+  release:
+    types: [published]
+    
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            fetch-depth: 0 
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Get version number
+        id: get_version
+        run: |
+          # Example: get latest git tag or default to "v0.0.0"
+          VERSION=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Version is $VERSION"
+
+      - name: Install pdoc3
+        run: |
+            pip install -r requirements.txt
+            pip install pdoc3
+
+      - name: Generate documentation
+        run: |
+          pdoc3 -o docs --html --force src/pypamguard
+  
+      - name: Add version number to HTML files
+        run: |
+            VERSION=${{ env.VERSION }}
+            sed -i "s/{{ version }}/$VERSION/g" docs/pypamguard/index.html
+
+      - name: Rename docs folder to version
+        run: |
+            VERSION=${{ env.VERSION }}
+            mkdir -p docsWithVersion/$VERSION
+            mv docs/pypamguard/* docsWithVersion/$VERSION
+        
+      - name: Create redirect index.html
+        run: |
+            touch docsWithVersion/index.html
+            cat > docsWithVersion/index.html <<EOF
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Redirecting to latest version</title>
+                <script>
+                    // Replace this with the current latest version
+                    window.location.replace("./$VERSION/");
+                </script>
+            </head>
+            <body>
+                <p>If you are not redirected, click <a href="./$VERSION/">here</a>.</p>
+            </body>
+            </html>
+            EOF
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: docsWithVersion
+          keep_files: true
