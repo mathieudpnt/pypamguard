@@ -1,5 +1,5 @@
 from pypamguard import load_pamguard_binary_file
-from pypamguard.core.pgbfile import PGBFile
+from pypamguard.core.pgbfile import PAMGuardFile
 from pypamguard.chunks.base import BaseChunk
 from pypamguard.utils.serializer import serialize
 from pypamguard.core.filters import Filters, DateFilter, RangeFilter, WhitelistFilter, BaseFilter
@@ -53,31 +53,31 @@ def _get_json_data(json_path):
         assert "data" in json_data, "Test data is missing 'data'"
         return json_data
 
-def _run_header_tests(file: PGBFile, json_data, test_name):
+def _run_header_tests(file: PAMGuardFile, json_data, test_name):
     _test_chunk(file.file_header, json_data["file_header"], test_name, "file_header")
     _test_chunk(file.module_header, json_data["module_header"], test_name, "module_header")
 
-def _run_footer_tests(file: PGBFile, json_data, test_name):
+def _run_footer_tests(file: PAMGuardFile, json_data, test_name):
     _test_chunk(file.module_footer, json_data["module_footer"], test_name, "module_footer")
     _test_chunk(file.file_footer, json_data["file_footer"], test_name, "file_footer")
 
-def _run_data_tests(file: PGBFile, json_data, test_name):
+def _run_data_tests(file: PAMGuardFile, json_data, test_name):
     json_data_len = len(json_data["data"])
     assert len(file.data) == len(json_data["data"]), f"Test {test_name}: data length mismatch: expected {json_data_len}, got {len(file.data)}"
     for index, json_chunk in enumerate(json_data["data"]):
         _test_chunk(file.data[index], json_chunk, test_name, f"data[{index}]")
 
-def _run_pgdf_tests(file: PGBFile, json_data, test_name):
+def _run_pgdf_tests(file: PAMGuardFile, json_data, test_name):
     _run_header_tests(file, json_data, test_name)
     _run_footer_tests(file, json_data, test_name)
     _run_data_tests(file, json_data, test_name)
 
-def _run_pgdx_tests(file: PGBFile, json_data, test_name):
+def _run_pgdx_tests(file: PAMGuardFile, json_data, test_name):
     _run_header_tests(file, json_data, test_name)
     _run_footer_tests(file, json_data, test_name)
     assert file.data == [], f"Test {test_name}: data should be empty"
 
-def _run_pgnf_tests(file: PGBFile, json_data, test_name):
+def _run_pgnf_tests(file: PAMGuardFile, json_data, test_name):
     _run_header_tests(file, json_data, test_name)
     _run_footer_tests(file, json_data, test_name)
 
@@ -96,11 +96,11 @@ def test_module(test_data, filters):
     
     if "background" in test_data and test_data["background"] == True:
         file_pgnf = load_pamguard_binary_file(pgnf_path, verbosity=Verbosity.WARNING, filters=filters)   
-        assert isinstance(file_pgnf, PGBFile)
+        assert isinstance(file_pgnf, PAMGuardFile)
         _run_pgnf_tests(file_pgnf, json_data, json_path)
     else:
         file_pgdf = load_pamguard_binary_file(pgdf_path, verbosity=Verbosity.WARNING, filters=filters)   
-        assert isinstance(file_pgdf, PGBFile)
+        assert isinstance(file_pgdf, PAMGuardFile)
         _run_pgdf_tests(file_pgdf, json_data, json_path)
 
 

@@ -1,5 +1,5 @@
 import time
-from pypamguard.core.pgbfile import PGBFile
+from pypamguard.core.pgbfile import PAMGuardFile
 from pypamguard.utils.constants import BYTE_ORDERS, DEFAULT_BUFFER_SIZE
 from pypamguard.core.filters import Filters, DateFilter
 from .logger import logger, Verbosity, logger_config
@@ -15,7 +15,7 @@ def timer(label):
     total_time = time.perf_counter() - start_time
     logger.debug(f"Finished {label} in {total_time:.3f} seconds")
 
-def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, buffering: int | None = DEFAULT_BUFFER_SIZE, verbosity: Verbosity = Verbosity.INFO, filters: Filters = Filters(), json_path: str = None) -> PGBFile:
+def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, buffering: int | None = DEFAULT_BUFFER_SIZE, verbosity: Verbosity = Verbosity.INFO, filters: Filters = Filters(), json_path: str = None) -> PAMGuardFile:
     """
     Read a binary PAMGuard data file into a PAMFile object
     :param filename: absolute or relative path to the .pgdt file to read
@@ -29,7 +29,7 @@ def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_END
     with logger_config(verbosity=verbosity):
         with timer("loading PAMGuard binary file"):
             with open(filename, "rb", buffering=buffering) as f:
-                pgbfile = PGBFile(path=filename, fp=f, order=order, filters=filters)
+                pgbfile = PAMGuardFile(path=filename, fp=f, order=order, filters=filters)
                 pgbfile.load()
         if json_path:
             with open(json_path, 'w') as output:

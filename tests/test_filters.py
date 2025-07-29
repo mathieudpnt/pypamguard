@@ -138,9 +138,5 @@ def test_multi_filter(filters_obj):
     filters_obj.filter("daterange", datetime.datetime.fromtimestamp(5, tz = datetime.UTC))
     assert filters_obj.position == filters.FILTER_POSITION.KEEP
     
-    
-    
-    # with pytest.raises(filters.FilterMismatchException): assert filters_obj.filter("daterange", datetime.datetime.fromtimestamp(15, tz = datetime.UTC))
-
+    with pytest.raises(filters.FilterMismatchException): assert filters_obj.filter("daterange", datetime.datetime.fromtimestamp(15, tz = datetime.UTC))
     assert filters_obj.position == filters.FILTER_POSITION.SKIP
-    with pytest.raises(filters.FilterMismatchException): assert filters_obj.filter("daterange", datetime.datetime.fromtimestamp(0, tz = datetime.UTC))

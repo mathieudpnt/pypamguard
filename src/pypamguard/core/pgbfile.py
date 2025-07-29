@@ -4,7 +4,7 @@ import time
 
 from pypamguard.core.exceptions import BinaryFileException, WarningException, CriticalException, ChunkLengthMismatch, StructuralException
 from pypamguard.chunks.base import BaseChunk
-from pypamguard.chunks.standard import StandardChunkInfo, StandardFileHeader, StandardFileFooter, StandardModuleHeader, StandardModuleFooter
+from pypamguard.chunks.standard import StandardBackground, StandardChunkInfo, StandardFileHeader, StandardFileFooter, StandardModuleHeader, StandardModuleFooter
 from pypamguard.chunks.generics import GenericChunkInfo, GenericFileHeader, GenericFileFooter, GenericModuleHeader, GenericModuleFooter, GenericModule
 from pypamguard.core.registry import ModuleRegistry
 from pypamguard.utils.constants import IdentifierType
@@ -15,7 +15,7 @@ from pypamguard.core.serializable import Serializable
 from pypamguard.core.readers import *
 import os
 
-class PGBFile(Serializable):
+class PAMGuardFile(Serializable):
     """
     This class represents a PAMGuard Binary File
     """
@@ -47,6 +47,7 @@ class PGBFile(Serializable):
 
     def __process_chunk(self, br: BinaryReader, chunk_obj: BaseChunk, chunk_info: GenericChunkInfo, correct_chunk_length = True):
         try:
+            if type(chunk_info) in (GenericModule, StandardBackground) and self.__filters.position == FILTER_POSITION.STOP: raise FilterMismatchException()
             logger.debug(f"Processing chunk: {type(chunk_obj)}", br)
             chunk_obj.process(br, chunk_info)
             if not br.at_checkpoint(): raise ChunkLengthMismatch(br, chunk_info, chunk_obj)
