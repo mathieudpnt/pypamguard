@@ -3,6 +3,7 @@ name: Build Documentation
 on:
   release:
     types: [published]
+  workflow_dispatch:
     
 jobs:
   deploy:
@@ -30,22 +31,22 @@ jobs:
       - name: Install pdoc3
         run: |
             pip install -r requirements.txt
-            pip install pdoc3
+            pip install pdoc
 
       - name: Generate documentation
         run: |
-          pdoc3 -o docs --html --force src/pypamguard
+          pdoc -o docs src/pypamguard
   
       - name: Add version number to HTML files
         run: |
             VERSION=${{ env.VERSION }}
-            sed -i "s/{{ version }}/$VERSION/g" docs/pypamguard/index.html
+            sed -i "s/{{ version }}/$VERSION/g" docs/*.html
 
       - name: Rename docs folder to version
         run: |
             VERSION=${{ env.VERSION }}
             mkdir -p docsWithVersion/$VERSION
-            mv docs/pypamguard/* docsWithVersion/$VERSION
+            mv docs/* docsWithVersion/$VERSION
         
       - name: Create redirect index.html
         run: |
