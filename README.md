@@ -1,4 +1,4 @@
-![PyPI - Version](https://img.shields.io/pypi/v/pypamguard)
+![PyPI - Version](https://img.shields.io/pypi/v/pypamguard?label=pypi)
 ![PyPI - Status](https://img.shields.io/pypi/status/pypamguard)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pypamguard)
 ![GitHub contributors](https://img.shields.io/github/contributors/PAMGuard/pypamguard)
@@ -6,10 +6,12 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/PAMGuard/pypamguard)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/PAMGuard/pypamguard/tests.yml?label=tests)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/PAMGuard/pypamguard/documentation.yml?label=docs)
+![GitHub Tag](https://img.shields.io/github/v/tag/PAMGuard/pypamguard?label="github-version")
 
 
 pypamguard is a package for processing PAMGuard binary file outputs in Python.
 
+* **PyPI**: https://pypi.org/project/pypamguard/
 * **GitHub**: https://github.com/PAMGuard/pypamguard
 * **Documentation**: https://www.pamguard.org/pypamguard/
 * **Website**: https://www.pamguard.org/
