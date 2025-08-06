@@ -24,6 +24,7 @@ DATA_FLAG_FIELDS = [
 
 class StandardDataMixin:
     def _initialize_stddata(self, *args, **kwargs):
+        self.file_path: str = None
         self.millis: int = None
         self.date: datetime.datetime = None
         self.flags: Bitmap = None
@@ -41,7 +42,8 @@ class StandardDataMixin:
         self.signal_excess: float = None
     
     def _process_stddata(self, br: BinaryReader, chunk_info: StandardChunkInfo):
-                
+        self.file_path = chunk_info.file_path
+
         self.millis, self.date = br.timestamp_read()        
         self._filters.filter('daterange', self.date)
 

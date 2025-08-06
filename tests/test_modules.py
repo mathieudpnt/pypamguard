@@ -41,11 +41,13 @@ def _compare_json(got_dict, expected_dict, test_name, chunk_name, path=""):
         else:
             assert got_dict == expected_dict, f"Test {test_name}: chunk '{chunk_name}' attribute '{path}' has unexpected value: expected {expected_dict} ({type(expected_dict)}), got {got_dict} ({type(got_dict)})"
             
-def _test_chunk(chunk: BaseChunk, test_data: dict, test_name, chunk_name):
+def _test_chunk(chunk: BaseChunk, test_data: dict, test_name, chunk_name, path):
     if not chunk:
         assert test_data is None
         return
     _compare_json(chunk.to_json(), test_data, test_name, chunk_name)
+    assert hasattr(chunk, "file_path")
+    assert chunk.file_path == path
   
 def _get_paths(test_metadata):
     directory = os.path.join(test_metadata["directory"], test_metadata["filename"])
@@ -64,46 +66,46 @@ def _get_json_data(json_path):
         json_data = json.loads(f.read())
         return json_data
 
-def _run_header_tests(file: PAMGuardFile, json_data, test_name):
+def _run_header_tests(file: PAMGuardFile, json_data, test_name, path):
     assert "file_header" in json_data, "Test data is missing 'file_header'"
     assert "module_header" in json_data, "Test data is missing 'module_header'"
-    _test_chunk(file.file_header, json_data["file_header"], test_name, "file_header")
-    _test_chunk(file.module_header, json_data["module_header"], test_name, "module_header")
+    _test_chunk(file.file_header, json_data["file_header"], test_name, "file_header", path)
+    _test_chunk(file.module_header, json_data["module_header"], test_name, "module_header", path)
 
-def _run_footer_tests(file: PAMGuardFile, json_data, test_name):
+def _run_footer_tests(file: PAMGuardFile, json_data, test_name, path):
     assert "module_footer" in json_data, "Test data is missing 'module_footer'"
     assert "file_footer" in json_data, "Test data is missing 'file_footer'"
-    _test_chunk(file.module_footer, json_data["module_footer"], test_name, "module_footer")
-    _test_chunk(file.file_footer, json_data["file_footer"], test_name, "file_footer")
+    _test_chunk(file.module_footer, json_data["module_footer"], test_name, "module_footer", path)
+    _test_chunk(file.file_footer, json_data["file_footer"], test_name, "file_footer", path)
 
-def _run_background_tests(file: PAMGuardFile, json_data, test_name):
+def _run_background_tests(file: PAMGuardFile, json_data, test_name, path):
     assert "background" in json_data, "Test data is missing 'background'"
     json_data_len = len(json_data["background"])
     assert len(file.background) == len(json_data["background"]), f"Test {test_name}: background length mismatch: expected {json_data_len}, got {len(file.background)}"
     for index, json_chunk in enumerate(json_data["background"]):
-        _test_chunk(file.background[index], json_chunk, test_name, f"background[{index}]")
+        _test_chunk(file.background[index], json_chunk, test_name, f"background[{index}]", path)
 
-def _run_data_tests(file: PAMGuardFile, json_data, test_name):
+def _run_data_tests(file: PAMGuardFile, json_data, test_name, path):
     assert "data" in json_data, "Test data is missing 'data'"
     json_data_len = len(json_data["data"])
     assert len(file.data) == len(json_data["data"]), f"Test {test_name}: data length mismatch: expected {json_data_len}, got {len(file.data)}"
     for index, json_chunk in enumerate(json_data["data"]):
-        _test_chunk(file.data[index], json_chunk, test_name, f"data[{index}]")
+        _test_chunk(file.data[index], json_chunk, test_name, f"data[{index}]", path)
 
-def _run_pgdf_tests(file: PAMGuardFile, json_data, test_name):
-    _run_header_tests(file, json_data, test_name)
-    _run_footer_tests(file, json_data, test_name)
-    _run_data_tests(file, json_data, test_name)
+def _run_pgdf_tests(file: PAMGuardFile, json_data, test_name, path):
+    _run_header_tests(file, json_data, test_name, path)
+    _run_footer_tests(file, json_data, test_name, path)
+    _run_data_tests(file, json_data, test_name, path)
 
-def _run_pgdx_tests(file: PAMGuardFile, json_data, test_name):
-    _run_header_tests(file, json_data, test_name)
-    _run_footer_tests(file, json_data, test_name)
+def _run_pgdx_tests(file: PAMGuardFile, json_data, test_name, path):
+    _run_header_tests(file, json_data, test_name, path)
+    _run_footer_tests(file, json_data, test_name, path)
     assert file.data == [] or file.data == None, f"Test {test_name}: data should be empty"
 
-def _run_pgnf_tests(file: PAMGuardFile, json_data, test_name):
-    _run_header_tests(file, json_data, test_name)
-    _run_footer_tests(file, json_data, test_name)
-    _run_background_tests(file, json_data, test_name)
+def _run_pgnf_tests(file: PAMGuardFile, json_data, test_name, path):
+    _run_header_tests(file, json_data, test_name, path)
+    _run_footer_tests(file, json_data, test_name, path)
+    _run_background_tests(file, json_data, test_name, path)
 
 def get_filters(test_data, filters):
     filters_json = test_data["filters"]
@@ -121,14 +123,14 @@ def test_module(test_data, filters):
     if "background" in test_data and test_data["background"]:
         file_pgnf = load_pamguard_binary_file(pgnf_path, verbosity=Verbosity.WARNING, filters=filters)   
         assert isinstance(file_pgnf, PAMGuardFile)
-        _run_pgnf_tests(file_pgnf, json_data, json_path + " (PGNF)")
+        _run_pgnf_tests(file_pgnf, json_data, json_path + " (PGNF)", pgnf_path)
     else :
         file_pgdf = load_pamguard_binary_file(pgdf_path, verbosity=Verbosity.WARNING, filters=filters)   
         assert isinstance(file_pgdf, PAMGuardFile)
-        _run_pgdf_tests(file_pgdf, json_data, json_path + " (PGDF)")
+        _run_pgdf_tests(file_pgdf, json_data, json_path + " (PGDF)", pgdf_path)
         file_pgdx = load_pamguard_binary_file(pgdx_path, verbosity=Verbosity.WARNING, filters=filters)
         # TODO: activate PGDX tests
-        # _run_pgdx_tests(file_pgdx, json_data, json_path + " (PGDX)")
+        # _run_pgdx_tests(file_pgdx, json_data, json_path + " (PGDX)", pgdx_path)
 
 
     # pgdx_file = load_pamguard_binary_file(pgdx_file, verbosity=Verbosity.WARNING, filters=filters)

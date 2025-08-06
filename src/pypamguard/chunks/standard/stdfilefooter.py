@@ -8,6 +8,7 @@ class StandardFileFooter(GenericFileFooter):
     
     def __init__(self, file_header: GenericFileHeader):
         super().__init__(file_header)
+        self.file_footer: str = None
         self.n_objects: int = None
         self.data_date_raw: np.int64 = None
         self.data_date: datetime.datetime = None
@@ -20,6 +21,7 @@ class StandardFileFooter(GenericFileFooter):
         self.end_reason: np.int32 = None
 
     def _process(self, br: BinaryReader, chunk_info: StandardChunkInfo):
+        self.file_path = chunk_info.file_path
         self.length = chunk_info.length
         self.identifier = chunk_info.identifier
 

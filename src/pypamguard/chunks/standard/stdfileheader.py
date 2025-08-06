@@ -10,6 +10,7 @@ class StandardFileHeader(GenericFileHeader):
 
 
     def _process(self, br: BinaryReader, chunk_info):
+        self.file_path = chunk_info.file_path
         self.length = chunk_info.length
         self.identifier = chunk_info.identifier
 

@@ -6,10 +6,11 @@ from pypamguard.core.exceptions import CriticalException, FileCorruptedException
 
 class StandardChunkInfo(GenericChunkInfo):
     
-    def __init__(self, *args, **kwargs):
+    def __init__(self, file_path, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.length: int = None
         self.identifier: int = None
+        self.file_path: str = file_path
 
     def _process(self, br: BinaryReader):
         self.length, self.identifier = br.bin_read([DTYPES.INT32, DTYPES.INT32])

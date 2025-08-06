@@ -14,8 +14,9 @@ if __name__ == "__main__":
     })
 
     # click_v4_test1_daterange = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test1.pgdf", json_path="click_v4_test1.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1504477746918 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1504477758412 / 1000, tz = datetime.UTC), ordered=True)}))
+    click_v4_test1 = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test1.pgdf")
 
-
+    print(click_v4_test1.data[0])
     # filterednoisemeasurement_v3_test1 = load_pamguard_binary_file("../tests/dataset/processing/filterednoisemeasurement/filterednoisemeasurement_v3_test1.pgdf", json_path="filterednoisemeasurement_v3_test1.json")
 
     # clicktriggerbackground = load_pamguard_binary_file("../tests/dataset/detectors/clicktriggerbackground/clicktriggerbackground_v0_test1.pgdf", json_path="clicktriggerbackground_v0_test1.json")
@@ -116,12 +117,12 @@ if __name__ == "__main__":
     # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf", json_path="deeplearningclassifier_v2_test1_models.json")
     # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf")
 
-    deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdx", verbosity=Verbosity.ERROR)
-    print(deeplearningclassifier_v2_test1_models.file_header)
+    # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdx", verbosity=Verbosity.ERROR)
+    # print(deeplearningclassifier_v2_test1_models.data[0])
 
-    print()
-    deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf", verbosity=Verbosity.ERROR)
-    print(deeplearningclassifier_v2_test1_models.file_header)
+    # print()
+    # deeplearningclassifier_v2_test1_models = load_pamguard_binary_file("../tests/dataset/classifiers/deeplearningclassifier/deeplearningclassifier_v2_test1_models.pgdf", verbosity=Verbosity.ERROR)
+    # print(deeplearningclassifier_v2_test1_models.file_header)
 
 
 

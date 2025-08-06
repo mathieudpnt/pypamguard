@@ -82,41 +82,41 @@ class PAMGuardFile(Serializable):
             if br.tell() == self.__size: break
             
             # each chunk has the same 8-byte 'chunk info' at the start
-            chunk_info = StandardChunkInfo()
+            chunk_info = StandardChunkInfo(self.__path)
             chunk_info.process(br)
             br.set_checkpoint(chunk_info.length - chunk_info._measured_length)
 
             logger.debug(f"Reading chunk of type {chunk_info.identifier} and length {chunk_info.length} at offset {br.tell()}", br)
 
             if chunk_info.identifier == IdentifierType.FILE_HEADER.value:
-                self.report.set_context(self.__file_header)
+                self.report.set_context(self.__file_header.__class__)
                 self.__file_header = self.__process_chunk(br, self.__file_header, chunk_info, correct_chunk_length=False)
                 self.__module_class = self.__module_registry.get_module(self.__file_header.module_type, self.__file_header.stream_name)
 
             elif chunk_info.identifier == IdentifierType.MODULE_HEADER.value:
-                self.report.set_context(self.__module_header)
+                self.report.set_context(self.__module_header.__class__)
                 if not self.__file_header: raise StructuralException(self.__fp, "File header not found before module header")
                 self.__module_header = self.__process_chunk(br, self.__module_class._header(self.__file_header), chunk_info)
 
             elif chunk_info.identifier >= 0:
-                self.report.set_context(f"{self.__module_class} [iter {data_count}]")
+                self.report.set_context(f"{self.__module_class.__class__} [iter {data_count}]")
                 if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
                 data = self.__process_chunk(br, self.__module_class(self.__file_header, self.__module_header, self.__filters), chunk_info)
                 if data: self.__data.append(data)
                 data_count += 1
                 
             elif chunk_info.identifier == IdentifierType.MODULE_FOOTER.value:
-                self.report.set_context(self.__module_footer)
+                self.report.set_context(self.__module_footer.__class__)
                 if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before module footer")
                 self.__module_footer = self.__process_chunk(br, self.__module_class._footer(self.__file_header, self.__module_header), chunk_info)
 
             elif chunk_info.identifier == IdentifierType.FILE_FOOTER.value:
-                self.report.set_context(self.__file_footer)
+                self.report.set_context(self.__file_footer.__class__)
                 if not self.__file_header: raise StructuralException(self.__fp, "File header not found before file footer")
                 self.__file_footer = self.__process_chunk(br, self.__file_footer, chunk_info)
 
             elif chunk_info.identifier == IdentifierType.FILE_BACKGROUND.value:
-                self.report.set_context(f"{self.__module_class._background} [iter {bg_count}]")
+                self.report.set_context(f"{self.__module_class._background.__class__} [iter {bg_count}]")
                 if not self.__module_header: raise StructuralException(self.__fp, "Module header not found before data")
                 if self.__module_class._background is None: raise StructuralException(self.__fp, "Module class does not have a background specified")
                 background = self.__process_chunk(br, self.__module_class._background(self.__file_header, self.__module_header, self.__filters), chunk_info)
