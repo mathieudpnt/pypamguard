@@ -20,7 +20,7 @@ class PAMGuardFile(Serializable):
     This class represents a PAMGuard Binary File
     """
     
-    def __init__(self, path: str, fp: io.BufferedReader, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, module_registry: ModuleRegistry = ModuleRegistry(), filters: Filters = Filters()):
+    def __init__(self, path: str, fp: io.BufferedReader, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, module_registry: ModuleRegistry = ModuleRegistry(), filters: Filters = Filters(), report: Report = None):
         """
         :param filename: The name of the file
         :param fp: The file pointer
@@ -28,7 +28,8 @@ class PAMGuardFile(Serializable):
         :param module_registry: Override the module registry (optional)
         :param filters: The filters (optional)
         """
-        self.report = Report()
+        if not report: self.report = Report()
+        else: self.report = report
         self.__path: str = path
         self.__filename = os.path.basename(self.__path)
         self.__fp: io.BufferedReader = fp

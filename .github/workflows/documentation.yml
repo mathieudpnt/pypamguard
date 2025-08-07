@@ -35,42 +35,42 @@ jobs:
 
       - name: Generate documentation
         run: |
-          pdoc -o docs src/pypamguard
+          ./generate_docs.sh
   
-      - name: Add version number to HTML files
-        run: |
-            VERSION=${{ env.VERSION }}
-            sed -i "s/{{ version }}/$VERSION/g" docs/*.html
+      # - name: Add version number to HTML files
+      #   run: |
+      #       VERSION=${{ env.VERSION }}
+      #       sed -i "s/{{ version }}/$VERSION/g" docs/*.html
 
-      - name: Rename docs folder to version
-        run: |
-            VERSION=${{ env.VERSION }}
-            mkdir -p docsWithVersion/$VERSION
-            mv docs/* docsWithVersion/$VERSION
+      # - name: Rename docs folder to version
+      #   run: |
+      #       VERSION=${{ env.VERSION }}
+      #       mkdir -p docsWithVersion/$VERSION
+      #       mv docs/* docsWithVersion/$VERSION
         
-      - name: Create redirect index.html
-        run: |
-            touch docsWithVersion/index.html
-            cat > docsWithVersion/index.html <<EOF
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Redirecting to latest version</title>
-                <script>
-                    // Replace this with the current latest version
-                    window.location.replace("./$VERSION/");
-                </script>
-            </head>
-            <body>
-                <p>If you are not redirected, click <a href="./$VERSION/">here</a>.</p>
-            </body>
-            </html>
-            EOF
+      # - name: Create redirect index.html
+      #   run: |
+      #       touch docsWithVersion/index.html
+      #       cat > docsWithVersion/index.html <<EOF
+      #       <!DOCTYPE html>
+      #       <html>
+      #       <head>
+      #           <title>Redirecting to latest version</title>
+      #           <script>
+      #               // Replace this with the current latest version
+      #               window.location.replace("./$VERSION/");
+      #           </script>
+      #       </head>
+      #       <body>
+      #           <p>If you are not redirected, click <a href="./$VERSION/">here</a>.</p>
+      #       </body>
+      #       </html>
+      #       EOF
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: docsWithVersion
+          publish_dir: docs
           keep_files: true

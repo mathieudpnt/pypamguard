@@ -14,9 +14,9 @@ if __name__ == "__main__":
     })
 
     # click_v4_test1_daterange = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test1.pgdf", json_path="click_v4_test1.json", filters=Filters({'daterange': DateFilter(datetime.datetime.fromtimestamp(1504477746918 / 1000, tz = datetime.UTC), datetime.datetime.fromtimestamp(1504477758412 / 1000, tz = datetime.UTC), ordered=True)}))
-    click_v4_test1 = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test1.pgdf")
+    # click_v4_test1 = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test1.pgdf")
 
-    print(click_v4_test1.data[0])
+    # print(click_v4_test1.data[0])
     # filterednoisemeasurement_v3_test1 = load_pamguard_binary_file("../tests/dataset/processing/filterednoisemeasurement/filterednoisemeasurement_v3_test1.pgdf", json_path="filterednoisemeasurement_v3_test1.json")
 
     # clicktriggerbackground = load_pamguard_binary_file("../tests/dataset/detectors/clicktriggerbackground/clicktriggerbackground_v0_test1.pgdf", json_path="clicktriggerbackground_v0_test1.json")
@@ -131,6 +131,36 @@ if __name__ == "__main__":
     # ods = load_pamguard_binary_folder("../tests/dataset/detectors/gpl", "gpl*.pgdf")
     # print(ods)
 
-    # cd = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test1.pgdx", json_path="cd.json", verbosity=Verbosity.DEBUG)
+    # # cd = load_pamguard_binary_file("../tests/dataset/detectors/click/click_v4_test1.pgdx", json_path="cd.json", verbosity=Verbosity.DEBUG)
     # print(cd.data)
     # print(cd.to_json())
+    # arr_1 = []
+    # arr_2 = []
+    # arr_3 = []
+
+    # path = "/home/sulli/SUMMER2025/pypamguard/Data/porpoise_data/Binary/20130710"
+    # logger.set_verbosity(Verbosity.ERROR)
+    # d = load_pamguard_binary_folder(path, "*.pgdf")
+    
+    # for file in d:
+    #     arr_2.append(file)
+    #     arr_2.append(file)
+    #     arr_1.append(d[file].data[0].uid)
+    #     arr_1.append(d[file].data[-1].uid)
+
+    # for fname in arr_2:
+    #     fname_new = fname
+    #     if len(fname) > 80:
+    #         fname_new = fname[len(fname)-80:]
+    #     arr_3.append(fname_new)
+    # print(arr_3, len(arr_3))
+    # print([int(x) for x in arr_1], len(arr_1))
+
+
+    fnames = ['Click_Detector_Click_Detector_Clicks_20130710_143021.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143021.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143259.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143259.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142706.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142706.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143151.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143151.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142151.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142151.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143044.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143044.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142557.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142557.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142044.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142044.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143406.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143406.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142512.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142512.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143513.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143513.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142405.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142405.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142258.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142258.pgdf']
+    uids = [7000001, 7000199, 10000001, 10002893, 6000001, 6001532, 9000001, 9002078, 1000001, 1001663, 8000001, 8003488, 5000001, 5008314, 1, 21, 11000001, 11005142, 4000001, 4010565, 12000001, 12008681, 3000001, 3002860, 2000001, 2002301]
+
+    # fnames = ['Click_Detector_Click_Detector_Clicks_20130710_143021.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143259.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142706.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143151.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142151.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143044.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142557.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142044.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143406.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142512.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_143513.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142405.pgdf', 'Click_Detector_Click_Detector_Clicks_20130710_142258.pgdf']
+    # uids = [7000001, 7000199, 10000001, 10002893, 6000001, 6001532, 9000001, 9002078, 1000001, 1001663, 8000001, 8003488, 5000001, 5008314, 1, 21, 11000001, 11005142, 4000001, 4010565, 12000001, 12008681, 3000001, 3002860, 2000001, 2002301]
+
+    d = load_pamguard_multi_file("/home/sulli/SUMMER2025/pypamguard/Data/porpoise_data/Binary", fnames, uids)

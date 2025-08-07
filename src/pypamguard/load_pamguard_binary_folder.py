@@ -1,13 +1,15 @@
 import glob
 from pypamguard.load_pamguard_binary_file import load_pamguard_binary_file
 from pypamguard.core.pamguardfile import PAMGuardFile
-from pypamguard.core.filters import FILTER_POSITION
+from pypamguard.core.filters import FILTER_POSITION, Filters
+from pypamguard.core.readers import Report
 import os
 
-def load_pamguard_binary_folder(directory: str, mask: str, files_ordered = True, clear_fields: list = []):
+def load_pamguard_binary_folder(directory: str, mask: str, files_ordered = True, clear_fields: list = [], filters: Filters = None, report: Report = None):
+    if not report: report = Report()
     result = {}
     for file in glob.glob(pathname=mask, root_dir=directory, recursive=True):
-        res = load_pamguard_binary_file(os.path.join(directory,file))
+        res = load_pamguard_binary_file(os.path.join(directory,file), filters=filters)
         for field in clear_fields:
             setattr(res, field, None)
         if res.filters.position == FILTER_POSITION.STOP:
