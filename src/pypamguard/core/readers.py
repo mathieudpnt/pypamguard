@@ -2,94 +2,110 @@ import io
 import numpy as np
 import enum, datetime, mmap
 from typing import Callable
+from pypamguard.utils.constants import DTYPES
 from pypamguard.utils.bitmap import Bitmap
-from pypamguard.core.exceptions import WarningException, ErrorException, CriticalException
+from pypamguard.core.exceptions import WarningException, ErrorException, CriticalException, BinaryFileException
 from pypamguard.logger import logger
 from pypamguard.core.serializable import Serializable
+from pypamguard.utils.constants import BYTE_ORDERS
 from contextlib import contextmanager
 import traceback
 
-class DTYPES(enum.Enum):
-    INT8 = np.dtype(np.int8)
-    UINT8 = np.dtype(np.uint8)
-    INT16 = np.dtype(np.int16)
-    UINT16 = np.dtype(np.uint16)
-    INT32 = np.dtype(np.int32)
-    UINT32 = np.dtype(np.uint32)
-    INT64 = np.dtype(np.int64)
-    UINT64 = np.dtype(np.uint64)
-    FLOAT32 = np.dtype(np.float32)
-    FLOAT64 = np.dtype(np.float64)
-
-class Shape:
-    def __init__(self, shape, length: int):
-        self.shape = shape
-        self.length = length
-        
-        if type(self.shape) == self.__class__:
-            self.size = self.length * self.shape.size
-        elif type(self.shape) == DTYPES:
-            self.size = self.length * self.shape.value.itemsize
-            self.shape = self.shape.value
-        else:
-            raise ValueError(f"shape must be of type Shape or np.dtype (got {type(self.shape)}).")
-
-    def __str__(self):
-        if type(self.shape) == self.__class__:
-            return f"{self.length} * ({self.shape})"
-        else:
-            return f"{self.length} * {self.shape}"
-
-
-
-
-
 class Report(Serializable):
-    warnings = []
-    errors: list[ErrorException] = []
-    errors_tb: list = []
+    """
+    A class to store warnings and errors during program execution.
+    Warnings and errors all extend `pypamguard.core.filters.BinaryFileException`.
+    """
+
+    __warnings = list[WarningException]
+    __errors: list[ErrorException]
+    __errors_tb: list[list[str]]
+
+    @property
+    def warnings(self) -> list[WarningException]:
+        """The list of warnings"""
+        return self.__warnings
+
+    @property
+    def errors(self) -> list[ErrorException]:
+        """The list of errors"""
+        return self.__errors
+
+    @property
+    def errors_tb(self) -> list[list[str]]:
+        """The list of error tracebacks"""
+        return self.__errors_tb
 
     def __init__(self):
         self.current_context = ""
-        self.warnings = []
+        self.__warnings = []
+        self.__errors = []
+        self.__errors_tb = []
     
     def set_context(self, context):
+        """Set the current context. Automatically added to
+        all warnings and errors when `add_error()` or `add_warning()`
+        are called."""
         self.current_context = context
 
-    def add_warning(self, warning: WarningException):
+    def add_warning(self, warning: BinaryFileException):
+        """Add a warning to the report"""
         warning.add_context(self.current_context)
-        self.warnings.append(warning)
+        self.__warnings.append(warning)
         logger.warning(warning)
     
-    def add_error(self, error: Exception):
-        error.add_context(self.current_context)
-        self.errors.append(error)
+    def add_error(self, error: BinaryFileException):
+        """Add an error to the report"""
+        if type(error) == BinaryFileException:
+            error.add_context(self.current_context)
+        self.__errors.append(error)
         logger.error(error)
         tb = traceback.format_stack()
-        self.errors_tb.append(tb)
-    
+        self.__errors_tb.append(tb)
     
     def __str__(self):
         string = "### REPORT SUMMARY ###\n"
-        if len(self.warnings) != 0:
-            string += f" - {len(self.warnings)} warnings (access warnings via .warnings list).\n"
-        if len(self.errors) != 0:
-            string += f" - {len(self.errors)} errors (access errors via .errors list and tracebacks via .errors_tb parallel list).\n"
+        if len(self.__warnings) != 0:
+            string += f" - {len(self.__warnings)} warnings (access warnings via .warnings list).\n"
+        if len(self.__errors) != 0:
+            string += f" - {len(self.__errors)} errors (access errors via .errors list and tracebacks via .errors_tb parallel list).\n"
         string += "### END OF REPORT ###"
         return string
 
+    def print_error_tb(self, index: int):
+        for tb in self.__errors_tb[index]:
+            print(tb)
+        print(self.__errors[index])
 
 class BinaryReader:
+    """
+    A class to read data from a binary file. 
+    """
 
-    def __init__(self, fp: mmap.mmap, report: Report, endianess='>'):
-        self.fp = fp
-        self._endianess = endianess
-        self.report = report
+    def __init__(self, fp: io.BufferedReader, report: Report, endianess: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN):
+        """
+        :param fp: The file pointer from which data is read (must be opened with 'rb' mode)
+        :param report: A `pypamguard.core.readers.Report` object used for logging in the event of an error
+        :param endianess: The endianess of the binary reader
+        """
+        self.__fp = fp
+        self.__endianess = endianess
+        self.__report = report
     
+    @property
+    def endianess(self) -> BYTE_ORDERS:
+        """The endianess of the binary reader. All data is read in this endianess."""
+        return self.__endianess
+
+    @endianess.setter
+    def endianess(self, endianess: BYTE_ORDERS):
+        if not type(endianess) == BYTE_ORDERS: raise ValueError("Endianess must be one ENDIANESS enum value.")
+        self.__endianess = endianess
     
-    def set_endianess(self, endianess):
-        if not endianess in ('>', '<'): raise ValueError("Endianess must be one of '>' (big) or '<' (small)")
-        self._endianess = endianess
+    @property
+    def report(self) -> Report:
+        """The report object used for logging in the event of an error in this `BinaryReader`."""
+        return self.__report
 
     def __collate(self, data, dtypes, shape):
         for i, dtype_i in enumerate(dtypes):            
@@ -97,22 +113,29 @@ class BinaryReader:
             yield dtype_i[1](d) if dtype_i[1] is not None else d
 
     def __read(self, length: int) -> bytes:
-        data = self.fp.read(length)
+        data = self.__fp.read(length)
         return data
 
-    def tell(self):
-        return self.fp.tell()
+    def tell(self) -> int:
+        """Return the current file pointer position."""
+        return self.__fp.tell()
 
     def seek(self, offset, whence: int = io.SEEK_SET):
-        return self.fp.seek(offset, whence)
+        """Set the file pointer position (should not be used directly)."""
+        return self.__fp.seek(offset, whence)
 
     def set_checkpoint(self, offset: int):
+        """Given an offset from the current position of the binary reader, set the
+        next checkpoint. Upon calling `goto_checkpoint()`, the binary reader will
+        seek to the next checkpoint."""
         self.next_checkpoint = self.tell() + offset
 
     def goto_checkpoint(self):
+        """Seek to the next checkpoint set by `set_checkpoint()`."""
         self.seek(self.next_checkpoint)
     
     def at_checkpoint(self):
+        """Return `True` if the binary reader is at the next checkpoint, `False` otherwise."""
         if self.tell() == self.next_checkpoint: return True
         else: return False
 
@@ -161,35 +184,49 @@ class BinaryReader:
         """
         if type(shape) != tuple: shape = (shape,)
         dtypes = [(dtype_i, None) if isinstance(dtype_i, DTYPES) else dtype_i for dtype_i in ([dtype] if not isinstance(dtype, list) else dtype)]
-        data = np.frombuffer(self.__read(sum(dtype_i[0].value.itemsize for dtype_i in dtypes) * np.prod(shape)   ), dtype=[(f'f{i}', dtype_i[0].value.newbyteorder(self._endianess)) for i, dtype_i in enumerate(dtypes)])
+        data = np.frombuffer(self.__read(sum(dtype_i[0].value.itemsize for dtype_i in dtypes) * np.prod(shape)   ), dtype=[(f'f{i}', dtype_i[0].value.newbyteorder(self.__endianess.value)) for i, dtype_i in enumerate(dtypes)])
         ret_val = tuple(self.__collate(data, dtypes, shape))
         return ret_val[0] if len(ret_val) == 1 else ret_val
 
     @classmethod
-    def millis_to_timestamp(self, millis):
-        # datetime.datetime.fromtimestamp() requires millis to be in seconds
+    def millis_to_timestamp(self, millis: int) -> datetime.datetime:
+        """Convert a timestamp in milliseconds to a datetime object."""
         return datetime.datetime.fromtimestamp(millis / 1000, tz=datetime.UTC)
 
     def timestamp_read(self) -> tuple[int, datetime.datetime]:
+        """Read in a timestamp in milliseconds and convert it to a datetime object.
+        Return a tuple of (milliseconds, datetime)."""
         with br_report(self):
             millis = self.bin_read(DTYPES.INT64)
             return millis, self.millis_to_timestamp(millis)
-        return millis, None # in case timestamp conversion does not work
 
     def nstring_read(self, length: int) -> str:
+        """Read in a string of length `length` and return it as a string."""
         with br_report(self):
             return self.__read(length).decode("utf-8")
 
     def string_read(self) -> str:
+        """Read in a string. The string length is read at first as a 2-byte integer
+        specifying the length."""
         with br_report(self):
             return self.nstring_read(self.bin_read(DTYPES.INT16))
     
     def bitmap_read(self, dtype: DTYPES, labels: list[str] = None) -> Bitmap:
+        """Read in a bitmap of type `dtype` and return it as a `pypamguard.utils.bitmap.Bitmap`
+        object. Can specify a list of `labels` to be mapped onto each bit in the bitmap. See
+        the `Bitmap` class more more information.
+        
+        Example usage (8-bit bitmap):
+        ```python
+        bitmap_read(DTYPES.INT8, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'])
+        ```
+        """
         with br_report(self):
             return Bitmap(dtype.value.itemsize, labels, int(self.bin_read(dtype)))
     
 @contextmanager
 def br_report(br: BinaryReader):
+    """A context manager that reports warnings and errors to the `BinaryReader` object `br`."""
     try:
         yield
     except WarningException as e:

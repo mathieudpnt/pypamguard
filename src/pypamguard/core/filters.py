@@ -2,6 +2,7 @@ import datetime
 import enum
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
+from typing import Callable
 from pypamguard.core.serializable import Serializable
 
 class FilterMismatchException(Exception):
@@ -43,7 +44,10 @@ class WhitelistFilter(BaseFilter):
     """A filter that checks if a value is in a set of whitelisted values."""
 
     def __init__(self, whitelist: set | list):
-        """Pass in an unordered list or a set of values to include in the whitelist."""
+        """
+        Pass in an unordered list or a set of values to include in the whitelist.
+        @param whitelist: A list or set of values to include in the whitelist.
+        """
         self.whitelist = set(whitelist)
 
     def check(self, value):
@@ -137,6 +141,15 @@ class DateFilter(RangeFilter):
         return cls(datetime.datetime.fromtimestamp(json["start"], tz=datetime.UTC), datetime.datetime.fromtimestamp(json["end"], tz=datetime.UTC), json["ordered"], json["ignore_timezone"], json["ignore_none"])
 
 class Filters:
+    """
+    A class to manage zero or more filters to be applied to a `PAMGuardFile` object.
+    Apply a filter to a particular value by calling `filter()` method. Then check the
+    `position` (type `FILTER_POSITION`) attribute to check the position of the filter.
+
+    To see all available filters, see attribute `INSTALLED_FILTERS`. You can also add
+    your own custom filters using the method `add_custom_filter()` and passing a 
+    custom function. 
+    """
 
     INSTALLED_FILTERS = {
         'uidlist': WhitelistFilter,
@@ -146,14 +159,43 @@ class Filters:
 
 
     def __init__(self, filters: dict[str, BaseFilter] = None):
+        """
+        A class to manage zero or more filters to apply to a `PAMGuardFile` object.
+
+        @param filters: A dictionary of filters to apply to a `PAMGuardFile` object.
+                        The dictionary key is hte name of the filter (which is important
+                        for in-built filters such as `uidlist`) and the value is the
+                        filter object (extends `BaseFilter`). Defaults to `None`.
+        """
+
         if not filters: filters = {}
         for key, value in filters.items():
             self.__validate(key, value)
-
         self.__filters: dict[str, BaseFilter] = filters
         self.position: FILTER_POSITION = None
+        self.custom_filters = []
     
-    def add(self, key, value):
+    def add_custom_filter(self, func: Callable[[any], bool]):
+        """
+        Add a custom filter function. The function should take a single argument
+        (extends `BaseChunk`) and return a boolean (whether the filter succeeds).
+        Custom filters are usually called just after an entire chunk has been read
+        and determines if that chunk should be saved or not."""
+        self.custom_filters.append(func)
+    
+    def call_custom_filters(self, chunk_obj):
+        for func in self.custom_filters:
+            if func(chunk_obj):
+                return FILTER_POSITION.KEEP
+            else:
+                raise FilterMismatchException()
+
+    def add(self, key: str, value: BaseFilter):
+        """
+        Add a filter. `key` is the name of the filter (which is important
+        for in-built filters such as `uidlist`) and the value is the
+        filter object (extends `BaseFilter`).
+        """
         self.__validate(key, value)
         self.__filters[key] = value
     
@@ -168,8 +210,14 @@ class Filters:
         if key not in self.INSTALLED_FILTERS and not isinstance(value, BaseFilter):
             raise ValueError(f"Custom filter {key} must be of type FilterBinaryFile")
 
-    def filter(self, key, value):
+    def filter(self, key: str, value: any) -> None:
+        """
+        Pass a particular `value` into a filter of type `key`.
+        Raises `FilterMismatchException` if the filter is not met
 
+        @param key: The name of the filter to apply.
+        @param value: The value to apply the filter to.
+        """
         if key in self.__filters:
             self.position = self.__filters[key].check(value)
         else:

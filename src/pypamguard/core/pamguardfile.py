@@ -22,11 +22,15 @@ class PAMGuardFile(Serializable):
     
     def __init__(self, path: str, fp: io.BufferedReader, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, module_registry: ModuleRegistry = ModuleRegistry(), filters: Filters = Filters(), report: Report = None):
         """
-        :param filename: The name of the file
-        :param fp: The file pointer
+        Initialize a PAMGuardFile object. This will set-up the binary reader, but
+        not actually read any data yet. See `load()`.
+
+        :param path: The path of the file (this is only used for logging)
+        :param fp: The file pointer from which data is read (must be opened with 'rb' mode)
         :param order: Override byte order of the file (optional)
         :param module_registry: Override the module registry (optional)
-        :param filters: The filters (optional)
+        :param filters: The filters passed as a `core.filters.Filters` object (optional)
+        :param report: A `core.readers.Report` object used for logging (optional)
         """
         if not report: self.report = Report()
         else: self.report = report
@@ -38,14 +42,14 @@ class PAMGuardFile(Serializable):
         self.__filters: Filters = filters
         self.__module_class: GenericModule # will be overriden by module registry
         self.__size: int = self.__get_size()
-        self.total_time: int = 0
-
+        
         self.__file_header: GenericFileHeader = StandardFileHeader()
         self.__module_header: GenericModuleHeader = None
         self.__module_footer: GenericModuleFooter = None
         self.__file_footer: GenericFileFooter = StandardFileFooter(self.__file_header)
         self.__data: list[GenericModule] = []
         self.__background: list[GenericBackground] = []
+        self.__total_time: int = 0
 
     def __process_chunk(self, br: BinaryReader, chunk_obj: BaseChunk, chunk_info: GenericChunkInfo, correct_chunk_length = True):
         try:
@@ -72,7 +76,16 @@ class PAMGuardFile(Serializable):
         self.__fp.seek(temp, io.SEEK_SET)
         return size
 
-    def load(self):
+    def load(self) -> None:
+        """
+        Load the PAMGuard Binary File, restarting the `fp` (file pointer) from
+        the constructor at the beginning. You can see any warnings or errors using
+        the `report` (`pypamguard.core.readers.Report`) attribute.
+
+        Throws a `pypamguard.core.exceptions.BinaryFileException` (or a subclass thereof) if
+        something goes wrong.
+        """
+
         start_time = time.time()
         self.__fp.seek(0, io.SEEK_SET)
         data_count = 0
@@ -130,8 +143,8 @@ class PAMGuardFile(Serializable):
             else:
                 raise StructuralException(self.__fp, f"Unknown chunk identifier: {chunk_info.identifier}")
                 
-        self.total_time = time.time() - start_time
-        logger.info("File processed in %.2f ms" % (self.total_time * 1000))
+        self.__total_time = time.time() - start_time
+        logger.info("File processed in %.2f ms" % (self.__total_time * 1000))
 
     def to_json(self):
         return {
@@ -153,53 +166,36 @@ class PAMGuardFile(Serializable):
         ret += f"Module Footer\n{self.__module_footer}\n\n"
         ret += f"File Footer\n{self.__file_footer}\n\n"
         ret += f"Data Set: {len(self.__data)} objects\n"
-        ret += f"Total time: {self.total_time:.2f} seconds\n"
+        ret += f"Total time: {self.__total_time:.2f} seconds\n"
         return ret
     
     @property
-    def size(self):
-        return self.__size
-
-    @property
-    def file_header(self):
+    def file_header(self) -> GenericFileHeader:
+        """The file header of the PAMGuard file"""
         return self.__file_header
     
     @property
-    def module_header(self):
+    def module_header(self) -> GenericModuleHeader:
+        """The module header of the PAMGuard file"""
         return self.__module_header
     
     @property
-    def module_footer(self):
+    def module_footer(self) -> GenericModuleFooter:
+        """The module footer of the PAMGuard file"""
         return self.__module_footer
     
     @property
-    def file_footer(self):
+    def file_footer(self) -> GenericFileFooter:
+        """The file footer of the PAMGuard file"""
         return self.__file_footer
 
     @property
-    def filters(self):
-        return self.__filters
-    
-    @property
-    def module_class(self):
-        return self.__module_class
-    
-    @property
-    def order(self):
-        return self.__order
-    
-    @property
-    def path(self):
-        return self.__path
-    
-    @property
-    def module_registry(self):
-        return self.__module_registry
-    
-    @property
-    def data(self):
-        return self.__data
+    def background(self) -> list[GenericBackground]:
+        """The background data of the PAMGuard file"""
+        return self.__background
 
     @property
-    def background(self):
-        return self.__background
+    def data(self) -> list[GenericModule]:
+        """The data of the PAMGuard file"""
+        return self.__data
+    

@@ -121,17 +121,17 @@ def test_module(test_data, filters):
     get_filters(json_data, filters)
 
     if "background" in test_data and test_data["background"]:
-        file_pgnf = load_pamguard_binary_file(pgnf_path, verbosity=Verbosity.WARNING, filters=filters)   
+        file_pgnf = load_pamguard_binary_file(pgnf_path, filters=filters)   
         assert isinstance(file_pgnf, PAMGuardFile)
         _run_pgnf_tests(file_pgnf, json_data, json_path + " (PGNF)", pgnf_path)
     else :
-        file_pgdf = load_pamguard_binary_file(pgdf_path, verbosity=Verbosity.WARNING, filters=filters)   
+        file_pgdf = load_pamguard_binary_file(pgdf_path, filters=filters)   
         assert isinstance(file_pgdf, PAMGuardFile)
         _run_pgdf_tests(file_pgdf, json_data, json_path + " (PGDF)", pgdf_path)
-        file_pgdx = load_pamguard_binary_file(pgdx_path, verbosity=Verbosity.WARNING, filters=filters)
+        file_pgdx = load_pamguard_binary_file(pgdx_path, filters=filters)
         # TODO: activate PGDX tests
         # _run_pgdx_tests(file_pgdx, json_data, json_path + " (PGDX)", pgdx_path)
 
 
-    # pgdx_file = load_pamguard_binary_file(pgdx_file, verbosity=Verbosity.WARNING, filters=filters)
+    # pgdx_file = load_pamguard_binary_file(pgdx_file, filters=filters)
     # _run_pgdx_tests(pgdx_file, json_data, json_path)

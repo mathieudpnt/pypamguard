@@ -1,5 +1,6 @@
 import pytest, io
 from pypamguard.core.readers import *
+from pypamguard.utils.constants import BYTE_ORDERS
 import struct
 import numpy as np
 import sys
@@ -8,7 +9,7 @@ import ctypes
 
 
 
-ENDIANESS = ['<', '>']
+ENDIANESS_VALUES = BYTE_ORDERS
 
 INT8_MIN = np.iinfo(np.int8).min
 INT8_MAX = np.iinfo(np.int8).max
@@ -39,7 +40,7 @@ FLOAT64_MAX = np.finfo(np.float64).max
 def _factory_report():
     return Report()
 
-def _factory_reader(buf: io.BytesIO, end: str = '>') -> BinaryReader:
+def _factory_reader(buf: io.BytesIO, end: str = BYTE_ORDERS.BIG_ENDIAN) -> BinaryReader:
     """Create a factory BinaryReader object"""
     buf.seek(0)
     return BinaryReader(buf, _factory_report(), end)
@@ -49,34 +50,34 @@ def buffer() -> io.BufferedIOBase:
     return io.BytesIO()
 
 def _int8 (bf: io.BytesIO, v: int, end: str): 
-    bf.write(struct.pack(f'{end}b', v))
+    bf.write(struct.pack(f'{end.value}b', v))
 
 def _int16 (bf: io.BytesIO, v: int, end: str): 
-    bf.write(struct.pack(f'{end}h', v))
+    bf.write(struct.pack(f'{end.value}h', v))
 
 def _int32 (bf: io.BytesIO, v: int, end: str): 
-    bf.write(struct.pack(f'{end}i', v))
+    bf.write(struct.pack(f'{end.value}i', v))
 
 def _int64 (bf: io.BytesIO, v: int, end: str): 
-    bf.write(struct.pack(f'{end}q', v))
+    bf.write(struct.pack(f'{end.value}q', v))
 
 def _uint8 (bf: io.BytesIO, v: int, end: str): 
-    bf.write(struct.pack(f'{end}B', v))
+    bf.write(struct.pack(f'{end.value}B', v))
 
 def _uint16 (bf: io.BytesIO, v: int, end: str): 
-    bf.write(struct.pack(f'{end}H', v))
+    bf.write(struct.pack(f'{end.value}H', v))
 
 def _uint32 (bf: io.BytesIO, v: int, end: str): 
-    bf.write(struct.pack(f'{end}I', v))
+    bf.write(struct.pack(f'{end.value}I', v))
 
 def _uint64 (bf: io.BytesIO, v: int, end: str): 
-    bf.write(struct.pack(f'{end}Q', v))
+    bf.write(struct.pack(f'{end.value}Q', v))
 
 def _float32(bf: io.BytesIO, v: float, end: str):
-    bf.write(struct.pack(f'{end}f', v))
+    bf.write(struct.pack(f'{end.value}f', v))
 
 def _float64(bf: io.BytesIO, v: float, end: str):
-    bf.write(struct.pack(f'{end}d', v))
+    bf.write(struct.pack(f'{end.value}d', v))
 
 def _nstring(bf: io.BytesIO, v: str, end):
     for c in list(v):
@@ -87,70 +88,70 @@ def _string(bf: io.BytesIO, v: str, end: str):
     _nstring(bf, v, end)
 
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [FLOAT32_MIN, 1/FLOAT32_MIN, 0, 1/FLOAT32_MAX, FLOAT32_MAX])
 def test_float32(v, buffer, endian):
     _float32(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.bin_read(DTYPES.FLOAT32) == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [FLOAT64_MIN, 1/FLOAT64_MIN, 0, 1/FLOAT64_MAX, FLOAT64_MAX])
 def test_float64(v, buffer, endian):
     _float64(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.bin_read(DTYPES.FLOAT64) == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [INT8_MIN, 0, INT8_MAX])
 def test_int8(v, buffer, endian):
     _int8(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.bin_read(DTYPES.INT8) == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [INT16_MIN, 0, INT16_MAX])
 def test_int16(v, buffer, endian):
     _int16(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.bin_read(DTYPES.INT16) == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [INT32_MIN, 0, INT32_MAX])
 def test_int32(v, buffer, endian):
     _int32(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.bin_read(DTYPES.INT32) == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [INT64_MIN, 0, INT64_MAX])
 def test_int64(v, buffer, endian):
     _int64(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.bin_read(DTYPES.INT64) == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [0, UINT8_MAX])
 def test_uint8(v, buffer, endian):
     _uint8(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.bin_read(DTYPES.UINT8) == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [0, UINT16_MAX])
 def test_uint16(v, buffer, endian):
     _uint16(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.bin_read(DTYPES.UINT16) == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [0, UINT32_MAX])
 def test_uint32(v, buffer, endian):
     _uint32(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.bin_read(DTYPES.UINT32) == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [0, UINT64_MAX])
 def test_uint64(v, buffer, endian):
     _uint64(buffer, v, endian)
@@ -165,21 +166,21 @@ STRING_TEST_VALS = [
     "",
     "h"]
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", STRING_TEST_VALS)
 def test_string(v, buffer, endian):
     _string(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.string_read() == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", STRING_TEST_VALS)
 def test_nstring(v, buffer, endian):
     _nstring(buffer, v, endian)
     br = _factory_reader(buffer, endian)
     assert br.nstring_read(len(v)) == v
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 def test_checkpoint(buffer, endian):
     _nstring(buffer, "a" * 100, endian)
     br = _factory_reader(buffer, endian)
@@ -198,7 +199,7 @@ def _create_dt(time_millis):
 def test_millis_to_timestamp(v):
     assert BinaryReader.millis_to_timestamp(v) == _create_dt(v)
 
-@pytest.mark.parametrize("endian", ENDIANESS)
+@pytest.mark.parametrize("endian", ENDIANESS_VALUES)
 @pytest.mark.parametrize("v", [
     0, 100, 1000, 10000, 1753265319000
 ])

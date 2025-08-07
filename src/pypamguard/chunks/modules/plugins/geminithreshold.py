@@ -40,7 +40,7 @@ class GeminiThresholdDetectorBackgroundGLFRecord(BaseChunk):
         # Read the unzipped data into a BinaryReader by emulating a buffered reader
         # Note conversion to uint16 to allow for in-place arithmetic and the copy()
         # as np.ndarray from BinaryReader by default is immutable.
-        unzipped_reader = BinaryReader(io.BytesIO(unzipped_bytes), br.report, endianess='<')
+        unzipped_reader = BinaryReader(io.BytesIO(unzipped_bytes), br.report, endianess=BYTE_ORDERS.LITTLE_ENDIAN)
         self.image_data = np.uint16(unzipped_reader.bin_read(DTYPES.UINT8, shape=(n_range, n_bearing)).copy())
         is_neg = np.where(self.image_data < 0)[0]
         self.image_data.put(is_neg, self.image_data.take(is_neg) + 256)
@@ -68,7 +68,7 @@ class GeminiThresholdDetectorBackground(StandardBackground):
     
     def _process(self, br, chunk_info):
         super()._process(br, chunk_info)
-        br.set_endianess('<')
+        br.endianess = BYTE_ORDERS.LITTLE_ENDIAN
 
         self.head = GeminiThresholdDetectorBackgroundHeader()
         self.head._process(br, chunk_info)
