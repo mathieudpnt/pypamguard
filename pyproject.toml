@@ -15,7 +15,7 @@ classifiers = [
     "Operating System :: OS Independent",
     "Development Status :: 3 - Alpha"
 ]
-license = "GPL-3.0"
+license = "MIT"
 license-files = ["LICEN[CS]E*"]
 dependencies = ["numpy"]
 dynamic = ["version"]
