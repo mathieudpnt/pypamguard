@@ -15,6 +15,7 @@ pypamguard is a package for processing PAMGuard binary file outputs in Python.
 * **GitHub**: https://github.com/PAMGuard/pypamguard
 * **Documentation**: https://www.pamguard.org/pypamguard/
 * **Website**: https://www.pamguard.org/
+* **Zenodo**: https://doi.org/10.5281/zenodo.16789563
 
 ## Installation
 
@@ -28,18 +29,17 @@ Example of loading in a simple PAMGuard data file into Python.
 
 ```python
 import pypamguard
-df = pypamguard.load_binary_data_file('path/to/data/file.pgdf')
+df = pypamguard.load_pamguard_binary_file('path/to/data/file.pgdf')
 ```
 
 Then, for example, you can print out the file header like so.
 
 ```python
-print(df.file_header) # File header
-print(df.file_header.version) # File version
+print(df.file_info.file_header) # File header
+print(df.file_info.file_header.version) # File version
 ```
 
-Modules also have a `module_header`, `module_footer`, `file_footer`, and most importantly `data`. The data chunks are stored in an array `data`, and can be 
-accessed with index notation or a loop.
+Modules also have a `file_info.module_header`, `file_info.module_footer`, `file_info.file_footer`, and most importantly `data` and `background`. 
 
 ```python
 print("File length", len(df.data)) # Number of module data chunks

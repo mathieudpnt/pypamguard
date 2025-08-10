@@ -40,16 +40,16 @@ Processing a data file using PyPAMGuard is as easy as importing the library, and
 ```python
 # file.py
 import pypamguard
-df = pypamguard.load_binary_data_file('path/to/data/file.pgdf')
+df = pypamguard.load_pamguard_binary_file('path/to/data/file.pgdf')
 ```
 
 You can then access the file headers and footers from the object like so.
 
 ```python
-df.file_header # file header
-df.module_header # module header
-df.module_footer # module footer
-df.file_footer # file footer
+df.file_info.file_header # file header
+df.file_info.module_header # module header
+df.file_info.module_footer # module footer
+df.file_info.file_footer # file footer
 ```
 
 Access the module data itself like so.
@@ -62,14 +62,14 @@ df.data[0] # the first module data chunk
 All headers, footers, and module data, contain attributes that were read from the binary file. For example, each file header will **always** contain a `version`. This can intuitively be accessed like an attribute of an object. Some example are shown below.
 
 ```python
-df.file_header.version # integer
-df.file_header.module_type # bytes
+df.file_info.file_header.version # integer
+df.file_info.file_header.module_type # bytes
 ```
 
 You can access a detailed list of all attributes of each chunk by converting it to a string and/or printing it. Exact attributes of each header, footer or module data chunk are not listed in this README as they may change in between file versions. It is recommended to run the library yourself on a particular data file and find the attributes yourself.
 
 ```python
-print(df.file_header)
+print(df.file_info.file_header)
 
 # OUTPUT
 #
@@ -95,12 +95,13 @@ See the extended README file below, and the API reference for more information o
 
 ### Logger Verbosity
 
-PyPAMGuard has its own logging capabilities to Python's standard output stream. You can pass in an argument `verbosity` to `load_pamguard_data_file` using a class of imported enums from `pypamguard.logger` (see below).
+PyPAMGuard has its own logging capabilities to Python's standard output stream. You can pass in an argument `verbosity` to `load_pamguard_binary_file` using a class of imported enums from `pypamguard.logger` (see below).
 
 ```python
 import pypamguard
-debug_verbosity = pypamguard.logger.Verbosity.DEBUG
-pypamguard.load_pamguard_binary_file('path/to/data/file.pgdf' verbosity=debug_verbosity)
+from pypamguard.logger import logger, Verbosity
+logger.set_verbosity(Verbosity.DEBUG)
+pypamguard.load_pamguard_binary_file('path/to/data/file.pgdf')
 ```
 
 The `Verbosity` enum that can be imported from `pypamguard.logger` can be set to the following values:
@@ -177,10 +178,6 @@ filters = Filters({
 })
 load_pamguard_binary_file('path/to/data/file.pgdf', filters=filters)
 ```
-
-
-
-
 
 ## Fundamentals
 
