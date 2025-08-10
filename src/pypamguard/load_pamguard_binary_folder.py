@@ -10,29 +10,35 @@ import os
 def load_pamguard_binary_folder(directory: str, mask: str, clear_fields: list = None, filters: Filters = None, report: Report = None) -> tuple[list[GenericModule], list[GenericBackground], Report]:
     """
     A function to load a number of PAMGuard binary files from a directory. Returns a tuple containing an array
-    of `pypamguard.chunks.generics.GenericModule` (data) objects and a list of `pypamguard.chunks.generics.GenericBackground`
+    of `pypamguard.chunks.generics.genmodule.GenericModule` (data) objects and a list of `pypamguard.chunks.generics.genbackground.GenericBackground`
      (background) objects. Each of the data and background objects contain an attribute `file_info` containing a pointer
      to the `pypamguard.core.pamguardfile.FileInfo` object pertaining to that data/background chunk.
-    Set the verbosity beforehand using `pypamguard.logger.set_verbosity`.
+    Set the verbosity beforehand using `pypamguard.logger.Logger.set_verbosity`.
 
-    >>> from pypamguard.logger import logger, Verbosity
-    >>> logger.set_verbosity(Verbosity.WARNING) # ignore INFO and DEBUG
+    ```python
+    from pypamguard.logger import logger, Verbosity
+    logger.set_verbosity(Verbosity.WARNING) # ignore INFO and DEBUG
+    ```
 
     Example usage:
 
-    >>> from pypamguard import load_pamguard_binary_folder
-    >>> data, background, report = load_pamguard_binary_folder("path/to/directory/", "*.pgdf")
+    ```python
+    from pypamguard import load_pamguard_binary_folder
+    data, background, report = load_pamguard_binary_folder("path/to/directory/", "*.pgdf")
+    ```
 
     Example usage with an ordered filter:
 
-    >>> import datetime
-    >>> from pypamguard import load_pamguard_binary_folder
-    >>> from pypamguard.core.filters import Filters, DateFilter
-    >>> filter_obj = Filters({"daterange": DateFilter(start_date=datetime.datetime(2022, 1, 1, tz = datetime.UTC), end_date=datetime.datetime(2022, 1, 2, tz = datetime.UTC), ordered=True)})
-    >>> data, background, report = load_pamguard_binary_folder("path/to/directory/", "*.pgdf", filters=filter_obj)
+    ```python
+    import datetime
+    from pypamguard import load_pamguard_binary_folder
+    from pypamguard.core.filters import Filters, DateFilter
+    filter_obj = Filters({"daterange": DateFilter(start_date=datetime.datetime(2022, 1, 1, tz = datetime.UTC), end_date=datetime.datetime(2022, 1, 2, tz = datetime.UTC), ordered=True)})
+    data, background, report = load_pamguard_binary_folder("path/to/directory/", "*.pgdf", filters=filter_obj)
+    ```
 
     :param directory: The directory containing the PAMGuard binary files
-    :param mask: A glob mask to filter the files to load (e.g. '*.pgdf' to match all files with the .pgdf extension, or '**/*.pgdf' to match all files with the .pgdf extension in any subdirectory)
+    :param mask: A glob mask to filter the files to load (e.g. '\*.pgdf' to match all files with the .pgdf extension, or '\*\*/\*.pgdf' to match all files with the .pgdf extension in any subdirectory)
     :param clear_fields: A list of fields to clear from the PAMGuardFile object. These fields will be set to None. This might be useful if you want to remove unecessary data from the PAMGuardFile object.
     :param filters: A `core.filters.Filters` object. Can be None.
     :param report: A `core.readers.Report` object. Can be None.

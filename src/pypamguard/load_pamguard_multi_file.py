@@ -2,34 +2,35 @@ import os, glob
 from pypamguard.core.filters import Filters, WhitelistFilter
 from .load_pamguard_binary_file import load_pamguard_binary_file
 from .logger import logger, Verbosity
+from pypamguard.chunks.generics import GenericModule
 from pypamguard.core.readers import Report
 from pypamguard.core.exceptions import CriticalException, MultiFileException
 
-last_root = None
-last_mask = None
-master_list = []
-master_dict = {}
-MAX_NAME_LEN = 80
+_last_root = None
+_last_mask = None
+_master_list = []
+_master_dict = {}
+_MAX_NAME_LEN = 80
 
 def find_binary_file(root, mask, file):
-    global last_mask, last_root, master_list, master_dict
-    if (not last_root or not last_mask) or (last_root != root or last_mask != mask):
-        master_list = glob.glob(pathname=mask, root_dir=root, recursive=True)
-        master_dict = {}
-        for reldir in master_list:
+    global _last_mask, _last_root, _master_list, _master_dict
+    if (not _last_root or not _last_mask) or (_last_root != root or _last_mask != mask):
+        _master_list = glob.glob(pathname=mask, root_dir=root, recursive=True)
+        _master_dict = {}
+        for reldir in _master_list:
             path = os.path.join(root, reldir)
             fname = os.path.basename(path)
-            short_name = fname[len(fname)-MAX_NAME_LEN:] if len(fname) > MAX_NAME_LEN else fname
-            if short_name not in master_dict: 
-                master_dict[short_name] = path
-        last_root = root
-        last_mask = mask
-    if file in master_dict:
-        return master_dict[file]
+            short_name = fname[len(fname)-_MAX_NAME_LEN:] if len(fname) > _MAX_NAME_LEN else fname
+            if short_name not in _master_dict:
+                _master_dict[short_name] = path
+        _last_root = root
+        _last_mask = mask
+    if file in _master_dict:
+        return _master_dict[file]
     else:
         return None
 
-def load_pamguard_multi_file(data_dir, file_names, item_uids):
+def load_pamguard_multi_file(data_dir: str, file_names: list[str], item_uids: list[int]) -> tuple[list[GenericModule], Report]:
     """
     A function to load a number of PAMGuard data chunks at once from various binary files, filtering by UID.
     Will return a tuple containing a list of `pypamguard.chunks.generics.GenericModule` objects (event data)

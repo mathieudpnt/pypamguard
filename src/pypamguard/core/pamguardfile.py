@@ -1,6 +1,6 @@
 from contextlib import contextmanager
 import io
-import time
+import time, typing
 
 from pypamguard.core.exceptions import BinaryFileException, WarningException, CriticalException, ChunkLengthMismatch, StructuralException
 from pypamguard.chunks.base import BaseChunk
@@ -59,7 +59,7 @@ class PAMGuardFile(Serializable):
     This class represents a PAMGuard Binary File
     """
     
-    def __init__(self, path: str, fp: io.BufferedReader, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, module_registry: ModuleRegistry = ModuleRegistry(), filters: Filters = Filters(), report: Report = None, clear_fields=None):
+    def __init__(self, path: str, fp: typing.BinaryIO, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, module_registry: ModuleRegistry = ModuleRegistry(), filters: Filters = Filters(), report: Report = None, clear_fields=None):
         """
         Initialize a PAMGuardFile object. This will set-up the binary reader, but
         not actually read any data yet. See `load()`.
@@ -137,7 +137,7 @@ class PAMGuardFile(Serializable):
             # each chunk has the same 8-byte 'chunk info' at the start
             chunk_info = StandardChunkInfo(self.__path)
             chunk_info.process(br)
-            br.set_checkpoint(chunk_info.length - chunk_info._measured_length)
+            br.set_checkpoint(chunk_info.length - chunk_info.measured_length)
 
             logger.debug(f"Reading chunk of type {chunk_info.identifier} and length {chunk_info.length} at offset {br.tell()}", br)
 

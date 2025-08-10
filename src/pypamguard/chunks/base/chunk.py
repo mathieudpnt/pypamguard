@@ -11,6 +11,10 @@ class BaseChunk(Serializable, ABC):
         self._measured_length = None
         self._start_pos = None
 
+    @property
+    def measured_length(self):
+        return self._measured_length
+
     def _process(self, br: BinaryReader, *args, **kwargs):
         pass
 
