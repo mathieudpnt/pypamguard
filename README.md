@@ -7,7 +7,7 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/PAMGuard/pypamguard/tests.yml?label=tests)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/PAMGuard/pypamguard/documentation.yml?label=docs)
 ![GitHub Tag](https://img.shields.io/github/v/tag/PAMGuard/pypamguard?label="github-version")
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16789563.svg)](https://doi.org/10.5281/zenodo.16789563)
 
 pypamguard is a package for processing PAMGuard binary file outputs in Python.
 
@@ -56,7 +56,9 @@ Please use the [Github issue tracker](https://github.com/PAMGuard/pypamguard/iss
 
 ## License
 
-This software is distributed under the terms of the MIT license. pypamguard is free and open source.
+This software is distributed under the terms of the MIT license. pypamguard is free and open source. 
+
+If you use this code, please cite it as listed on Zenodo: https://doi.org/10.5281/zenodo.16789563
 
 ## Contributing
 
