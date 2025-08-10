@@ -24,5 +24,4 @@ class StandardFileHeader(GenericFileHeader):
         self.module_type: str = br.string_read()
         self.module_name: str = br.string_read()
         self.stream_name: str = br.string_read()
-        print("READING EXTRA INFO")
         self.extra_info_len: int = br.bin_read(DTYPES.INT32)

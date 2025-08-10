@@ -20,17 +20,6 @@ def _compare_json(got_dict, expected_dict, test_name, chunk_name, path=""):
             assert attr in got_dict, f"Test {test_name}: chunk '{chunk_name}' does not have attribute '{path}{attr}'"
             got = got_dict[attr]
             _compare_json(got, expected, test_name, chunk_name, path + f"{attr}.")
-            # if type(expected) == dict:
-            #     _compare_json(got, expected, test_name, chunk_name, path + f"{attr}.")
-            # elif type(expected) == list:
-            #     assert len(expected) == len(got)
-            #     for i in range(len(expected) - 1):
-            #         assert got[i] == expected[i]
-            # else:
-            #     if isinstance(got, float) and isinstance(expected, float):
-            #         assert abs(got - expected) < 1e-6, f"Test {test_name}: chunk '{chunk_name}' attribute '{path}{attr}' has unexpected value: expected {expected} ({type(expected)}), got {got} ({type(got)})"
-            #     else:
-            #         assert got == expected, f"Test {test_name}: chunk '{chunk_name}' attribute '{path}{attr}' has unexpected value: expected {expected} ({type(expected)}), got {got} ({type(got)})"
     elif type(expected_dict) == list:
         assert len(expected_dict) == len(got_dict)
         for i in range(len(expected_dict) - 1):
@@ -69,14 +58,14 @@ def _get_json_data(json_path):
 def _run_header_tests(file: PAMGuardFile, json_data, test_name, path):
     assert "file_header" in json_data, "Test data is missing 'file_header'"
     assert "module_header" in json_data, "Test data is missing 'module_header'"
-    _test_chunk(file.file_header, json_data["file_header"], test_name, "file_header", path)
-    _test_chunk(file.module_header, json_data["module_header"], test_name, "module_header", path)
+    _test_chunk(file.file_info.file_header, json_data["file_header"], test_name, "file_header", path)
+    _test_chunk(file.file_info.module_header, json_data["module_header"], test_name, "module_header", path)
 
 def _run_footer_tests(file: PAMGuardFile, json_data, test_name, path):
     assert "module_footer" in json_data, "Test data is missing 'module_footer'"
     assert "file_footer" in json_data, "Test data is missing 'file_footer'"
-    _test_chunk(file.module_footer, json_data["module_footer"], test_name, "module_footer", path)
-    _test_chunk(file.file_footer, json_data["file_footer"], test_name, "file_footer", path)
+    _test_chunk(file.file_info.module_footer, json_data["module_footer"], test_name, "module_footer", path)
+    _test_chunk(file.file_info.file_footer, json_data["file_footer"], test_name, "file_footer", path)
 
 def _run_background_tests(file: PAMGuardFile, json_data, test_name, path):
     assert "background" in json_data, "Test data is missing 'background'"
@@ -132,6 +121,6 @@ def test_module(test_data, filters):
         # TODO: activate PGDX tests
         # _run_pgdx_tests(file_pgdx, json_data, json_path + " (PGDX)", pgdx_path)
 
-
-    # pgdx_file = load_pamguard_binary_file(pgdx_file, filters=filters)
-    # _run_pgdx_tests(pgdx_file, json_data, json_path)
+def test_load_file_does_not_exists():
+    with pytest.raises(FileNotFoundError):
+        load_pamguard_binary_file("does_not_exist.pgdf")

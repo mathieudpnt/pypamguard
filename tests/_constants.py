@@ -16,6 +16,24 @@ GPL_DIR = os.path.join(DATASET_PATH, "detectors", "gpl")
 GEMINITHRESHOLD_DIR = os.path.join(DATASET_PATH, "plugins", "geminithreshold")
 DEEPLEARNINGCLASSIFIER_DIR = os.path.join(DATASET_PATH, "classifiers", "deeplearningclassifier")
 
+DIRS = [
+    CLICK_DIR,
+    CLIPGENERATOR_DIR,
+    WHISTLEANDMOAN_DIR,
+    LONGTERMSPECTRALAVERAGE_DIR,
+    NOISEBAND_DIR,
+    SPERMWHALEIPI_DIR,
+    CLICKTRIGGERBACKGROUND_DIR,
+    NOISEMONITOR_DIR,
+    DIFAR_DIR,
+    ISHMAEL_DIR,
+    AIS_DIR,
+    GPL_DIR,
+    GEMINITHRESHOLD_DIR,
+    DEEPLEARNINGCLASSIFIER_DIR
+]
+
+
 TESTS = [
     {
         "json": "click_v4_test1.json",

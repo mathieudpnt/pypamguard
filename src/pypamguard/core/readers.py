@@ -54,7 +54,7 @@ class Report(Serializable):
         self.__warnings.append(warning)
         logger.warning(warning)
     
-    def add_error(self, error: BinaryFileException):
+    def add_error(self, error: Exception):
         """Add an error to the report"""
         if type(error) == BinaryFileException:
             error.add_context(self.current_context)

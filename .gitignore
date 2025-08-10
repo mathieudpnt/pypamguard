@@ -30,6 +30,7 @@ ignore/
 exercise*.py
 src/pypamguard/_version.py
 docs/
+.idea/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

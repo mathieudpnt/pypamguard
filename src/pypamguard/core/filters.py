@@ -236,3 +236,7 @@ class Filters:
     
     def __len__(self):
         return len(self.__filters)
+
+    @property
+    def filters(self):
+        return self.__filters

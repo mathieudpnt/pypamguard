@@ -1,6 +1,15 @@
 import io
 # from pypamguard.core.readers import BinaryReader
 
+class MultiFileException(Exception):
+
+    def __init__(self, fname, *args, **kwargs):
+        super().__init__(*args)
+        self.fname = fname
+
+    def __str__(self):
+        return f"Error reading {self.fname}: {super().__str__()}"
+
 
 class BinaryFileException(Exception):
 
