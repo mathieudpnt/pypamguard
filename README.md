@@ -59,6 +59,7 @@ Please use the [Github issue tracker](https://github.com/PAMGuard/pypamguard/iss
 This software is distributed under the terms of the MIT license. pypamguard is free and open source. 
 
 If you use this code, please cite it as listed on Zenodo: https://doi.org/10.5281/zenodo.16789563
+e.g. James Sullivan. (2025). PAMGuard/pypamguard: Version 1.0.0 (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.16789564
 
 ## Contributing
 
