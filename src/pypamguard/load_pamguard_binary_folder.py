@@ -9,7 +9,7 @@ import os
 from tqdm import tqdm
 
 def load_pamguard_binary_folder(directory: str, mask: str, clear_fields: list = None, filters: Filters = None, report: Report = None) -> tuple[list[GenericModule], list[GenericBackground], Report]:
-    """
+    r"""
     A function to load a number of PAMGuard binary files from a directory. Returns a tuple containing an array
     of `pypamguard.chunks.generics.genmodule.GenericModule` (data) objects and a list of `pypamguard.chunks.generics.genbackground.GenericBackground`
      (background) objects. Each of the data and background objects contain an attribute `file_info` containing a pointer
