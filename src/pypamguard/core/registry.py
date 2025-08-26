@@ -12,6 +12,7 @@ nested dict is a stream-specification rather than just module name.
 
 from pypamguard.chunks.generics import GenericModule
 from pypamguard.core.exceptions import ModuleNotFoundException
+from pypamguard.logger import logger
 
 from pypamguard.chunks.modules.processing.ais import AISProcessing
 __ais_config = AISProcessing
@@ -131,7 +132,7 @@ class ModuleRegistry:
         return 0
     
     def get_module(self, module_name: str, module_stream) -> GenericModule:
-        print(module_name, module_stream)
+        logger.info(f"{module_name} {module_stream}")
         if module_name in self.modules and type(self.modules[module_name]) == dict:
             if module_stream in self.modules[module_name]: return self.modules[module_name][module_stream]
             raise ModuleNotFoundException(f"Module '{module_name}' is not registered for stream '{module_stream}'.")
