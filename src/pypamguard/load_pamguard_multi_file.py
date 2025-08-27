@@ -5,6 +5,7 @@ from .logger import logger, Verbosity
 from pypamguard.chunks.generics import GenericModule
 from pypamguard.core.readers import Report
 from pypamguard.core.exceptions import CriticalException, MultiFileException
+from tqdm import tqdm
 
 _last_root = None
 _last_mask = None
@@ -68,7 +69,7 @@ def load_pamguard_multi_file(data_dir: str, file_names: list[str], item_uids: li
             file_name_dict[file_name] = []
         file_name_dict[file_name].append(uid)
 
-    for file_name in file_name_dict:
+    for file_name in tqdm(file_name_dict):
         logger.info(f"Loading {file_name}")
         filter_obj = Filters({"uidlist": WhitelistFilter(file_name_dict[file_name])})
         file_path = find_binary_file(data_dir, "**/*.pgdf", file_name)
