@@ -1,4 +1,5 @@
 import os, glob
+from pathlib import Path
 from pypamguard.core.filters import Filters, WhitelistFilter
 from .load_pamguard_binary_file import load_pamguard_binary_file
 from .logger import logger, Verbosity
@@ -31,7 +32,7 @@ def find_binary_file(root, mask, file):
     else:
         return None
 
-def load_pamguard_multi_file(data_dir: str, file_names: list[str], item_uids: list[int]) -> tuple[list[GenericModule], Report]:
+def load_pamguard_multi_file(data_dir: str | Path, file_names: list[str], item_uids: list[int]) -> tuple[list[GenericModule], Report]:
     """
     A function to load a number of PAMGuard data chunks at once from various binary files, filtering by UID.
     Will return a tuple containing a list of `pypamguard.chunks.generics.GenericModule` objects (event data)

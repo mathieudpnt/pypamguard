@@ -1,5 +1,5 @@
 import os
-
+from pathlib import Path
 from pypamguard.core.pamguardfile import PAMGuardFile
 from pypamguard.utils.constants import BYTE_ORDERS, DEFAULT_BUFFER_SIZE
 from pypamguard.core.filters import Filters, DateFilter
@@ -8,7 +8,7 @@ from .logger import logger, Verbosity, logger_config
 import io, json
 from pypamguard.utils.timer import timer
 
-def load_pamguard_binary_file(filename, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, buffering: int | None = DEFAULT_BUFFER_SIZE, filters: Filters = None, json_path: str = None, report: Report = None, clear_fields = None) -> PAMGuardFile:
+def load_pamguard_binary_file(filename: str | Path, order: BYTE_ORDERS = BYTE_ORDERS.BIG_ENDIAN, buffering: int | None = DEFAULT_BUFFER_SIZE, filters: Filters = None, json_path: str = None, report: Report = None, clear_fields = None) -> PAMGuardFile:
     """
     Read a binary PAMGuard data file into a PAMFile object
 

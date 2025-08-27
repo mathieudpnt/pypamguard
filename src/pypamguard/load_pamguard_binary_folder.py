@@ -1,5 +1,9 @@
+from __future__ import annotations
+
 import copy
 import glob
+from pathlib import Path
+
 from pypamguard.chunks.generics import GenericModule, GenericBackground
 from pypamguard.load_pamguard_binary_file import load_pamguard_binary_file
 from pypamguard.core.pamguardfile import PAMGuardFile
@@ -8,7 +12,7 @@ from pypamguard.core.readers import Report
 import os
 from tqdm import tqdm
 
-def load_pamguard_binary_folder(directory: str, mask: str, clear_fields: list = None, filters: Filters = None, report: Report = None) -> tuple[list[GenericModule], list[GenericBackground], Report]:
+def load_pamguard_binary_folder(directory: str | Path, mask: str, clear_fields: list = None, filters: Filters = None, report: Report = None) -> tuple[list[GenericModule], list[GenericBackground], Report]:
     r"""
     A function to load a number of PAMGuard binary files from a directory. Returns a tuple containing an array
     of `pypamguard.chunks.generics.genmodule.GenericModule` (data) objects and a list of `pypamguard.chunks.generics.genbackground.GenericBackground`
