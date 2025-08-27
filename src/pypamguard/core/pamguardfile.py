@@ -155,7 +155,7 @@ class PAMGuardFile(Serializable):
                 self.report.set_context(f"{self.__module_class.__class__} [iter {data_count}]")
                 if not self.__file_info.module_header: raise StructuralException(self.__fp, "Module header not found before data")
                 data = self.__process_chunk(br, self.__module_class(self.__file_info.file_header, self.__file_info.module_header, self.__filters), chunk_info)
-                if self.__clear_fields:
+                if self.__clear_fields and data:
                     for f in self.__clear_fields:
                         data.__dict__.pop(f, None)
                 if data: self.__data.append(data)
