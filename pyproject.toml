@@ -16,7 +16,7 @@ classifiers = [
 ]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
-dependencies = ["numpy"]
+dependencies = ["numpy", "tqdm"]
 dynamic = ["version"]
 
 [tool.hatch.build]
