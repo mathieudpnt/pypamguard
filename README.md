@@ -8,6 +8,7 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/PAMGuard/pypamguard/documentation.yml?label=docs)
 ![GitHub Tag](https://img.shields.io/github/v/tag/PAMGuard/pypamguard?label="github-version")
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16789563.svg)](https://doi.org/10.5281/zenodo.16789563)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pypamguard)
 
 pypamguard is a package for processing PAMGuard binary file outputs in Python.
 
