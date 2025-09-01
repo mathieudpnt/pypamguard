@@ -6,7 +6,6 @@ from pathlib import Path
 
 from pypamguard.chunks.generics import GenericModule, GenericBackground
 from pypamguard.load_pamguard_binary_file import load_pamguard_binary_file
-from pypamguard.core.pamguardfile import PAMGuardFile
 from pypamguard.core.filters import FILTER_POSITION, Filters
 from pypamguard.core.readers import Report
 import os
@@ -55,8 +54,7 @@ def load_pamguard_binary_folder(directory: str | Path, mask: str, clear_fields: 
     if not os.path.exists(directory):
         raise FileNotFoundError(f"Directory {directory} does not exist.")
     if not report: report = Report()
-    result = {}
-    for file in tqdm(glob.glob(pathname=mask, root_dir=directory, recursive=True)):
+    for file in tqdm(glob.glob(pathname=mask, root_dir=directory, recursive=True), total=float("inf"), desc="Reading binary", unit="files"):
         filter_copy = copy.deepcopy(filters)
         res = load_pamguard_binary_file(os.path.join(directory,file), filters=filter_copy, report=report, clear_fields=clear_fields)
         res.add_file_info()
