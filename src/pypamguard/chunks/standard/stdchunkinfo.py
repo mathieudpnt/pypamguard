@@ -14,5 +14,5 @@ class StandardChunkInfo(GenericChunkInfo):
 
     def _process(self, br: BinaryReader):
         self.length, self.identifier = br.bin_read([DTYPES.INT32, DTYPES.INT32])
-        if self.length < 0 or (self.identifier < 0 and self.identifier not in IdentifierType):
+        if self.length < 0 or (self.identifier < 0 and self.identifier not in IdentifierType._value2member_map_):
             raise FileCorruptedException(br)
