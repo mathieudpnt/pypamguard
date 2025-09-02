@@ -9,7 +9,9 @@ from pypamguard.load_pamguard_binary_file import load_pamguard_binary_file
 from pypamguard.core.filters import FILTER_POSITION, Filters
 from pypamguard.core.readers import Report
 import os
-from tqdm import tqdm
+
+from pypamguard.logger import logger
+
 
 def load_pamguard_binary_folder(directory: str | Path, mask: str, clear_fields: list = None, filters: Filters = None, report: Report = None) -> tuple[list[GenericModule], list[GenericBackground], Report]:
     r"""
@@ -53,13 +55,22 @@ def load_pamguard_binary_folder(directory: str | Path, mask: str, clear_fields: 
 
     if not os.path.exists(directory):
         raise FileNotFoundError(f"Directory {directory} does not exist.")
-    if not report: report = Report()
-    for file in tqdm(glob.glob(pathname=mask, root_dir=directory, recursive=True), total=float("inf"), desc="Reading binary", unit="files"):
+    if not report:
+        report = Report()
+
+    files = glob.glob(pathname=mask, root_dir=directory, recursive=True)
+    for idx, file in enumerate(files):
         filter_copy = copy.deepcopy(filters)
-        res = load_pamguard_binary_file(os.path.join(directory,file), filters=filter_copy, report=report, clear_fields=clear_fields)
+        res = load_pamguard_binary_file(
+            os.path.join(directory, file),
+            filters=filter_copy,
+            report=report,
+            clear_fields=clear_fields,
+            )
         res.add_file_info()
         data.extend(res.data)
         background.extend(res.background)
+        logger.info(f"Processed files: {idx + 1}")
         if res.filters.position == FILTER_POSITION.STOP: break
 
     return data, background, report
